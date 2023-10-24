@@ -1,9 +1,7 @@
 package models;
-<<<<<<< HEAD
-// class
-=======
 
->>>>>>> origin/Mahmoud
+// class
+
 public class User {
     private Name name;
     private int age;
