@@ -6,6 +6,8 @@ import printers.MenuPrinter;
 import scanners.CustomScanner;
 import views.LoginView;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
@@ -22,22 +24,26 @@ public class Menu {
         ---
         the option for user option
      */
-    private static void determineUserType()  {
-        UserType currentUserType = Login.getCurrentUserType();
-        switch (currentUserType){
-            case ADMIN:
+    private static void determineUserType() throws NullPointerException {
+            try {
+                UserType currentUserType = Login.getCurrentUserType();
+                switch (currentUserType){
+                    case ADMIN:
 
-                break;
-            case CUSTOMER:
+                        break;
+                    case CUSTOMER:
 
-                break;
-            case INSTALLER:
+                        break;
+                    case INSTALLER:
 
-                break;
-        }
+                        break;
+                }
+            }catch (NullPointerException e){
+                // to avoid the nullPointer Exception
+            }
 
     }
-    public static void mainMenuOptions(int choice){
+    public static void mainMenuOptions(int choice) {
         switch (choice){
             case 1:
                 LoginView.login();
@@ -48,20 +54,42 @@ public class Menu {
             case 3:
                 break;
             default:
-                logger.warning("Invalid Choice !!");
         }
     }
-    public static void menuHandler(){
+    public static void menuHandler() {
         MenuPrinter.printWelcomeMsg();
         while (true){
             MenuPrinter.printMainMenu();
             int choice = CustomScanner.scanInt("choice",new Scanner(System.in));
             mainMenuOptions(choice);
-            if (choice == 4)
+            if (choice == 4) {
                 MenuPrinter.printFinishMsg();
-            break;
+                break;
+            }
         }
     }
+
+    private static void admainOption(int choice){
+        // not finished , Under construction
+    }
+    public static void admainHandler(){
+        // not finished , Under construction
+    }
+    private static void customerOption(){
+        // not finished , Under construction
+    }
+    private static void customerHandler(){
+        // not finished , Under construction
+    }
+    private static void installerOption(){
+        // not finished , Under construction
+    }
+    public static void installerHandler(){
+        // not finished , Under construction
+    }
+
+
+
 
 
 
