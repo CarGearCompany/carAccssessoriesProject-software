@@ -2,6 +2,7 @@ package models;
 
 import enums.Gender;
 import enums.UserType;
+import exceptions.UserNotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,13 +26,20 @@ public class CarGear {
         return users;
     }
 
-    public static User getUserByEmail(String email) {
+    public static User getUserByEmail(String email) throws UserNotFoundException {
         int userIndex = 0 ;
         for (int i = 0 ; i < users.size() ; i++){
-            if(users.get(i).getContactInfo().getEmail().equals(email))
+            if(users.get(i).getContactInfo().getEmail().equals(email)){
                 userIndex = i;
+                break;
+            }
+            else
+                userIndex = -1;
         }
-        return users.get(userIndex);
+        if (userIndex == -1)
+            throw new UserNotFoundException();
+        else
+            return users.get(userIndex);
     }
 
     private static void clearData(){
