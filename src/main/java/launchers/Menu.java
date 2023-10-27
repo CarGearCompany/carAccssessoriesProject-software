@@ -5,6 +5,7 @@ import enums.UserType;
 import printers.MenuPrinter;
 import scanners.CustomScanner;
 import views.LoginView;
+import views.SignUpView;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -50,6 +51,7 @@ public class Menu {
                 determineUserType();
                 break;
             case 2:
+                SignUpView.signUp();
                 break;
             case 3:
                 break;

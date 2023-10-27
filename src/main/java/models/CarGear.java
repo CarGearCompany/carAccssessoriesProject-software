@@ -2,6 +2,7 @@ package models;
 
 import enums.Gender;
 import enums.UserType;
+import exceptions.EmailAlreadyExistsException;
 import exceptions.UserNotFoundException;
 
 import java.util.ArrayList;
@@ -14,6 +15,13 @@ public class CarGear {
     private CarGear() {
     }
 
+    public static void addUser(User user) throws EmailAlreadyExistsException, UserNotFoundException {
+        if(CarGear.getUserByEmail(user.getContactInfo().getEmail())!= null){
+            throw new EmailAlreadyExistsException();
+        }
+        users.add(user);
+
+    }
     public static User getCurrentUser() {
         return currentUser;
     }
@@ -48,7 +56,7 @@ public class CarGear {
 
     }
 
-    public static void initData() { //this method use to initialize all the data in the main
+    public static void initData() throws UserNotFoundException, EmailAlreadyExistsException { //this method use to initialize all the data in the main
         clearData();
 
         //the first admin data
@@ -71,8 +79,8 @@ public class CarGear {
                         new Location("Nablus","Asira")),
                 UserType.ADMIN);
 
-    users.add(firstAdmain);
-    users.add(secAdmain);
+    addUser(firstAdmain);
+    addUser(secAdmain);
     }
 
 
