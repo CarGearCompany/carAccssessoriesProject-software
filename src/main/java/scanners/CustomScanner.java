@@ -1,4 +1,7 @@
 package scanners;
+import enums.Gender;
+import enums.UserType;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.logging.Logger;
@@ -9,8 +12,8 @@ public class CustomScanner {
     private CustomScanner() {
     }
 
-    private static void printScanMsg(String type) {
-        String msg = "Enter " + type + " :";
+    private static void printScanMsg(String credintial) {
+        String msg = "Enter " + credintial + " :";
         logger.info(msg);
     }
 
@@ -28,6 +31,23 @@ public class CustomScanner {
             printWarnMsg(type);
             return -1; // invalid value
         }
+    }
+    private static UserType stringToUserType(String userType) {
+        if (userType.equalsIgnoreCase("admin"))
+            return UserType.ADMIN;
+        else if (userType.equalsIgnoreCase("customer"))
+            return UserType.CUSTOMER;
+        else if (userType.equalsIgnoreCase("installer"))
+            return UserType.INSTALLER;
+        return null;
+    }
+
+    private static Gender stringToGender(String gender) {
+        if (gender.equalsIgnoreCase("male")||gender.equalsIgnoreCase("M"))
+            return Gender.MALE;
+        else if (gender.equalsIgnoreCase("female")||gender.equalsIgnoreCase("F"))
+            return Gender.FEMALE;
+        return null;
     }
     public static String scanNonEmptyString(String type, Scanner scanner) {
         printScanMsg(type);

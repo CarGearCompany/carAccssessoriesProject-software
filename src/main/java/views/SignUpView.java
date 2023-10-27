@@ -3,6 +3,7 @@ package views;
 import controllers.SignUp;
 import exceptions.UserNotFoundException;
 import models.CarGear;
+import models.Name;
 import scanners.CustomScanner;
 
 import java.util.Scanner;
@@ -15,8 +16,10 @@ public class SignUpView {
     }
 
     public static void signUp(){
-
-
+    String firstName = CustomScanner.scanNonEmptyString("First Name", new Scanner(System.in));
+    String lastName = CustomScanner.scanNonEmptyString("Last Name", new Scanner(System.in));
+    Name fullName = new Name(firstName,lastName);
+    int age = CustomScanner.scanInt("Age", new Scanner(System.in));
 
 
     }
