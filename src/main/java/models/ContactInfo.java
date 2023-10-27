@@ -1,5 +1,8 @@
 package models;
 
+import exceptions.InvalidEmailFormatException;
+import helpers.EmailFormatChecker;
+
 public class ContactInfo {
     private String email;
     private String phoneNumber;
@@ -15,7 +18,10 @@ public class ContactInfo {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(String email) throws InvalidEmailFormatException {
+        if(!EmailFormatChecker.hasCorrectEmailFormat(email)){
+            throw new InvalidEmailFormatException();
+        }
         this.email = email;
     }
 
