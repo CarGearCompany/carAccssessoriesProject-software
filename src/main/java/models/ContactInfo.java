@@ -1,16 +1,18 @@
 package models;
 
 import exceptions.InvalidEmailFormatException;
+import exceptions.InvalidPhoneNumberException;
 import helpers.EmailFormatChecker;
+import helpers.PhoneNumberChecker;
 
 public class ContactInfo {
     private String email;
     private String phoneNumber;
     private Location location;
 
-    public ContactInfo(String email, String phoneNumber, Location location) {
-        this.email = email;
-        this.phoneNumber = phoneNumber;
+    public ContactInfo(String email, String phoneNumber, Location location) throws InvalidEmailFormatException , InvalidPhoneNumberException{
+        setEmail(email);
+        setPhoneNumber(phoneNumber);
         this.location = location;
     }
 
@@ -29,7 +31,9 @@ public class ContactInfo {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) throws InvalidPhoneNumberException {
+        if(!PhoneNumberChecker.isValidPhoneNumber(phoneNumber))
+            throw new InvalidPhoneNumberException();
         this.phoneNumber = phoneNumber;
     }
 

@@ -1,12 +1,11 @@
 package launchers;
 
-import exceptions.EmailAlreadyExistsException;
-import exceptions.UserNotFoundException;
+import exceptions.*;
 import models.CarGear;
 
 
 public class Main {
-    public static void main(String[] args) throws UserNotFoundException, EmailAlreadyExistsException {
+    public static void main(String[] args) throws UserAlreadyExistsException, InvalidPhoneNumberException, InvalidEmailFormatException, WeakPasswordException {
         CarGear.initData();
         Menu.menuHandler();
     }

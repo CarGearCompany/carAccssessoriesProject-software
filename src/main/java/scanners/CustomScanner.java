@@ -33,14 +33,27 @@ public class CustomScanner {
         }
     }
 
-    public static UserType scanUserType(String type, Scanner scanner){
-        printScanMsg(type);
+    public static UserType scanUserType(Scanner scanner) {
+        printScanMsg("user type");
         UserType userType;
-        String userTypeString = scanner.nextLine();
-        userType = stringToUserType(userTypeString);
-
-        return null;
+        String userTypeAsString = scanner.nextLine();
+        userType = stringToUserType(userTypeAsString);
+        if (userType == null) {
+            printWarnMsg("user type");
+        }
+        return userType;
     }
+    public static Gender scanGender(Scanner scanner) {
+        printScanMsg("Gender");
+        Gender gender;
+        String genderAsString = scanner.nextLine();
+        gender = stringToGender(genderAsString);
+        if (gender == null) {
+            printWarnMsg("Gender");
+        }
+        return gender;
+    }
+
     private static UserType stringToUserType(String userType) {
         if (userType.equalsIgnoreCase("admin"))
             return UserType.ADMIN;
@@ -52,12 +65,14 @@ public class CustomScanner {
     }
 
     private static Gender stringToGender(String gender) {
-        if (gender.equalsIgnoreCase("male")||gender.equalsIgnoreCase("M"))
+        if (gender.equalsIgnoreCase("male")||gender.equalsIgnoreCase("m"))
             return Gender.MALE;
-        else if (gender.equalsIgnoreCase("female")||gender.equalsIgnoreCase("F"))
+        else if (gender.equalsIgnoreCase("female")||gender.equalsIgnoreCase("f"))
             return Gender.FEMALE;
         return null;
     }
+
+
     public static String scanNonEmptyString(String type, Scanner scanner) {
         printScanMsg(type);
         String scanString;

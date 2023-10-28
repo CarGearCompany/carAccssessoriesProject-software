@@ -2,6 +2,8 @@ package models;
 
 import enums.Gender;
 import enums.UserType;
+import exceptions.WeakPasswordException;
+import helpers.PasswordChecker;
 
 public class User {
     private Name name;
@@ -12,11 +14,11 @@ public class User {
     private UserType userType;
 
 
-    public User(Name name, int age, Gender gender, String password, ContactInfo contactInfo ,UserType userType) {
+    public User(Name name, int age, Gender gender, String password, ContactInfo contactInfo ,UserType userType) throws WeakPasswordException {
         this.name = name;
         this.age = age;
         this.gender = gender;
-        this.password = password;
+        setPassword(password);
         this.contactInfo = contactInfo;
         this.userType = userType;
     }
@@ -49,7 +51,9 @@ public class User {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(String password) throws WeakPasswordException {
+        if(!PasswordChecker.isStrongPassword(password))
+            throw new WeakPasswordException();
         this.password = password;
     }
 
@@ -65,7 +69,7 @@ public class User {
         return userType;
     }
 
-    public void setUserType(UserType userType) {
+    public void setUserType(UserType userType)  {
         this.userType = userType;
     }
 }

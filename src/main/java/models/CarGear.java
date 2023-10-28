@@ -2,8 +2,7 @@ package models;
 
 import enums.Gender;
 import enums.UserType;
-import exceptions.EmailAlreadyExistsException;
-import exceptions.UserNotFoundException;
+import exceptions.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,13 +14,6 @@ public class CarGear {
     private CarGear() {
     }
 
-    public static void addUser(User user) throws EmailAlreadyExistsException, UserNotFoundException {
-        if(CarGear.getUserByEmail(user.getContactInfo().getEmail())!= null){
-            throw new EmailAlreadyExistsException();
-        }
-        users.add(user);
-
-    }
     public static User getCurrentUser() {
         return currentUser;
     }
@@ -46,8 +38,14 @@ public class CarGear {
         }
         if (userIndex == -1)
             throw new UserNotFoundException();
-        else
-            return users.get(userIndex);
+        else{
+            return users.get(userIndex);}
+    }
+
+    public static void addUser(User user) throws UserAlreadyExistsException {
+        if(users.contains(user))
+            throw new UserAlreadyExistsException();
+        users.add(user);
     }
 
     private static void clearData(){
@@ -56,7 +54,7 @@ public class CarGear {
 
     }
 
-    public static void initData() throws UserNotFoundException, EmailAlreadyExistsException { //this method use to initialize all the data in the main
+    public static void initData() throws UserAlreadyExistsException, InvalidPhoneNumberException, InvalidEmailFormatException, WeakPasswordException { //this method use to initialize all the data in the main
         clearData();
 
         //the first admin data
@@ -64,7 +62,7 @@ public class CarGear {
                 new Name("Nabeel","Jamous"),
                 20,
                 Gender.MALE,
-                "Nabeel123",
+                "Nabeel@123",
                 new ContactInfo("nabeel@gmail.com","0592757823",
                                 new Location("Nablus","TunisST")),
                 UserType.ADMIN);
@@ -74,7 +72,7 @@ public class CarGear {
                 new Name("Mahmoud","AbuHanoud"),
                 21,
                 Gender.MALE,
-                "Mahmoud123",
+                "Mahmoud@123",
                 new ContactInfo("mahmoud@gmail.com","0593021843",
                         new Location("Nablus","Asira")),
                 UserType.ADMIN);
