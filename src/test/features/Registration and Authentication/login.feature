@@ -22,9 +22,9 @@ Feature: Login
     Then the user will fail to login due to not existing email and user not found exception will be thrown
 
     Examples:
-      | email                  | password      |  |
-      | 'nabeelooo@gmail.com'  | 'Nabeel@123'  |  |
-      | 'mahmoudeee@gmail.com' | 'Mahmoud@123' |  |
+      | email               | password     |
+      | 'nabeel@gmail.com'  | 'Nabeel@123' |
+      | 'mahmoud@gmail.com' | 'Mahmoud@123 |
 
 
   Scenario Outline: Login Failed Due To Wrong Password
@@ -33,7 +33,7 @@ Feature: Login
     Then the user will fail to login due to wrong password
 
     Examples:
-      | email               | password |  |
-      | 'nabeel@gmail.com'  | 'nabeel' |  |
-      | 'mahmoud@gmail.com' | 'mahmoud'      |  |
+      | email               | password  |  |
+      | 'nabeel@gmail.com'  | 'nabeel'  |  |
+      | 'mahmoud@gmail.com' | 'mahmoud' |  |
 
