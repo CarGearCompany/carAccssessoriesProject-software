@@ -21,6 +21,7 @@ public class ContactInfo {
     }
 
     public void setEmail(String email) throws InvalidEmailFormatException {
+        //if()
         if(!EmailFormatChecker.hasCorrectEmailFormat(email)){
             throw new InvalidEmailFormatException();
         }
