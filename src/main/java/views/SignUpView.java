@@ -48,19 +48,19 @@ public class SignUpView {
             logger.info("Sign up successfully!");
             break;
         }catch (InvalidEmailFormatException e){
-            logger.warning("Invalid email format!");
+            logger.warning("Invalid email format! Must be a real email.");
             email = CustomScanner.scanNonEmptyString(EMAIL,new Scanner(System.in));
         }catch (WeakPasswordException e){
-            logger.warning("Weak Password!");
+            logger.warning("Weak Password! Must contain at least 1 uppercase letter, 1 lowercase letter, 1 digit, 1 special character and must contain 8-16 characters.");
             password = CustomScanner.scanNonEmptyString("Password", new Scanner(System.in));
         }catch (InvalidPhoneNumberException e){
-            logger.warning("Invalid phoneNumber!");
+            logger.warning("Invalid phoneNumber! Must be 10 digits long");
             phoneNumber = CustomScanner.scanNonEmptyString("Phone Number", new Scanner(System.in));
         }catch (UserAlreadyExistsException e){
             logger.warning("Email is already used!");
             email = CustomScanner.scanNonEmptyString(EMAIL,new Scanner(System.in));
         }catch (CannotSignUpAsAdminException e){
-            logger.warning("Cant SignUp As Admian!");
+            logger.warning("Cant SignUp As Admin!");
             userType = CustomScanner.scanUserType(new Scanner(System.in));
         }
     }
