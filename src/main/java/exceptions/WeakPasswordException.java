@@ -1,6 +1,6 @@
 package exceptions;
 
-public class WeakPasswordException extends Exception{
+public class WeakPasswordException extends MyAppExceptions{
     public WeakPasswordException() {
         super();
     }
