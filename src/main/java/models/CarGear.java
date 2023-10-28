@@ -26,6 +26,16 @@ public class CarGear {
         return users;
     }
 
+    public static boolean isEmailRegistered(String email)  {
+        for (User user : users) {
+            if (user.getContactInfo().getEmail().equalsIgnoreCase(email)) {
+                return true;
+            }
+
+        }
+        return false;
+    }
+
     public static User getUserByEmail(String email) throws UserNotFoundException {
         int userIndex = 0 ;
         for (int i = 0 ; i < users.size() ; i++){

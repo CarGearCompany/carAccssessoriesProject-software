@@ -2,6 +2,8 @@ package models;
 
 import exceptions.InvalidEmailFormatException;
 import exceptions.InvalidPhoneNumberException;
+import exceptions.UserAlreadyExistsException;
+import exceptions.UserNotFoundException;
 import helpers.EmailFormatChecker;
 import helpers.PhoneNumberChecker;
 
@@ -10,7 +12,7 @@ public class ContactInfo {
     private String phoneNumber;
     private Location location;
 
-    public ContactInfo(String email, String phoneNumber, Location location) throws InvalidEmailFormatException , InvalidPhoneNumberException{
+    public ContactInfo(String email, String phoneNumber, Location location) throws InvalidEmailFormatException, InvalidPhoneNumberException, UserAlreadyExistsException {
         setEmail(email);
         setPhoneNumber(phoneNumber);
         this.location = location;
@@ -20,8 +22,11 @@ public class ContactInfo {
         return email;
     }
 
-    public void setEmail(String email) throws InvalidEmailFormatException {
-        //if()
+    public void setEmail(String email) throws InvalidEmailFormatException, UserAlreadyExistsException {
+        if(CarGear.isEmailRegistered(email)){
+            throw new UserAlreadyExistsException();
+        }
+
         if(!EmailFormatChecker.hasCorrectEmailFormat(email)){
             throw new InvalidEmailFormatException();
         }

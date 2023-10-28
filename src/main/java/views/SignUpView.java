@@ -63,6 +63,8 @@ public class SignUpView {
             logger.warning("Cant SignUp As Admin!");
             userType = CustomScanner.scanUserType(new Scanner(System.in));
         }
+
+
     }
 
 
