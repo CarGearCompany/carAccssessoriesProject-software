@@ -1,0 +1,19 @@
+
+J
+java:S3416"-Update this logger to use "SignUpView.class".(ù×¸»8Ûä—·1
+Y
+java:S1854"7Remove this useless assignment to local variable "age".(Ğ«£øÿÿÿÿ8İä—·1
+^
+java:S1854"<Remove this useless assignment to local variable "fullName".(‡ù–úÿÿÿÿ8İä—·1
+O
+java:S1481"-Remove this unused "fullName" local variable.(‡ù–úÿÿÿÿ8àä—·1
+J
+java:S1481"(Remove this unused "age" local variable.(Ğ«£øÿÿÿÿ8àä—·1
+Q
+java:S1128"/Remove this unused import 'controllers.SignUp'.(õ€ğ­úÿÿÿÿ8Äû˜·1
+Z
+java:S1128"=Remove this unused import 'exceptions.UserNotFoundException'.(ØÑæ¶8Äû˜·1
+H
+java:S1128"+Remove this unused import 'models.CarGear'.(Œ÷öé8Äû˜·1
+G
+java:S1068"*Remove this unused "logger" private field.(ù×¸»8áä—·1
