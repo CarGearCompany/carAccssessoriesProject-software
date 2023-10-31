@@ -3,6 +3,7 @@ package models;
 import enums.Gender;
 import enums.UserType;
 import exceptions.*;
+import helpers.EmailFormatChecker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +37,10 @@ public class CarGear {
         return false;
     }
 
-    public static User getUserByEmail(String email) throws UserNotFoundException {
+    public static User getUserByEmail(String email) throws UserNotFoundException,InvalidEmailFormatException {
+        if(!EmailFormatChecker.hasCorrectEmailFormat(email)){
+            throw new InvalidEmailFormatException();
+        }
         int userIndex = 0 ;
         for (int i = 0 ; i < users.size() ; i++){
             if(users.get(i).getContactInfo().getEmail().equals(email)){
@@ -58,11 +62,17 @@ public class CarGear {
         users.add(user);
     }
 
+    public static void removeUser(User user){
+        users.remove(user);
+    }
+
     private static void clearData(){
         CarGear.setCurrentUser(null);
         CarGear.getUsers().clear();
 
     }
+
+
 
     public static void initData() throws UserAlreadyExistsException, InvalidPhoneNumberException, InvalidEmailFormatException, WeakPasswordException { //this method use to initialize all the data in the main
         clearData();
@@ -134,4 +144,7 @@ public class CarGear {
     }
 
 
+    public static void promoteUser(User user) {
+        user.setUserType(UserType.ADMIN);
+    }
 }
