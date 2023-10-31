@@ -18,6 +18,24 @@ public class Admin {
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public static void removeUser(String email) throws UserNotFoundException, AdminsCannotBeRemovedException, InvalidEmailFormatException {
         User user = CarGear.getUserByEmail(email);
         if(user.getUserType().equals(UserType.ADMIN)){
