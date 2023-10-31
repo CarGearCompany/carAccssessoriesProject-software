@@ -68,7 +68,7 @@ public class CarGear {
         clearData();
 
         //the first admin data
-        User firstAdmain = new User(
+        User firstAdmin = new User(
                 new Name("Nabeel","Jamous"),
                 20,
                 Gender.MALE,
@@ -78,17 +78,59 @@ public class CarGear {
                 UserType.ADMIN);
 
         //the second admin data
-        User secAdmain = new User(
+        User secAdmin = new User(
                 new Name("Mahmoud","AbuHanoud"),
                 21,
                 Gender.MALE,
                 "Mahmoud@123",
                 new ContactInfo("mahmoud@gmail.com","0593021843",
-                        new Location("Nablus","Asira")),
+                        new Location("Nablus","Balata")),
                 UserType.ADMIN);
 
-    addUser(firstAdmain);
-    addUser(secAdmain);
+        User firstCustomer = new User(
+                new Name("Saleh","Sawalha"),
+                21,
+                Gender.MALE,
+                "Salah@123",
+                new ContactInfo("saleh@gmail.com","0597846668",
+                        new Location("Ramallah","Ersal")),
+                UserType.CUSTOMER);
+
+        User secCustomer = new User(
+                new Name("Gana","Hosam"),
+                25,
+                Gender.FEMALE,
+                "Gana@123",
+                new ContactInfo("gana@gmail.com","0598765432",
+                        new Location("Jenin","Jenin")),
+                UserType.CUSTOMER);
+
+        User firstInstaller = new User(
+                new Name("Mahmoud","Jawabreh"),
+                30,
+                Gender.MALE,
+                "Mahmoud@123",
+                new ContactInfo("mahmoud@gmail.com","0591234567",
+                        new Location("Gaza","Gaza")),
+                UserType.INSTALLER);
+
+        User secInstaller = new User(
+                new Name("Hala","Qasem"),
+                27,
+                Gender.FEMALE,
+                "Hala@123",
+                new ContactInfo("hala@gmail.com","0591478963",
+                        new Location("Tulkarm","Tulkarm")),
+                UserType.INSTALLER);
+
+
+    addUser(firstAdmin);
+    addUser(secAdmin);
+    addUser(firstCustomer);
+    addUser(secCustomer);
+    addUser(firstInstaller);
+    addUser(secInstaller);
+
     }
 
 
