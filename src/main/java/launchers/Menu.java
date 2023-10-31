@@ -2,7 +2,6 @@ package launchers;
 
 import controllers.Login;
 import enums.UserType;
-import models.CarGear;
 import printers.MenuPrinter;
 import scanners.CustomScanner;
 import views.AdminView;
@@ -14,8 +13,6 @@ import java.util.Scanner;
 import java.util.logging.Logger;
 
 public class Menu {
-    private static final Logger logger = Logger.getLogger(Menu.class.getName());
-
     private Menu() {
 
     }
@@ -27,7 +24,7 @@ public class Menu {
         ---
         the option for user option
      */
-    private static void determineUserType() throws NullPointerException {
+    private static void determineUserType()  {
         try {
             UserType currentUserType = Login.getCurrentUserType();
             switch (currentUserType) {
@@ -75,7 +72,7 @@ public class Menu {
         }
     }
 
-    private static void adminOption(int choice) {
+    private static void adminOption(int choice)  {
         switch (choice) {
             case 1:
                 AdminView.listAllUsersView();
@@ -85,6 +82,7 @@ public class Menu {
             case 3:
                 break;
             case 4:
+                AdminView.searchForUserByEmailView();
                 break;
             case 5:
                 break;
@@ -92,7 +90,7 @@ public class Menu {
         }
     }
 
-    public static void adminHandler() {
+    public static void adminHandler()  {
         while (true) {
             MenuPrinter.printAdminMenu();
             int choice = CustomScanner.scanInt("choice", new Scanner(System.in));

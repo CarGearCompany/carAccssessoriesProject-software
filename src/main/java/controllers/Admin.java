@@ -1,6 +1,8 @@
 package controllers;
 
+import exceptions.InvalidEmailFormatException;
 import exceptions.UserNotFoundException;
+import helpers.EmailFormatChecker;
 import models.CarGear;
 import models.User;
 
@@ -14,7 +16,10 @@ public class Admin {
         return CarGear.getUsers();
     }
 
-    public static User searchForUserByEmail(String email) throws UserNotFoundException {
+    public static User searchForUserByEmail(String email) throws UserNotFoundException, InvalidEmailFormatException {
+        if(!EmailFormatChecker.hasCorrectEmailFormat(email)){
+            throw new InvalidEmailFormatException();
+        }
         return CarGear.getUserByEmail(email);
     }
 }

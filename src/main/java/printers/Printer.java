@@ -16,18 +16,19 @@ public class Printer {
     private Printer() {
     }
     private static String genarateUserString(User u){
+        String email ="";
         if(u.getGender() == Gender.MALE){
-            return  FIRSTNAME + u.getName().getFirstName() + LASTNAME + u.getName().getLastName() + "\n"
+            email=  FIRSTNAME + u.getName().getFirstName() + LASTNAME + u.getName().getLastName() + "\n"
                     +"He is " +u.getAge() +" years old , his Email is: " +u.getContactInfo().getEmail()+
                     " , he lives in " + u.getContactInfo().getLocation().getCity() + " at "+u.getContactInfo().getLocation().getStreet()+STREET
-                    + " and his phone-number: " + u.getContactInfo().getPhoneNumber() +"\n";
+                    + " and his phone-number: " + u.getContactInfo().getPhoneNumber() +"\n"+"And he is a " +u.getUserType();
         } else if (u.getGender() == Gender.FEMALE) {
-            return  FIRSTNAME + u.getName().getFirstName() + LASTNAME + u.getName().getLastName() + "\n"
+            email=  FIRSTNAME + u.getName().getFirstName() + LASTNAME + u.getName().getLastName() + "\n"
                     +"she is " +u.getAge() +" years old , her Email is: " +u.getContactInfo().getEmail()
                     +" , she lives in " + u.getContactInfo().getLocation().getCity() + " at "+u.getContactInfo().getLocation().getStreet()+STREET
-                    + " and her phone-number: " + u.getContactInfo().getPhoneNumber() +"\n";
+                    + " and her phone-number: " + u.getContactInfo().getPhoneNumber() +"\n"+"And she is a " +u.getUserType();
         }
-        return null;
+        return email;
     }
     public static void printUsers(List<User> users) {
         String string;
@@ -49,6 +50,10 @@ public class Printer {
             }
         }
 
+    }
+    public static void printUser(User u) {
+        String string = genarateUserString(u);
+        logger.info(string);
     }
 
 }

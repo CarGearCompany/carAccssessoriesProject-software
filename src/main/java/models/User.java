@@ -13,8 +13,10 @@ public class User {
     private ContactInfo contactInfo;
     private UserType userType;
 
+    public User() {
+    }
 
-    public User(Name name, int age, Gender gender, String password, ContactInfo contactInfo ,UserType userType) throws WeakPasswordException {
+    public User(Name name, int age, Gender gender, String password, ContactInfo contactInfo , UserType userType) throws WeakPasswordException {
         this.name = name;
         this.age = age;
         this.gender = gender;
