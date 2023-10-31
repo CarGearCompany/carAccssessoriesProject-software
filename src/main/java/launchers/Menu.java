@@ -5,6 +5,7 @@ import enums.UserType;
 import models.CarGear;
 import printers.MenuPrinter;
 import scanners.CustomScanner;
+import views.AdminView;
 import views.LoginView;
 import views.LogoutView;
 import views.SignUpView;
@@ -77,6 +78,7 @@ public class Menu {
     private static void adminOption(int choice) {
         switch (choice) {
             case 1:
+                AdminView.listAllUsersView();
                 break;
             case 2:
                 break;
