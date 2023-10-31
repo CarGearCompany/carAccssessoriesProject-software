@@ -36,4 +36,18 @@ public class MenuPrinter {
                  """;
         logger.info(string);
     }
+
+    public static void printAdminMenu(){
+        String string = """
+                
+                1- List all users
+                2- List all products
+                3- Remove a user
+                4- Search for user by email
+                5- Promote user to admin
+                6- Logout
+                
+                """;
+        logger.info(string);
+    }
 }

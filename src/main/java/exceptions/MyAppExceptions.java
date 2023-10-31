@@ -8,4 +8,5 @@ public class MyAppExceptions extends Exception {
     public MyAppExceptions(String message) {
         super(message);
     }
+
 }
