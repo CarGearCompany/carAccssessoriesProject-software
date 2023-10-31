@@ -1,6 +1,7 @@
 package views;
 
 import controllers.Login;
+import exceptions.InvalidEmailFormatException;
 import exceptions.UserNotFoundException;
 import models.CarGear;
 import scanners.CustomScanner;
@@ -23,7 +24,9 @@ public class LoginView {
             } else
                 logger.warning("wrong Password , try again or choose Forget My Password");
         }catch (UserNotFoundException e){
-            logger.warning("Invalid Email!");
+            logger.warning("User not found.");
+        } catch (InvalidEmailFormatException e) {
+            logger.warning("Not a real email, please enter a valid one.");
         }
 
 

@@ -101,17 +101,17 @@ public class CarGear {
                 new Name("Saleh","Sawalha"),
                 21,
                 Gender.MALE,
-                "Salah@123",
+                "Saleh@123",
                 new ContactInfo("saleh@gmail.com","0597846668",
                         new Location("Ramallah","Ersal")),
                 UserType.CUSTOMER);
 
         User secCustomer = new User(
-                new Name("Gana","Hosam"),
+                new Name("Jana","Hosam"),
                 25,
                 Gender.FEMALE,
-                "Gana@123",
-                new ContactInfo("gana@gmail.com","0598765432",
+                "Jana@123",
+                new ContactInfo("jana@gmail.com","0598765432",
                         new Location("Jenin","Jenin")),
                 UserType.CUSTOMER);
 

@@ -31,7 +31,8 @@ public class Admin {
         if(user.getUserType().equals(UserType.ADMIN)){
             throw new AdminsCannotBePromotedException();
         }
-        
+
+        CarGear.promoteUser(user);
         
         
     }
