@@ -4,16 +4,15 @@ import controllers.Login;
 import enums.UserType;
 import printers.MenuPrinter;
 import scanners.CustomScanner;
+import views.AdminView;
 import views.LoginView;
+import views.LogoutView;
 import views.SignUpView;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
 public class Menu {
-    private static final Logger logger = Logger.getLogger(Menu.class.getName());
     private Menu() {
 
     }
@@ -25,27 +24,28 @@ public class Menu {
         ---
         the option for user option
      */
-    private static void determineUserType() throws NullPointerException {
-            try {
-                UserType currentUserType = Login.getCurrentUserType();
-                switch (currentUserType){
-                    case ADMIN:
-
-                        break;
-                    case CUSTOMER:
-
-                        break;
-                    case INSTALLER:
-
-                        break;
-                }
-            }catch (NullPointerException e){
-                // to avoid the nullPointer Exception
+    private static void determineUserType()  {
+        try {
+            UserType currentUserType = Login.getCurrentUserType();
+            switch (currentUserType) {
+                case ADMIN:
+                    adminHandler();
+                    break;
+                case CUSTOMER:
+                    //customerHandler();
+                    break;
+                case INSTALLER:
+                    //installerHandler();
+                    break;
             }
+        } catch (NullPointerException e) {
+            // to avoid the nullPointer Exception
+        }
 
     }
+
     public static void mainMenuOptions(int choice) {
-        switch (choice){
+        switch (choice) {
             case 1:
                 LoginView.login();
                 determineUserType();
@@ -58,11 +58,12 @@ public class Menu {
             default:
         }
     }
+
     public static void menuHandler() {
         MenuPrinter.printWelcomeMsg();
-        while (true){
+        while (true) {
             MenuPrinter.printMainMenu();
-            int choice = CustomScanner.scanInt("choice",new Scanner(System.in));
+            int choice = CustomScanner.scanInt("choice", new Scanner(System.in));
             mainMenuOptions(choice);
             if (choice == 4) {
                 MenuPrinter.printFinishMsg();
@@ -71,31 +72,51 @@ public class Menu {
         }
     }
 
-    private static void admainOption(int choice){
-        // not finished , Under construction
-    }
-    public static void admainHandler(){
-        // not finished , Under construction
-    }
-    private static void customerOption(){
-        // not finished , Under construction
-    }
-    private static void customerHandler(){
-        // not finished , Under construction
-    }
-    private static void installerOption(){
-        // not finished , Under construction
-    }
-    public static void installerHandler(){
-        // not finished , Under construction
+    private static void adminOption(int choice)  {
+        switch (choice) {
+            case 1:
+                AdminView.listAllUsersView();
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                AdminView.searchForUserByEmailView();
+                break;
+            case 5:
+                break;
+            default:
+        }
     }
 
+    public static void adminHandler()  {
+        while (true) {
+            MenuPrinter.printAdminMenu();
+            int choice = CustomScanner.scanInt("choice", new Scanner(System.in));
+            adminOption(choice);
+            if (choice == 6) {
+                MenuPrinter.printFinishMsg();
+                LogoutView.logout();
+                break;
+            }
+        }
+    }
+//    private static void customerOption(){
+//        // not finished , Under construction
+//    }
+//    private static void customerHandler(){
+//        // not finished , Under construction
+//    }
+//    private static void installerOption(){
+//        // not finished , Under construction
+//    }
+//    public static void installerHandler(){
+//        // not finished , Under construction
+//    }
 
 
-
-
-
-}
+    }
 
 
 
