@@ -10,7 +10,7 @@ import views.LogoutView;
 import views.SignUpView;
 
 import java.util.Scanner;
-import java.util.logging.Logger;
+
 
 public class Menu {
     private Menu() {
@@ -80,11 +80,13 @@ public class Menu {
             case 2:
                 break;
             case 3:
+                AdminView.removeUserView();
                 break;
             case 4:
                 AdminView.searchForUserByEmailView();
                 break;
             case 5:
+                AdminView.promoteUserView();
                 break;
             default:
         }

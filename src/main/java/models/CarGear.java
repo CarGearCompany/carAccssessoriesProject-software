@@ -120,7 +120,7 @@ public class CarGear {
                 30,
                 Gender.MALE,
                 "Mahmoud@123",
-                new ContactInfo("mahmoud@gmail.com","0591234567",
+                new ContactInfo("asamr@gmail.com","0591234567",
                         new Location("Gaza","Gaza")),
                 UserType.INSTALLER);
 

@@ -1,5 +1,8 @@
 package controllers;
 
+import enums.UserType;
+import exceptions.AdminsCannotBePromotedException;
+import exceptions.AdminsCannotBeRemovedException;
 import exceptions.InvalidEmailFormatException;
 import exceptions.UserNotFoundException;
 import helpers.EmailFormatChecker;
@@ -18,7 +21,7 @@ public class Admin {
 
 
 
-public static User searchForUserByEmail(String email) throws UserNotFoundException, InvalidEmailFormatException {
+    public static User searchForUserByEmail(String email) throws UserNotFoundException, InvalidEmailFormatException {
         if (!EmailFormatChecker.hasCorrectEmailFormat(email)) {
             throw new InvalidEmailFormatException();
         }
