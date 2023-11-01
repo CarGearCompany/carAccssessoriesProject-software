@@ -75,26 +75,34 @@ public class Menu {
                 AdminView.listAllUsersView();
                 break;
             case 2:
+                AdminView.listAllProducts();
                 break;
             case 3:
+                AdminView.addProduct();
                 break;
             case 4:
+                AdminView.addCategory();
                 break;
             case 5:
                 AdminView.removeUserView();
                 break;
             case 6:
+                AdminView.removeProduct();
                 break;
             case 7:
+                AdminView.removeCategory();
                 break;
             case 8:
+                AdminView.editProduct();
                 break;
             case 9:
                 AdminView.searchForUserByEmailView();
                 break;
             case 10:
+                AdminView.searchForProductById();
                 break;
             case 11:
+                AdminView.searchForCategoryByName();
                 break;
             case 12:
                 AdminView.promoteUserView();

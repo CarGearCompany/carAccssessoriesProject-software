@@ -31,12 +31,25 @@ public class CarGear {
         return categories;
     }
 
+    public static List<Product> getProducts(Category category){
+        return category.getProducts();
+    }
+
     public static boolean isEmailRegistered(String email) {
         for (User user : users) {
             if (user.getContactInfo().getEmail().equalsIgnoreCase(email)) {
                 return true;
             }
 
+        }
+        return false;
+    }
+
+    public static boolean isCategoryExists(String name){
+        for(Category category : categories){
+            if (category.getCategoryName().equalsIgnoreCase(name)){
+                return true;
+            }
         }
         return false;
     }
@@ -61,6 +74,36 @@ public class CarGear {
         }
     }
 
+    public static Category getCategoryByName(String string) throws ItemNotFoundException {
+        int categoryIndex = -1;
+        for (int i = 0; i < categories.size(); i++) {
+            if (categories.get(i).getCategoryName().equals(string)) {
+                categoryIndex = i;
+                break;
+            }
+        }
+        if (categoryIndex == -1){
+            throw new ItemNotFoundException();}
+        else {
+            return categories.get(categoryIndex);
+        }
+    }
+
+    public static Product getProductById(Category category,int id) throws ItemNotFoundException {
+        int productIndex = -1;
+        for (int i = 0; i < category.getProducts().size(); i++) {
+            if (category.getProducts().get(i).getId() == id) {
+                productIndex = i;
+                break;
+            }
+        }
+        if (productIndex == -1){
+            throw new ItemNotFoundException();}
+        else {
+            return category.getProducts().get(productIndex);
+        }
+    }
+
     public static void addUser(User user) throws UserAlreadyExistsException {
         if (users.contains(user))
             throw new UserAlreadyExistsException();
@@ -68,12 +111,17 @@ public class CarGear {
     }
 
 
-    public static void addCategory(Category category) throws CategoryAlreadyExistsExceprion{
+    public static void addCategory(Category category) throws ItemAlreadyExistsExceprion {
+        if (categories.contains(category))
+            throw new ItemAlreadyExistsExceprion();
         categories.add(category);
     }
 
     public static void removeUser(User user) {
         users.remove(user);
+    }
+    public static void removeProduct(Category category,Product product){
+        category.removeProduct(product);
     }
 
     public static void removeCategory(Category category) {
@@ -92,7 +140,7 @@ public class CarGear {
     }
 
 
-    public static void initData() throws UserAlreadyExistsException, InvalidPhoneNumberException, InvalidEmailFormatException, WeakPasswordException, CategoryAlreadyExistsExceprion { //this method use to initialize all the data in the main
+    public static void initData() throws UserAlreadyExistsException, InvalidPhoneNumberException, InvalidEmailFormatException, WeakPasswordException, ItemAlreadyExistsExceprion, ItemNotFoundException { //this method use to initialize all the data in the main
         clearData();
 
         //the first admin data
@@ -150,9 +198,9 @@ public class CarGear {
                 new ContactInfo("hala@gmail.com", "0591478963",
                         new Location("Tulkarm", "Tulkarm")),
                 UserType.INSTALLER);
-        Category interior = new Category("Interior");
-        Category exterior = new Category("Exterior");
-        Category electronic = new Category("Electronic");
+        Category interior = new Category("interior");
+        Category exterior = new Category("exterior");
+        Category electronic = new Category("electronic");
 
         addCategory(interior);
         addCategory(exterior);

@@ -1,5 +1,7 @@
 package models;
 
+import exceptions.ItemAlreadyExistsExceprion;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,8 +9,8 @@ public class Category {
     private String categoryName;
     private final List<Product> products ;
 
-    public Category(String categoryName) {
-        this.categoryName = categoryName;
+    public Category(String categoryName) throws ItemAlreadyExistsExceprion {
+        setCategoryName(categoryName);
        products = new ArrayList<>();
     }
 
@@ -16,7 +18,10 @@ public class Category {
         return categoryName;
     }
 
-    public void setCategoryName(String categoryName) {
+    public void setCategoryName(String categoryName) throws ItemAlreadyExistsExceprion {
+        if (CarGear.isCategoryExists(categoryName)){
+            throw new ItemAlreadyExistsExceprion();
+        }
         this.categoryName = categoryName;
     }
 

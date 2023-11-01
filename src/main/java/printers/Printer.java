@@ -33,12 +33,18 @@ public class Printer {
         }
         return string;
     }
-//    private static String genarateProductToString(Product p) {
-//        String string = "";
-//        for (Category category:CarGear.getCategory()) {
-//
-//        }
-//    }
+    public static void genarateCategoryString(Category c) {
+        String string = "";
+        for (Product p : c.getProducts()) {
+            if(p.isAvailable()){
+            string = "Its From : "+c.getCategoryName()+", The product ID is:- " + p.getId() + ", The product Name is:- "+ p.getProductInfo().getProductName() + ",its " + p.getProductInfo().getDescription()
+                    +"its price is:- "+p.getProductInfo().getPrice()+", and we have "+p.getProductInfo().getQuantity() + " items.";}
+            else
+            {string = "Its From : "+c.getCategoryName()+", The product ID is:- " + p.getId() + ", The product Name is:- "+ p.getProductInfo().getProductName() + ",its " + p.getProductInfo().getDescription()
+                        +"its price is:- "+p.getProductInfo().getPrice()+", and its out of stock";}
+            logger.info(string);
+        }
+    }
     public static void printUsers(List<User> users) {
         String string;
         if (users.isEmpty())
@@ -65,10 +71,16 @@ public class Printer {
         logger.info(string);
     }
 
-//    public static void printProducts(Product p) {
-//        String string = genarateProductToString(p);
-//        logger.info(string);
-//    }
+    public static void printCategoryAllProducts(Category c) {
+        genarateCategoryString(c);
+
+    }
+
+    public static void printProduct(Category c , Product p){
+       String string = "Its From : "+c.getCategoryName()+", The product ID is:- " + p.getId() + ", The product Name is:- "+ p.getProductInfo().getProductName() + ",its " + p.getProductInfo().getDescription()
+                +"its price is:- "+p.getProductInfo().getPrice()+", and we have "+p.getProductInfo().getQuantity() + " items.";
+        logger.info(string);
+        }
+    }
 
 
-}

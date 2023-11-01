@@ -42,15 +42,15 @@ public class MenuPrinter {
                 
                 1-  List all users
                 2-  List all products
-                3-  Add a product
+                3-  Add a product to a category
                 4-  Add a category
                 5-  Remove a user
                 6-  Remove a product
                 7-  Remove a category
                 8-  Edit a product
                 9-  Search for user by email
-                10- Search for product
-                11- Search for category
+                10- Search for product by ID
+                11- Search for category by name
                 12- Promote user to admin
                 13- Logout
                 
