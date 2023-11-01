@@ -4,10 +4,7 @@ import controllers.Login;
 import enums.UserType;
 import printers.MenuPrinter;
 import scanners.CustomScanner;
-import views.AdminView;
-import views.LoginView;
-import views.LogoutView;
-import views.SignUpView;
+import views.*;
 
 import java.util.Scanner;
 
@@ -32,7 +29,7 @@ public class Menu {
                     adminHandler();
                     break;
                 case CUSTOMER:
-                    //customerHandler();
+                    customerHandler();
                     break;
                 case INSTALLER:
                     //installerHandler();
@@ -80,12 +77,26 @@ public class Menu {
             case 2:
                 break;
             case 3:
-                AdminView.removeUserView();
                 break;
             case 4:
-                AdminView.searchForUserByEmailView();
                 break;
             case 5:
+                AdminView.removeUserView();
+                break;
+            case 6:
+                break;
+            case 7:
+                break;
+            case 8:
+                break;
+            case 9:
+                AdminView.searchForUserByEmailView();
+                break;
+            case 10:
+                break;
+            case 11:
+                break;
+            case 12:
                 AdminView.promoteUserView();
                 break;
             default:
@@ -97,6 +108,38 @@ public class Menu {
             MenuPrinter.printAdminMenu();
             int choice = CustomScanner.scanInt("choice", new Scanner(System.in));
             adminOption(choice);
+            if (choice == 13) {
+                MenuPrinter.printFinishMsg();
+                LogoutView.logout();
+                break;
+            }
+        }
+    }
+    private static void customerOption(int choice){
+        switch (choice) {
+            case 1:
+
+                break;
+            case 2:
+                break;
+            case 3:
+
+                break;
+            case 4:
+                CustomerView.editPassword();
+                break;
+            case 5:
+                CustomerView.editLocation();
+                break;
+            default:
+        }
+
+    }
+    private static void customerHandler(){
+        while (true) {
+            MenuPrinter.printCustomerMenu();
+            int choice = CustomScanner.scanInt("choice", new Scanner(System.in));
+            customerOption(choice);
             if (choice == 6) {
                 MenuPrinter.printFinishMsg();
                 LogoutView.logout();
@@ -104,12 +147,6 @@ public class Menu {
             }
         }
     }
-//    private static void customerOption(){
-//        // not finished , Under construction
-//    }
-//    private static void customerHandler(){
-//        // not finished , Under construction
-//    }
 //    private static void installerOption(){
 //        // not finished , Under construction
 //    }
