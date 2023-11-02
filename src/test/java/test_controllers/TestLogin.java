@@ -15,7 +15,7 @@ public class TestLogin {
     private String password;
 
     @Given("Database is already filled")
-    public void databaseIsAlreadyFilled() throws InvalidPhoneNumberException, CategoryAlreadyExistsExceprion, UserAlreadyExistsException, InvalidEmailFormatException, WeakPasswordException {
+    public void databaseIsAlreadyFilled() throws InvalidPhoneNumberException, CategoryAlreadyExistsException, UserAlreadyExistsException, InvalidEmailFormatException, WeakPasswordException, ItemAlreadyExistsExceprion, ItemNotFoundException {
         CarGear.initData();
     }
     @When("email is {string}")

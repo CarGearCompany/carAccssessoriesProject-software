@@ -26,7 +26,7 @@ public class AdminView {
     }
 
     public static void listAllProducts(){
-            List<Category> categories = Admin.getAllCategories();
+            List<Category> categories = AdminController.getAllCategories();
         for (Category c: categories) {
             Printer.printCategoryAllProducts(c);
         }
@@ -105,7 +105,7 @@ public class AdminView {
             try {
                 Category category = CarGear.getCategoryByName(categoryString);
                 Product product = new Product(productId, new ProductInfo(productName, productDescription, price, img, quantity), true);
-                Admin.addProduct(category, product);
+                AdminController.addProduct(category, product);
                 logger.info("product added successfully");
                 break;
             } catch (ItemAlreadyExistsExceprion e) {
@@ -124,7 +124,7 @@ public class AdminView {
         while (true) {
             try {
                 Category category = new Category(categoryString);
-                Admin.addCategory(category);
+                AdminController.addCategory(category);
                 logger.info("Category added successfully");
                 break;
             } catch (ItemAlreadyExistsExceprion e) {
@@ -141,7 +141,7 @@ public class AdminView {
         while (true) {
             try {
                 Category category = CarGear.getCategoryByName(categoryString);
-                Admin.removeProduct(category, id);
+                AdminController.removeProduct(category, id);
                 logger.info("Product removed successfully");
                 break;
             } catch (ItemNotFoundException e) {
@@ -156,7 +156,7 @@ public class AdminView {
         while (true) {
             try {
                 Category category = CarGear.getCategoryByName(categoryString);
-                Admin.removeCategory(category);
+                AdminController.removeCategory(category);
                 logger.info("Category removed successfully");
                 break;
             } catch (ItemNotFoundException e) {
@@ -174,7 +174,7 @@ public class AdminView {
         String categoryString = CustomScanner.scanNonEmptyString(CATEGORY, new Scanner(System.in));
         while (true) {
             try {
-                Category category = Admin.searchForCategoryByName(categoryString);
+                Category category = AdminController.searchForCategoryByName(categoryString);
                 Printer.printCategoryAllProducts(category);
                 break;
             } catch (ItemNotFoundException e) {
@@ -190,7 +190,7 @@ public class AdminView {
         while (true) {
             try {
                 Category category = CarGear.getCategoryByName(categoryString);
-                Product product = Admin.searchForProductById(category,id);
+                Product product = AdminController.searchForProductById(category,id);
                 Printer.printProduct(category,product);
                 break;
             } catch (ItemNotFoundException e) {
