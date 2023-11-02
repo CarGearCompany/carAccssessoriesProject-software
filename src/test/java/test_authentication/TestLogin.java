@@ -1,4 +1,4 @@
-package test_controllers;
+package test_authentication;
 
 import controllers.LoginController;
 import exceptions.*;

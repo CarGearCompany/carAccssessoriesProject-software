@@ -74,7 +74,7 @@ public class CarGear {
         }
     }
 
-    public static Category getCategoryByName(String string) throws ItemNotFoundException {
+    public static Category getCategoryByName(String string) {
         int categoryIndex = -1;
         for (int i = 0; i < categories.size(); i++) {
             if (categories.get(i).getCategoryName().equals(string)) {
@@ -82,11 +82,10 @@ public class CarGear {
                 break;
             }
         }
-        if (categoryIndex == -1){
-            throw new ItemNotFoundException();}
-        else {
+        if (categoryIndex != -1){
             return categories.get(categoryIndex);
         }
+        return null;
     }
 
     public static Product getProductById(Category category,int id) throws ItemNotFoundException {
@@ -111,9 +110,7 @@ public class CarGear {
     }
 
 
-    public static void addCategory(Category category) throws ItemAlreadyExistsExceprion {
-        if (categories.contains(category))
-            throw new ItemAlreadyExistsExceprion();
+    public static void addCategory(Category category) {
         categories.add(category);
     }
 

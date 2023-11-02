@@ -1,6 +1,7 @@
 package controllers;
 
 import exceptions.WeakPasswordException;
+import helpers.PasswordChecker;
 import models.CarGear;
 import models.Location;
 import models.User;
@@ -10,6 +11,9 @@ public class CustomerController {
     }
 
     public static void editPassword(String newPassword) throws WeakPasswordException {
+        if(!PasswordChecker.isStrongPassword(newPassword))
+            throw new WeakPasswordException();
+
         User user = CarGear.getCurrentUser();
         user.setPassword(newPassword);
     }

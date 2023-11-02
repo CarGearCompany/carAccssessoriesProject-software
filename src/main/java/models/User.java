@@ -3,7 +3,6 @@ package models;
 import enums.Gender;
 import enums.UserType;
 import exceptions.WeakPasswordException;
-import helpers.PasswordChecker;
 
 public class User {
     private Name name;
@@ -53,9 +52,8 @@ public class User {
         return password;
     }
 
-    public void setPassword(String password) throws WeakPasswordException {
-        if(!PasswordChecker.isStrongPassword(password))
-            throw new WeakPasswordException();
+    public void setPassword(String password) {
+
         this.password = password;
     }
 

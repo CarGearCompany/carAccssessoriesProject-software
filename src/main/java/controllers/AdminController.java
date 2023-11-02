@@ -49,6 +49,12 @@ public class AdminController {
 
     public static void promoteUser(String email) throws UserNotFoundException, AdminsCannotBePromotedException, InvalidEmailFormatException {
         User user = CarGear.getUserByEmail(email);
+        if (!EmailFormatChecker.hasCorrectEmailFormat(email)) {
+            throw new InvalidEmailFormatException();
+        }
+        if (!CarGear.getUserByEmail(email).getContactInfo().getEmail().equals(email)) {
+            throw new UserNotFoundException();
+        }
         if(user.getUserType().equals(UserType.ADMIN)){
             throw new AdminsCannotBePromotedException();
         }
@@ -58,11 +64,17 @@ public class AdminController {
     }
 
     public static void addCategory(Category category) throws ItemAlreadyExistsExceprion {
-        if (!CarGear.getCategories().contains(category)) {
+        if (CarGear.getCategories().contains(CarGear.getCategoryByName(category.getCategoryName()))) {
+            throw new ItemAlreadyExistsExceprion();
+        }else
+            {
             CarGear.addCategory(category);
+            }
+
         }
 
-    }
+
+
 
     public static void removeProduct(Category c,int id) throws ItemNotFoundException {
 
@@ -73,6 +85,9 @@ public class AdminController {
     }
 
     public static void removeCategory(Category category) throws ItemNotFoundException {
+        if (CarGear.getCategoryByName(category.getCategoryName()) == null){
+            throw new ItemNotFoundException();
+        }
         if (!CarGear.getCategories().contains(category)){
             throw new ItemNotFoundException();
         }

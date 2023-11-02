@@ -1,18 +1,14 @@
-package test_controllers;
+package test_authentication;
 
-import controllers.LoginController;
 import controllers.SignUpController;
 import enums.Gender;
 import enums.UserType;
 import exceptions.*;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import models.CarGear;
 import models.ContactInfo;
 import models.Location;
 import models.Name;
-import scanners.CustomScanner;
 
 import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -45,8 +41,6 @@ public class TestSignUp {
     @When("age is {int}")
     public void ageIs(Integer age) {
         this.age = age;
-
-
     }
     @When("Gender is {string}")
     public void genderIs(String gender) {
@@ -74,14 +68,7 @@ public class TestSignUp {
     @Then("User will fail to sign up and user already exists exception will be thrown")
     public void userWillFailToSignUpAndUserAlreadyExistsExceptionWillBeThrown() {
         assertThrows(UserAlreadyExistsException.class, () -> {
-
-
-
             SignUpController.signUp(name, contactInfo, age, gender, password, userType);
-
-
-
-
         });
 
     }
@@ -107,8 +94,6 @@ public class TestSignUp {
         assertThrows(InvalidPhoneNumberException.class, () ->  {
 
             SignUpController.signUp(name, contactInfo, age, gender, password, userType);
-
-
 
 
         });
