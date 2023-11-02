@@ -5,13 +5,13 @@ import exceptions.*;
 import models.*;
 import enums.UserType;
 
-public class SignUp {
+public class SignUpController {
 
-    private SignUp(){
+    private SignUpController(){
 
     }
 
-    public static void signUp(Name name, ContactInfo contactInfo, int age, Gender gender, String password, UserType userType) throws UserAlreadyExistsException, CannotSignUpAsAdminException, WeakPasswordException {
+    public static void signUp(Name name, ContactInfo contactInfo, int age, Gender gender, String password, UserType userType) throws CannotSignUpAsAdminException, WeakPasswordException, UserAlreadyExistsException {
         if(userType == UserType.ADMIN)
             throw new CannotSignUpAsAdminException();
 

@@ -1,13 +1,13 @@
 package views;
 
-import controllers.Logout;
+import controllers.LogoutController;
 
 public class LogoutView {
 
     private LogoutView() {
     }
     public static void logout(){
-        Logout.logout();
+        LogoutController.logout();
     }
 
 }

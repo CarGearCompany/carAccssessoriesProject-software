@@ -2,7 +2,7 @@ package views;
 
 import exceptions.WeakPasswordException;
 import scanners.CustomScanner;
-import controllers.Customer;
+import controllers.CustomerController;
 
 import java.util.Scanner;
 import java.util.logging.Logger;
@@ -16,7 +16,7 @@ public class CustomerView {
         String newPassword = CustomScanner.scanNonEmptyString("newPassword", new Scanner(System.in));
       while (true) {
           try {
-              Customer.editPassword(newPassword);
+              CustomerController.editPassword(newPassword);
               logger.info("Password changed successfully!");
               break;
           } catch (WeakPasswordException e) {
@@ -31,7 +31,7 @@ public class CustomerView {
         String newCity = CustomScanner.scanNonEmptyString("City", new Scanner(System.in));
         String newStreet = CustomScanner.scanNonEmptyString("Street", new Scanner(System.in));
 
-        Customer.editLocation(newCity,newStreet);
+        CustomerController.editLocation(newCity,newStreet);
         logger.info("Location changed successfully!");
 
 

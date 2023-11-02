@@ -1,6 +1,6 @@
 package views;
 
-import controllers.Login;
+import controllers.LoginController;
 import exceptions.InvalidEmailFormatException;
 import exceptions.UserNotFoundException;
 import models.CarGear;
@@ -20,7 +20,7 @@ public class LoginView {
         String password = CustomScanner.scanNonEmptyString("Password", new Scanner(System.in));
         while (true) {
             try {
-                if (Login.login(email, password)) {
+                if (LoginController.login(email, password)) {
                     String msg = "Hi, " + CarGear.getCurrentUser().getName().getFirstName();
                     logger.info(msg);
                     break;

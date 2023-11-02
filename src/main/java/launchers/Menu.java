@@ -1,6 +1,6 @@
 package launchers;
 
-import controllers.Login;
+import controllers.LoginController;
 import enums.UserType;
 import printers.MenuPrinter;
 import scanners.CustomScanner;
@@ -23,7 +23,7 @@ public class Menu {
      */
     private static void determineUserType()  {
         try {
-            UserType currentUserType = Login.getCurrentUserType();
+            UserType currentUserType = LoginController.getCurrentUserType();
             switch (currentUserType) {
                 case ADMIN:
                     adminHandler();

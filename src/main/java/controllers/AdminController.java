@@ -10,8 +10,8 @@ import models.User;
 
 import java.util.List;
 
-public class Admin {
-    private Admin() {
+public class AdminController {
+    private AdminController() {
     }
 
     public static List<User> getAllUsers() {

@@ -6,8 +6,8 @@ import models.CarGear;
 import models.User;
 import enums.UserType;
 
-public class Login {
-    private Login() {
+public class LoginController {
+    private LoginController() {
     }
     public static boolean login(String email, String password) throws UserNotFoundException, InvalidEmailFormatException {
         User user = CarGear.getUserByEmail(email);

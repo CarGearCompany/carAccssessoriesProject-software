@@ -2,9 +2,9 @@ package controllers;
 
 import models.CarGear;
 
-public class Logout {
+public class LogoutController {
 
-    private Logout() {
+    private LogoutController() {
     }
 
    public static void logout(){

@@ -54,7 +54,7 @@ public class CustomScanner {
         return gender;
     }
 
-    private static UserType stringToUserType(String userType) {
+    public static UserType stringToUserType(String userType) {
         if (userType.equalsIgnoreCase("admin"))
             return UserType.ADMIN;
         else if (userType.equalsIgnoreCase("customer"))
@@ -64,7 +64,7 @@ public class CustomScanner {
         return null;
     }
 
-    private static Gender stringToGender(String gender) {
+    public static Gender stringToGender(String gender) {
         if (gender.equalsIgnoreCase("male")||gender.equalsIgnoreCase("m"))
             return Gender.MALE;
         else if (gender.equalsIgnoreCase("female")||gender.equalsIgnoreCase("f"))

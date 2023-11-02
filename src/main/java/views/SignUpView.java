@@ -1,6 +1,6 @@
 package views;
 
-import controllers.SignUp;
+import controllers.SignUpController;
 import enums.Gender;
 import enums.UserType;
 import exceptions.*;
@@ -44,7 +44,7 @@ public class SignUpView {
             Location newLocation = new Location(city,street);
             ContactInfo newContactinfo = new ContactInfo(email,phoneNumber,newLocation);
 
-            SignUp.signUp(fullName, newContactinfo, age, gender, password, userType);
+            SignUpController.signUp(fullName, newContactinfo, age, gender, password, userType);
             logger.info("Sign up successfully!");
             break;
         }catch (InvalidEmailFormatException e){

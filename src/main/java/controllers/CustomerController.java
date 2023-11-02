@@ -5,8 +5,8 @@ import models.CarGear;
 import models.Location;
 import models.User;
 
-public class Customer {
-    private Customer() {
+public class CustomerController {
+    private CustomerController() {
     }
 
     public static void editPassword(String newPassword) throws WeakPasswordException {

@@ -1,6 +1,6 @@
 package views;
 
-import controllers.Admin;
+import controllers.AdminController;
 import exceptions.*;
 import models.CarGear;
 import models.Category;
@@ -22,7 +22,7 @@ public class AdminView {
     }
 
     public static void listAllUsersView(){
-        Printer.printUsers(Admin.getAllUsers());
+        Printer.printUsers(AdminController.getAllUsers());
     }
 
     public static void listAllProducts(){
@@ -37,7 +37,7 @@ public class AdminView {
         String email = CustomScanner.scanNonEmptyString(EMAIL, new Scanner(System.in));
     while (true){
         try {
-            Printer.printUser(Admin.searchForUserByEmail(email));
+            Printer.printUser(AdminController.searchForUserByEmail(email));
             break;
         }catch (UserNotFoundException e){
             logger.warning("User Doesn't Exist");
@@ -54,7 +54,7 @@ public class AdminView {
         String email = CustomScanner.scanNonEmptyString(EMAIL, new Scanner(System.in));
     while (true) {
         try {
-            Admin.removeUser(email);
+            AdminController.removeUser(email);
             logger.info("User removed successfully.");
             break;
         } catch (UserNotFoundException e) {
@@ -74,7 +74,7 @@ public class AdminView {
         String email = CustomScanner.scanNonEmptyString(EMAIL, new Scanner(System.in));
     while (true) {
         try {
-            Admin.promoteUser(email);
+            AdminController.promoteUser(email);
             logger.info("This user is promoted to admin role successfully.");
             break;
         } catch (UserNotFoundException e) {

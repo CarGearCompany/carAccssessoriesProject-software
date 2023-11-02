@@ -3,7 +3,6 @@ package models;
 import exceptions.InvalidEmailFormatException;
 import exceptions.InvalidPhoneNumberException;
 import exceptions.UserAlreadyExistsException;
-import exceptions.UserNotFoundException;
 import helpers.EmailFormatChecker;
 import helpers.PhoneNumberChecker;
 
