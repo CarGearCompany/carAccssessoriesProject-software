@@ -1,7 +1,7 @@
 package test_customer;
 
-import controllers.AdminController;
 import controllers.CustomerController;
+import controllers.LoginController;
 import exceptions.*;
 import io.cucumber.java.en.*;
 import models.CarGear;
@@ -15,6 +15,12 @@ public class TestEditPassword {
     public void databaseIsAlreadyFilled() throws ItemAlreadyExistsExceprion, InvalidPhoneNumberException, UserAlreadyExistsException, InvalidEmailFormatException, WeakPasswordException, ItemNotFoundException {
         CarGear.initData();
     }
+
+    @Given("the user is already logged in with {string} and {string}")
+    public void theUserIsAlreadyLoggedInWithAnd(String string, String string2) throws UserNotFoundException, InvalidEmailFormatException {
+        LoginController.login(string,string2);
+    }
+
     @When("the customer enter the password {string}")
     public void theCustomerEnterThePassword(String string) {
         this.password=string;
@@ -25,8 +31,8 @@ public class TestEditPassword {
             CustomerController.editPassword(password);
         });
     }
-    @Then("the password falied to edit and nothing weak password exception will be thrown")
-    public void thePasswordFaliedToEditAndNothingWeakPasswordExceptionWillBeThrown() {
+    @Then("the password failed to edit and nothing weak password exception will be thrown")
+    public void thePasswordFailedToEditAndNothingWeakPasswordExceptionWillBeThrown() {
         assertThrows(WeakPasswordException.class, () -> CustomerController.editPassword(password));
     }
 }
