@@ -3,7 +3,7 @@ package launchers;
 import controllers.LoginController;
 import enums.UserType;
 import printers.MenuPrinter;
-import scanners.CustomScanner;
+import scanners.SpecifiedScanner;
 import views.*;
 
 import java.util.Scanner;
@@ -60,7 +60,7 @@ public class Menu {
         MenuPrinter.printWelcomeMsg();
         while (true) {
             MenuPrinter.printMainMenu();
-            int choice = CustomScanner.scanInt("choice", new Scanner(System.in));
+            int choice = SpecifiedScanner.scanInt("choice", new Scanner(System.in));
             mainMenuOptions(choice);
             if (choice == 4) {
                 MenuPrinter.printFinishMsg();
@@ -114,7 +114,7 @@ public class Menu {
     public static void adminHandler()  {
         while (true) {
             MenuPrinter.printAdminMenu();
-            int choice = CustomScanner.scanInt("choice", new Scanner(System.in));
+            int choice = SpecifiedScanner.scanInt("choice", new Scanner(System.in));
             adminOption(choice);
             if (choice == 13) {
                 MenuPrinter.printFinishMsg();
@@ -146,7 +146,7 @@ public class Menu {
     private static void customerHandler(){
         while (true) {
             MenuPrinter.printCustomerMenu();
-            int choice = CustomScanner.scanInt("choice", new Scanner(System.in));
+            int choice = SpecifiedScanner.scanInt("choice", new Scanner(System.in));
             customerOption(choice);
             if (choice == 6) {
                 MenuPrinter.printFinishMsg();

@@ -5,7 +5,6 @@ import exceptions.AdminsCannotBePromotedException;
 import exceptions.InvalidEmailFormatException;
 import exceptions.UserNotFoundException;
 import io.cucumber.java.en.*;
-import models.CarGear;
 
 import static org.junit.jupiter.api.Assertions.*;
 

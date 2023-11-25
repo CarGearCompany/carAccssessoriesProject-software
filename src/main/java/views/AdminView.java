@@ -7,7 +7,7 @@ import models.Category;
 import models.Product;
 import models.ProductInfo;
 import printers.Printer;
-import scanners.CustomScanner;
+import scanners.SpecifiedScanner;
 
 import java.util.List;
 import java.util.Scanner;
@@ -17,7 +17,7 @@ public class AdminView {
     private static final String EMAIL = "Email";
     private static final Logger logger = Logger.getLogger(AdminView.class.getName());
     private static final String CATEGORY = "category";
-    private static final String WARNING = "This Category isn't exists";
+    private static final String WARNING = "This Category doesn't exist";
     private AdminView() {
     }
 
@@ -34,24 +34,24 @@ public class AdminView {
     }
 
     public static void searchForUserByEmailView() {
-        String email = CustomScanner.scanNonEmptyString(EMAIL, new Scanner(System.in));
+        String email = SpecifiedScanner.scanNonEmptyString(EMAIL, new Scanner(System.in));
     while (true){
         try {
             Printer.printUser(AdminController.searchForUserByEmail(email));
             break;
         }catch (UserNotFoundException e){
             logger.warning("User Doesn't Exist");
-            email = CustomScanner.scanNonEmptyString(EMAIL, new Scanner(System.in));
+            email = SpecifiedScanner.scanNonEmptyString(EMAIL, new Scanner(System.in));
         }catch (InvalidEmailFormatException e){
             logger.warning("Invalid email format! Must be a real email.");
-            email = CustomScanner.scanNonEmptyString(EMAIL, new Scanner(System.in));
+            email = SpecifiedScanner.scanNonEmptyString(EMAIL, new Scanner(System.in));
             }
 
         }
     }
 
     public static void removeUserView() {
-        String email = CustomScanner.scanNonEmptyString(EMAIL, new Scanner(System.in));
+        String email = SpecifiedScanner.scanNonEmptyString(EMAIL, new Scanner(System.in));
     while (true) {
         try {
             AdminController.removeUser(email);
@@ -59,19 +59,19 @@ public class AdminView {
             break;
         } catch (UserNotFoundException e) {
             logger.warning("This user is not found.");
-            email = CustomScanner.scanNonEmptyString(EMAIL, new Scanner(System.in));
+            email = SpecifiedScanner.scanNonEmptyString(EMAIL, new Scanner(System.in));
         } catch (AdminsCannotBeRemovedException e) {
             logger.warning("Admins cannot be removed.");
-            email = CustomScanner.scanNonEmptyString(EMAIL, new Scanner(System.in));
+            email = SpecifiedScanner.scanNonEmptyString(EMAIL, new Scanner(System.in));
         } catch (InvalidEmailFormatException e) {
             logger.warning("Not a real email, please enter a valid one.");
-            email = CustomScanner.scanNonEmptyString(EMAIL, new Scanner(System.in));
+            email = SpecifiedScanner.scanNonEmptyString(EMAIL, new Scanner(System.in));
             }
         }
     }
 
     public static void promoteUserView() {
-        String email = CustomScanner.scanNonEmptyString(EMAIL, new Scanner(System.in));
+        String email = SpecifiedScanner.scanNonEmptyString(EMAIL, new Scanner(System.in));
     while (true) {
         try {
             AdminController.promoteUser(email);
@@ -79,28 +79,28 @@ public class AdminView {
             break;
         } catch (UserNotFoundException e) {
             logger.warning("This user is not found.");
-            email = CustomScanner.scanNonEmptyString(EMAIL, new Scanner(System.in));
+            email = SpecifiedScanner.scanNonEmptyString(EMAIL, new Scanner(System.in));
         } catch (AdminsCannotBePromotedException e) {
             logger.warning("Admins cannot be promoted.");
-            email = CustomScanner.scanNonEmptyString(EMAIL, new Scanner(System.in));
+            email = SpecifiedScanner.scanNonEmptyString(EMAIL, new Scanner(System.in));
         } catch (InvalidEmailFormatException e) {
             logger.warning("Not a real email, please enter a valid one.");
-            email = CustomScanner.scanNonEmptyString(EMAIL, new Scanner(System.in));
+            email = SpecifiedScanner.scanNonEmptyString(EMAIL, new Scanner(System.in));
         }
       }
     }
 
 
     public static void addProduct()  {
-        String categoryString = CustomScanner.scanNonEmptyString("the category type", new Scanner(System.in));
+        String categoryString = SpecifiedScanner.scanNonEmptyString("the category type", new Scanner(System.in));
 
         // product info
-        int productId = CustomScanner.scanInt("productID", new Scanner(System.in));
-        String productName = CustomScanner.scanNonEmptyString("productName ", new Scanner(System.in));
-        String productDescription = CustomScanner.scanNonEmptyString("Description", new Scanner(System.in));
-        int price = CustomScanner.scanInt("price", new Scanner(System.in));
-        String img = CustomScanner.scanNonEmptyString("img path", new Scanner(System.in));
-        int quantity = CustomScanner.scanInt("quantity", new Scanner(System.in));
+        int productId = SpecifiedScanner.scanInt("productID", new Scanner(System.in));
+        String productName = SpecifiedScanner.scanNonEmptyString("productName ", new Scanner(System.in));
+        String productDescription = SpecifiedScanner.scanNonEmptyString("Description", new Scanner(System.in));
+        int price = SpecifiedScanner.scanInt("price", new Scanner(System.in));
+        String img = SpecifiedScanner.scanNonEmptyString("img path", new Scanner(System.in));
+        int quantity = SpecifiedScanner.scanInt("quantity", new Scanner(System.in));
         while (true) {
             try {
                 Category category = CarGear.getCategoryByName(categoryString);
@@ -108,51 +108,54 @@ public class AdminView {
                 AdminController.addProduct(category, product);
                 logger.info("product added successfully");
                 break;
-            } catch (ItemAlreadyExistsExceprion e) {
+            } catch (ProductAlreadyExistException e) {
                 logger.warning("this product ID NotValid , please enter valid one");
-                productId = CustomScanner.scanInt("productID", new Scanner(System.in));
-            } catch (ItemNotFoundException e) {
+                productId = SpecifiedScanner.scanInt("productID", new Scanner(System.in));
+            } catch (CategoryNotFoundException e) {
                 logger.warning("this Category doesn't exist");
-                categoryString = CustomScanner.scanNonEmptyString("the category type", new Scanner(System.in));
+                categoryString = SpecifiedScanner.scanNonEmptyString("the category type", new Scanner(System.in));
             }
 
         }
     }
 
     public static void addCategory() {
-        String categoryString = CustomScanner.scanNonEmptyString(CATEGORY, new Scanner(System.in));
+        String categoryString = SpecifiedScanner.scanNonEmptyString(CATEGORY, new Scanner(System.in));
         while (true) {
             try {
                 Category category = new Category(categoryString);
                 AdminController.addCategory(category);
                 logger.info("Category added successfully");
                 break;
-            } catch (ItemAlreadyExistsExceprion e) {
+            } catch (CategoryAlreadyExistsException e) {
                 logger.warning("This Category is already exists");
-                categoryString = CustomScanner.scanNonEmptyString(CATEGORY, new Scanner(System.in));
+                categoryString = SpecifiedScanner.scanNonEmptyString(CATEGORY, new Scanner(System.in));
             }
         }
     }
 
     public static void removeProduct() {
-        String categoryString = CustomScanner.scanNonEmptyString("Category name", new Scanner(System.in));
+        String categoryString = SpecifiedScanner.scanNonEmptyString("Category name", new Scanner(System.in));
 
-        int id = CustomScanner.scanInt("ID", new Scanner(System.in));
+        int id = SpecifiedScanner.scanInt("ID", new Scanner(System.in));
         while (true) {
             try {
                 Category category = CarGear.getCategoryByName(categoryString);
                 AdminController.removeProduct(category, id);
                 logger.info("Product removed successfully");
                 break;
-            } catch (ItemNotFoundException e) {
+            } catch (CategoryNotFoundException e) {
                 logger.warning(WARNING);
-                categoryString = CustomScanner.scanNonEmptyString(CATEGORY, new Scanner(System.in));
+                categoryString = SpecifiedScanner.scanNonEmptyString(CATEGORY, new Scanner(System.in));
+            } catch (ProductNotFoundException e) {
+                logger.warning("This product doesn't exist");
+                id = SpecifiedScanner.scanInt("ID", new Scanner(System.in));
             }
         }
     }
 
     public static void removeCategory() {
-        String categoryString = CustomScanner.scanNonEmptyString(CATEGORY, new Scanner(System.in));
+        String categoryString = SpecifiedScanner.scanNonEmptyString(CATEGORY, new Scanner(System.in));
         while (true) {
             try {
                 Category category = CarGear.getCategoryByName(categoryString);
@@ -161,7 +164,7 @@ public class AdminView {
                 break;
             } catch (ItemNotFoundException e) {
                 logger.warning(WARNING);
-                categoryString = CustomScanner.scanNonEmptyString(CATEGORY, new Scanner(System.in));
+                categoryString = SpecifiedScanner.scanNonEmptyString(CATEGORY, new Scanner(System.in));
             }
         }
     }
@@ -171,7 +174,7 @@ public class AdminView {
     }
 
     public static void searchForCategoryByName() {
-        String categoryString = CustomScanner.scanNonEmptyString(CATEGORY, new Scanner(System.in));
+        String categoryString = SpecifiedScanner.scanNonEmptyString(CATEGORY, new Scanner(System.in));
         while (true) {
             try {
                 Category category = AdminController.searchForCategoryByName(categoryString);
@@ -179,23 +182,22 @@ public class AdminView {
                 break;
             } catch (ItemNotFoundException e) {
                 logger.warning(WARNING);
-                categoryString = CustomScanner.scanNonEmptyString(CATEGORY, new Scanner(System.in));
+                categoryString = SpecifiedScanner.scanNonEmptyString(CATEGORY, new Scanner(System.in));
             }
         }
     }
 
     public static void searchForProductById() {
-        String categoryString = CustomScanner.scanNonEmptyString(CATEGORY, new Scanner(System.in));
-        int id = CustomScanner.scanInt("id",new Scanner(System.in));
+        String categoryString = SpecifiedScanner.scanNonEmptyString(CATEGORY, new Scanner(System.in));
+        int id = SpecifiedScanner.scanInt("id",new Scanner(System.in));
         while (true) {
             try {
                 Category category = CarGear.getCategoryByName(categoryString);
                 Product product = AdminController.searchForProductById(category,id);
                 Printer.printProduct(category,product);
                 break;
-            } catch (ItemNotFoundException e) {
-                logger.warning(WARNING);
-                categoryString = CustomScanner.scanNonEmptyString(CATEGORY, new Scanner(System.in));
+            } catch (ProductNotFoundException e) {
+                throw new RuntimeException(e);
             }
         }
     }

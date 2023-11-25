@@ -10,6 +10,7 @@ import java.util.List;
 public class CarGear {
     private static final List<User> users = new ArrayList<>();
     private static final List<Category> categories = new ArrayList<>();
+    private static final List<Appointment> appointments = new ArrayList<>();
     private static User currentUser = null;
 
     private CarGear() {
@@ -30,6 +31,7 @@ public class CarGear {
     public static List<Category> getCategories(){
         return categories;
     }
+    public static List<Appointment> getAppointments() { return appointments; }
 
     public static List<Product> getProducts(Category category){
         return category.getProducts();
@@ -53,6 +55,25 @@ public class CarGear {
         }
         return false;
     }
+
+    public static List<Appointment> getAppointmentByEmail(String email) throws InvalidEmailFormatException {
+        if (!EmailFormatChecker.hasCorrectEmailFormat(email)) {
+            throw new InvalidEmailFormatException();
+        }
+        List<Appointment> tmpList = new ArrayList<>();
+
+        for (Appointment a:
+             appointments) {
+            if(a.getInstallerEmail().equals(email))
+                tmpList.add(a);
+        }
+
+
+            return tmpList;
+        }
+
+
+
 
     public static User getUserByEmail(String email) throws UserNotFoundException, InvalidEmailFormatException {
         if (!EmailFormatChecker.hasCorrectEmailFormat(email)) {
@@ -88,7 +109,7 @@ public class CarGear {
         return null;
     }
 
-    public static Product getProductById(Category category,int id) throws ItemNotFoundException {
+    public static Product getProductById(Category category,int id) throws ProductNotFoundException {
         int productIndex = -1;
         for (int i = 0; i < category.getProducts().size(); i++) {
             if (category.getProducts().get(i).getId() == id) {
@@ -97,7 +118,7 @@ public class CarGear {
             }
         }
         if (productIndex == -1){
-            throw new ItemNotFoundException();}
+            throw new ProductNotFoundException();}
         else {
             return category.getProducts().get(productIndex);
         }
@@ -131,13 +152,16 @@ public class CarGear {
         CarGear.getCategories().clear();
     }
 
+    public static void addAppointment(Appointment appointment){ appointments.add(appointment);}
+
+    public static void removeAppointment(Appointment appointment){ appointments.remove(appointment);}
 
     public static void promoteUser(User user) {
         user.setUserType(UserType.ADMIN);
     }
 
 
-    public static void initData() throws UserAlreadyExistsException, InvalidPhoneNumberException, InvalidEmailFormatException, WeakPasswordException, ItemAlreadyExistsExceprion, ItemNotFoundException { //this method use to initialize all the data in the main
+    public static void initData() throws UserAlreadyExistsException, InvalidPhoneNumberException, InvalidEmailFormatException, WeakPasswordException { //this method use to initialize all the data in the main
         clearData();
 
         //the first admin data
@@ -209,6 +233,17 @@ public class CarGear {
         Product secExterior = new Product(3,new ProductInfo("Car Cover","description4",25,null,5),true);
         Product firstElectronic = new Product(4,new ProductInfo("Stereo System","description5",180,null,10),true);
         Product secElectronic = new Product(5,new ProductInfo("Camera","description6",70,null,14),true);
+
+        Appointment firstAppointment = new Appointment("15/12/2023", false,"asamr@gmail.com" );
+        Appointment secondAppointment = new Appointment("7/1/2024", false,"asamr@gmail.com" );
+        Appointment thirdAppointment = new Appointment("8/2/2024", false,"hala@gmail.com" );
+        Appointment fourthAppointment = new Appointment("15/2/2024", false,"hala@gmail.com" );
+
+
+    addAppointment(firstAppointment);
+    addAppointment(secondAppointment);
+    addAppointment(thirdAppointment);
+    addAppointment(fourthAppointment);
 
     addUser(firstAdmin);
     addUser(secAdmin);

@@ -5,7 +5,6 @@ import exceptions.*;
 import io.cucumber.java.en.*;
 import models.CarGear;
 import models.User;
-import views.AdminView;
 
 import java.util.List;
 
@@ -14,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TestListAllUsers {
     private List<User> users;
     @Given("Database is already filled")
-    public void databaseIsAlreadyFilled() throws ItemAlreadyExistsExceprion, InvalidPhoneNumberException, UserAlreadyExistsException, InvalidEmailFormatException, WeakPasswordException, ItemNotFoundException {
+    public void databaseIsAlreadyFilled() throws  InvalidPhoneNumberException, UserAlreadyExistsException, InvalidEmailFormatException, WeakPasswordException {
         CarGear.initData();
     }
     @When("the admin wants to list all users")

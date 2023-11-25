@@ -13,8 +13,8 @@ import models.Name;
 import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
-import static scanners.CustomScanner.stringToGender;
-import static scanners.CustomScanner.stringToUserType;
+import static scanners.SpecifiedScanner.stringToGender;
+import static scanners.SpecifiedScanner.stringToUserType;
 
 public class TestSignUp {
     private Name name;

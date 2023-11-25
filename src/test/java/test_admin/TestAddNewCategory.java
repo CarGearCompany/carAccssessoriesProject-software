@@ -1,10 +1,8 @@
 package test_admin;
 
 import controllers.AdminController;
-import exceptions.InvalidEmailFormatException;
-import exceptions.ItemAlreadyExistsExceprion;
+import exceptions.CategoryAlreadyExistsException;
 import io.cucumber.java.en.*;
-import models.CarGear;
 import models.Category;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -20,7 +18,7 @@ public class TestAddNewCategory
         category =new Category(name);
     }
     @Then("the category will be added successfully and nothing will be thrown")
-    public void theCategoryWillBeAddedSuccessfullyAndNothingWillBeThrown() throws ItemAlreadyExistsExceprion {
+    public void theCategoryWillBeAddedSuccessfullyAndNothingWillBeThrown() throws CategoryAlreadyExistsException {
 
         assertDoesNotThrow(()->{
             AdminController.addCategory(category);
@@ -28,8 +26,8 @@ public class TestAddNewCategory
     }
 
     @Then("the category cant be added successfully and ItemAlreadyExist exception will be thrown")
-    public void theCategoryCantBeAddedSuccessfullyAndItemAlreadyExistExceptionWillBeThrown() {
-        assertThrows(ItemAlreadyExistsExceprion.class, () -> AdminController.addCategory(category));
+    public void theCategoryCantBeAddedSuccessfullyAndCategoryAlreadyExistExceptionWillBeThrown() {
+        assertThrows(CategoryAlreadyExistsException.class, () -> AdminController.addCategory(category));
     }
 
 

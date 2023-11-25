@@ -18,12 +18,18 @@ public class AdminController {
         return CarGear.getUsers();
     }
 
-    public static void addProduct(Category c,Product p) throws ItemNotFoundException, ItemAlreadyExistsExceprion {
+    public static void addProduct(Category c,Product p) throws CategoryNotFoundException, ProductAlreadyExistException {
         if(!CarGear.getCategories().contains(c)){
-            throw new ItemNotFoundException();
+            throw new CategoryNotFoundException();
         }
-        if(c.getProducts().contains(p)){
-            throw new ItemAlreadyExistsExceprion();
+
+        for (Product product:
+                c.getProducts()) {
+            if(product.getId()==p.getId()){
+                throw new ProductAlreadyExistException();
+
+            }
+
         }
         c.addProducts(p);
     }
@@ -63,9 +69,9 @@ public class AdminController {
 
     }
 
-    public static void addCategory(Category category) throws ItemAlreadyExistsExceprion {
+    public static void addCategory(Category category) throws CategoryAlreadyExistsException {
         if (CarGear.getCategories().contains(CarGear.getCategoryByName(category.getCategoryName()))) {
-            throw new ItemAlreadyExistsExceprion();
+            throw new CategoryAlreadyExistsException();
         }else
             {
             CarGear.addCategory(category);
@@ -76,12 +82,16 @@ public class AdminController {
 
 
 
-    public static void removeProduct(Category c,int id) throws ItemNotFoundException {
+    public static void removeProduct(Category c,int id) throws CategoryNotFoundException, ProductNotFoundException {
+
+        if(!CarGear.getCategories().contains(c)){
+            throw new CategoryNotFoundException();
+        }
 
         if (!CarGear.getProducts(c).contains(CarGear.getProductById(c,id))){
-            throw new ItemNotFoundException();
+            throw new ProductNotFoundException();
         }
-        CarGear.removeProduct(c,CarGear.getProductById(c,id));
+        CarGear.removeProduct(c, CarGear.getProductById(c,id));
     }
 
     public static void removeCategory(Category category) throws ItemNotFoundException {
@@ -106,7 +116,7 @@ public class AdminController {
         return CarGear.getCategoryByName(category);
     }
 
-    public static Product searchForProductById(Category category, int id) throws ItemNotFoundException {
+    public static Product searchForProductById(Category category, int id) throws ProductNotFoundException {
         return CarGear.getProductById(category,id);
     }
 }

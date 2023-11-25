@@ -2,7 +2,7 @@ package printers;
 
 import enums.Gender;
 import enums.UserType;
-import models.CarGear;
+import models.Appointment;
 import models.Category;
 import models.Product;
 import models.User;
@@ -64,6 +64,31 @@ public class Printer {
                 logger.info(string);
             }
         }
+
+    }
+    public static String generateAppointment(Appointment a){
+        String msg = "";
+        if(a.getReserved()){
+            msg = " Installer Email: " + a.getInstallerEmail() + ", Date: " + a.getDate() + ", this date is already booked by Customer who has email:" +
+            a.getCustomerEmail();
+
+        }
+        else {
+            msg = " Installer Email: " + a.getInstallerEmail() + ", Date: " + a.getDate() + ", this date is available for booking." ;
+
+        }
+
+        return msg;
+
+
+
+
+
+    }
+    public static void printSchedule(Appointment a){
+        String msg = generateAppointment(a);
+        logger.info(msg);
+
 
     }
     public static void printUser(User u) {

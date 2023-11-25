@@ -1,7 +1,7 @@
 package views;
 
 import exceptions.WeakPasswordException;
-import scanners.CustomScanner;
+import scanners.SpecifiedScanner;
 import controllers.CustomerController;
 
 import java.util.Scanner;
@@ -13,7 +13,7 @@ public class CustomerView {
     }
 
     public static void editPassword() {
-        String newPassword = CustomScanner.scanNonEmptyString("newPassword", new Scanner(System.in));
+        String newPassword = SpecifiedScanner.scanNonEmptyString("newPassword", new Scanner(System.in));
       while (true) {
           try {
               CustomerController.editPassword(newPassword);
@@ -21,15 +21,15 @@ public class CustomerView {
               break;
           } catch (WeakPasswordException e) {
               logger.warning("Weak Password! Must contain at least 1 uppercase letter, 1 lowercase letter, 1 digit, 1 special character and must contain 8-16 characters.");
-              newPassword = CustomScanner.scanNonEmptyString("Password", new Scanner(System.in));
+              newPassword = SpecifiedScanner.scanNonEmptyString("Password", new Scanner(System.in));
           }
       }
 
     }
 
     public static void editLocation() {
-        String newCity = CustomScanner.scanNonEmptyString("City", new Scanner(System.in));
-        String newStreet = CustomScanner.scanNonEmptyString("Street", new Scanner(System.in));
+        String newCity = SpecifiedScanner.scanNonEmptyString("City", new Scanner(System.in));
+        String newStreet = SpecifiedScanner.scanNonEmptyString("Street", new Scanner(System.in));
 
         CustomerController.editLocation(newCity,newStreet);
         logger.info("Location changed successfully!");
