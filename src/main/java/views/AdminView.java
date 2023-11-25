@@ -188,17 +188,7 @@ public class AdminView {
     }
 
     public static void searchForProductById() {
-        String categoryString = SpecifiedScanner.scanNonEmptyString(CATEGORY, new Scanner(System.in));
-        int id = SpecifiedScanner.scanInt("id",new Scanner(System.in));
-        while (true) {
-            try {
-                Category category = CarGear.getCategoryByName(categoryString);
-                Product product = AdminController.searchForProductById(category,id);
-                Printer.printProduct(category,product);
-                break;
-            } catch (ProductNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-        }
+
     }
+
 }
