@@ -7,5 +7,5 @@ Feature: Add New Category
       Then the category will be added successfully and nothing will be thrown
 
   Scenario: The category cant be added successfully
-    When the admin enter the 'interior' of the category
+    When the admin enter the 'Interior' of the category
     Then the category cant be added successfully and ItemAlreadyExist exception will be thrown

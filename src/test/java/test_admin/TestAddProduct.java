@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestAddProduct {
-    Category category;
+    Category category = new Category(null);
     Product product;
     Product notValidProduct;
     @When("the admin enter the name {string} of the category")
@@ -33,6 +33,12 @@ public class TestAddProduct {
             AdminController.addProduct(category,product);
         });
     }
+
+    @When("the admin enters invalid name {string} of the category")
+    public void theAdminEntersInvalidNameOfTheCategory(String string) throws CategoryNotFoundException {
+        category.setCategoryName(string);
+    }
+
 
     @Then("the product will not be added and category not found exception will be thrown")
     public void theProductWillNotBeAddedAndCategoryNotFoundExceptionWillBeThrown() {

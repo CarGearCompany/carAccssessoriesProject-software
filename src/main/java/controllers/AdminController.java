@@ -70,14 +70,14 @@ public class AdminController {
 
     }
 
-    public static void addCategory(Category category) throws CategoryAlreadyExistsException, CategoryNotFoundException {
-        if (CarGear.getCategories().contains(CarGear.getCategoryByName(category.getCategoryName()))) {
-            throw new CategoryAlreadyExistsException();
-        }else
-            {
-            CarGear.addCategory(category);
-            }
-
+    public static void addCategory(Category category) throws CategoryAlreadyExistsException {
+        String categoryName = category.getCategoryName();
+        for (Category c:
+                CarGear.getCategories()) {
+            if (c.getCategoryName().equalsIgnoreCase(categoryName))
+                throw new CategoryAlreadyExistsException();
+        }
+        CarGear.addCategory(category);
         }
 
 
@@ -95,12 +95,10 @@ public class AdminController {
         CarGear.removeProduct(c, CarGear.getProductById(c,id));
     }
 
-    public static void removeCategory(Category category) throws ItemNotFoundException, CategoryNotFoundException {
-        if (CarGear.getCategoryByName(category.getCategoryName()) == null){
-            throw new ItemNotFoundException();
-        }
+    public static void removeCategory(Category category) throws CategoryNotFoundException {
+
         if (!CarGear.getCategories().contains(category)){
-            throw new ItemNotFoundException();
+            throw new CategoryNotFoundException();
         }
         CarGear.removeCategory(category);
     }

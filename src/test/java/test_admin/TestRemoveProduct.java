@@ -11,8 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestRemoveProduct {
-    private Category category;
-    private Category notValidCategory;
+    private Category category = new Category(null);
     private int productId;
     private int size;
     @When("the name of the  is Valid and the category to be removed is {string}")
@@ -35,11 +34,11 @@ public class TestRemoveProduct {
     }
     @When("the name of the  is invalid and the category to be removed is {string}")
     public void theNameOfTheIsInvalidAndTheCategoryToBeRemovedIs(String string) throws CategoryNotFoundException {
-        notValidCategory = CarGear.getCategoryByName(string);
+        category.setCategoryName(string);
     }
     @Then("nothing will be removed and an category not found exception will be thrown")
     public void nothingWillBeRemovedAndAnCategoryNotFoundExceptionWillBeThrown() {
-        assertThrows(CategoryNotFoundException.class, () -> AdminController.removeProduct(notValidCategory,productId));
+        assertThrows(CategoryNotFoundException.class, () -> AdminController.removeProduct(category,productId));
     }
 
 

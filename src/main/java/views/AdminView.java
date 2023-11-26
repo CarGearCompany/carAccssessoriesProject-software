@@ -130,8 +130,6 @@ public class AdminView {
             } catch (CategoryAlreadyExistsException e) {
                 logger.warning("This Category is already exists");
                 categoryString = CustomizedScanners.scanNonEmptyString(CATEGORY, new Scanner(System.in));
-            } catch (CategoryNotFoundException e) {
-                logger.warning("This Category is not found");
             }
         }
     }
@@ -164,7 +162,7 @@ public class AdminView {
                 AdminController.removeCategory(category);
                 logger.info("Category removed successfully");
                 break;
-            } catch (ItemNotFoundException | CategoryNotFoundException e) {
+            } catch (CategoryNotFoundException e) {
                 logger.warning(WARNING);
                 categoryString = CustomizedScanners.scanNonEmptyString(CATEGORY, new Scanner(System.in));
             }

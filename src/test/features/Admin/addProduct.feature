@@ -8,7 +8,7 @@ Feature: Add New Product
     Then the product will be added successfully and nothing will be thrown
 
   Scenario: The product won't be added due to non-existing category exception
-    When the admin enter the name 'cosmetics' of the category
+    When the admin enters invalid name 'cosmetics' of the category
     And the product id is valid and equals 2
     Then the product will not be added and category not found exception will be thrown
 

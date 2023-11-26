@@ -12,16 +12,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestRemoveCategory {
-    String name ;
-    Category c;
+    String name;
+    Category c = new Category(null);
     @When("the name of the category to be removed is {string}")
     public void theNameOfTheCategoryToBeRemovedIs(String string) {
-        this.name = string;
+        name = string;
+        c.setCategoryName(string);
     }
     @Then("this category will be removed and the size of categories will be {int}")
     public void thisCategoryWillBeRemovedAndTheSizeOfCategoriesWillBe(Integer int1) throws ItemNotFoundException, CategoryNotFoundException {
         c = CarGear.getCategoryByName(name);
-        assert c != null;
         AdminController.removeCategory(c);
         Integer size = CarGear.getCategories().size();
 
@@ -31,8 +31,8 @@ public class TestRemoveCategory {
 
     @Then("nothing will be removed and an item not found exception will be thrown")
     public void nothingWillBeRemovedAndAnItemNotFoundExceptionWillBeThrown() throws CategoryNotFoundException {
-        c = CarGear.getCategoryByName(name);
-        assertThrows(NullPointerException.class, () -> AdminController.removeCategory(c));
+
+        assertThrows(CategoryNotFoundException.class, () -> AdminController.removeCategory(c));
     }
 
 }

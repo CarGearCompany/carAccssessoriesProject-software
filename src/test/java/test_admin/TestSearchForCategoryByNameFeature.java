@@ -1,6 +1,7 @@
 package test_admin;
 
 import controllers.AdminController;
+import exceptions.CategoryNotFoundException;
 import exceptions.ItemNotFoundException;
 import exceptions.UserNotFoundException;
 import io.cucumber.java.en.Then;
@@ -25,7 +26,7 @@ public class TestSearchForCategoryByNameFeature
 
     @Then("nothing will returned and the item not found exception will be thrown")
     public void nothingWillReturnedAndTheItemNotFoundExceptionWillBeThrown() {
-        assertThrows(ItemNotFoundException.class,() -> {
+        assertThrows(CategoryNotFoundException.class,() -> {
             AdminController.searchForCategoryByName(categoryName);
         });
     }
