@@ -2,12 +2,10 @@ package printers;
 
 import enums.Gender;
 import enums.UserType;
-import models.Appointment;
-import models.Category;
-import models.Product;
-import models.User;
+import models.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Logger;
 
 public class Printer {
@@ -32,6 +30,12 @@ public class Printer {
                     + " and her phone-number: " + u.getContactInfo().getPhoneNumber() +"\n"+"And she is a " +u.getUserType();
         }
         return string;
+    }
+    public static String generateProductAvailability(Product product){
+        if(product.isAvailable())
+            return "Available";
+        else
+            return "Not available";
     }
     public static void genarateCategoryString(Category c) {
         String string = "";
@@ -66,9 +70,18 @@ public class Printer {
         }
 
     }
+    public static void appendHorizontalLine(StringBuilder stringBuilder, int count) {
+        stringBuilder.append("\n");
+        stringBuilder.append("-".repeat(count));
+    }
+
+
+
+
+
     public static String generateAppointment(Appointment a){
         String msg = "";
-        if(a.getReserved()){
+        if(Boolean.TRUE.equals(a.getReserved())){
             msg = " Installer Email: " + a.getInstallerEmail() + ", Date: " + a.getDate() + ", this date is already booked by Customer who has email:" +
             a.getCustomerEmail();
 
@@ -101,9 +114,20 @@ public class Printer {
 
     }
 
+    public static void printProducts(List<Product> products) {
+        if(products.isEmpty()){
+            logger.info("No products found that match your given information.");
+        }
+        else {
+            for (Product p : products) {
+                printProduct(Objects.requireNonNull(CarGear.getCategoryOfProduct(p)), p);
+
+            }
+        }
+    }
     public static void printProduct(Category c , Product p){
        String string = "Its From : "+c.getCategoryName()+", The product ID is:- " + p.getId() + ", The product Name is:- "+ p.getProductInfo().getProductName() + ",its " + p.getProductInfo().getDescription()
-                +"its price is:- "+p.getProductInfo().getPrice()+", and we have "+p.getProductInfo().getQuantity() + " items.";
+                +", its price is:- "+p.getProductInfo().getPrice()+", and we have "+p.getProductInfo().getQuantity() + " items of it.";
         logger.info(string);
         }
     }

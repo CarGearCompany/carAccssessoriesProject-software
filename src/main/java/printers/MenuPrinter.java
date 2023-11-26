@@ -49,7 +49,7 @@ public class MenuPrinter {
                 7-  Remove a category
                 8-  Edit a product
                 9-  Search for user by email
-                10- Search for product by ID
+                10- Search for a product
                 11- Search for category by name
                 12- Promote user to admin
                 13- Logout

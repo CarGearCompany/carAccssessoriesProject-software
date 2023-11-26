@@ -3,7 +3,7 @@ package launchers;
 import controllers.LoginController;
 import enums.UserType;
 import printers.MenuPrinter;
-import scanners.SpecifiedScanner;
+import scanners.CustomizedScanners;
 import views.*;
 
 import java.util.Scanner;
@@ -60,7 +60,7 @@ public class Menu {
         MenuPrinter.printWelcomeMsg();
         while (true) {
             MenuPrinter.printMainMenu();
-            int choice = SpecifiedScanner.scanInt("choice", new Scanner(System.in));
+            int choice = CustomizedScanners.scanInt("choice", new Scanner(System.in));
             mainMenuOptions(choice);
             if (choice == 4) {
                 MenuPrinter.printFinishMsg();
@@ -99,7 +99,7 @@ public class Menu {
                 AdminView.searchForUserByEmailView();
                 break;
             case 10:
-                AdminView.searchForProductById();
+                AdminView.searchForProduct();
                 break;
             case 11:
                 AdminView.searchForCategoryByName();
@@ -114,7 +114,7 @@ public class Menu {
     public static void adminHandler()  {
         while (true) {
             MenuPrinter.printAdminMenu();
-            int choice = SpecifiedScanner.scanInt("choice", new Scanner(System.in));
+            int choice = CustomizedScanners.scanInt("choice", new Scanner(System.in));
             adminOption(choice);
             if (choice == 13) {
                 MenuPrinter.printFinishMsg();
@@ -146,7 +146,7 @@ public class Menu {
     private static void customerHandler(){
         while (true) {
             MenuPrinter.printCustomerMenu();
-            int choice = SpecifiedScanner.scanInt("choice", new Scanner(System.in));
+            int choice = CustomizedScanners.scanInt("choice", new Scanner(System.in));
             customerOption(choice);
             if (choice == 6) {
                 MenuPrinter.printFinishMsg();

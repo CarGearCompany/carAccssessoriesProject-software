@@ -33,8 +33,33 @@ public class CarGear {
     }
     public static List<Appointment> getAppointments() { return appointments; }
 
-    public static List<Product> getProducts(Category category){
+    public static List<Product> getProductsOfCategory(Category category){
         return category.getProducts();
+    }
+
+    public static Category getCategoryOfProduct(Product product){
+
+        for (Category c:getCategories()) {
+            if(c.getProducts().contains(product))
+                return c;
+
+        }
+
+
+        return null;
+    }
+
+    public static List<Product> getAllProducts(){
+        List<Product> allProducts = new ArrayList<>();
+
+        for (Category c:getCategories()) {
+            allProducts.addAll(getProductsOfCategory(c));
+
+        }
+
+        return allProducts;
+
+
     }
 
     public static boolean isEmailRegistered(String email) {
@@ -227,12 +252,12 @@ public class CarGear {
         addCategory(exterior);
         addCategory(electronic);
 
-        Product firstInterior = new Product(0,new ProductInfo("Steering wheel cover","description1",15,null,20),true);
-        Product secInterior = new Product(1,new ProductInfo("Seat cover","description2",65,null,15),true);
-        Product firstExterior = new Product(2,new ProductInfo("Spoiler","description3",40,null,10),true);
-        Product secExterior = new Product(3,new ProductInfo("Car Cover","description4",25,null,5),true);
-        Product firstElectronic = new Product(4,new ProductInfo("Stereo System","description5",180,null,10),true);
-        Product secElectronic = new Product(5,new ProductInfo("Camera","description6",70,null,14),true);
+        Product firstInterior = new Product(0,new ProductInfo("Steering wheel cover","description1",15,20),true);
+        Product secInterior = new Product(1,new ProductInfo("Seat cover","description2",65,15),true);
+        Product firstExterior = new Product(2,new ProductInfo("Spoiler","description3",40,10),true);
+        Product secExterior = new Product(3,new ProductInfo("Car Cover","description4",25,0),false);
+        Product firstElectronic = new Product(4,new ProductInfo("Stereo System","description5",180,10),true);
+        Product secElectronic = new Product(5,new ProductInfo("Camera","description6",70,14),true);
 
         Appointment firstAppointment = new Appointment("15/12/2023", false,"asamr@gmail.com" );
         Appointment secondAppointment = new Appointment("7/1/2024", false,"asamr@gmail.com" );

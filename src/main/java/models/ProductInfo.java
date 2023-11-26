@@ -3,15 +3,13 @@ package models;
 public class ProductInfo {
     private String productName;
     private String description;
-    private int price;
-    private String img;
-    private int quantity;
+    private Integer price;
+    private Integer quantity;
 
-    public ProductInfo(String productName, String description, int price, String img, int quantity) {
+    public ProductInfo(String productName, String description, Integer price, Integer quantity) {
         setProductName(productName);
         setDescription(description);
         setPrice(price);
-        setImg(img);
         setQuantity(quantity);
     }
 
@@ -31,27 +29,20 @@ public class ProductInfo {
         this.description = description;
     }
 
-    public int getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 
-    public String getImg() {
-        return img;
-    }
 
-    public void setImg(String img) {
-        this.img = img;
-    }
-
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 }

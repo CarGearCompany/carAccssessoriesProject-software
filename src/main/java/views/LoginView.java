@@ -4,7 +4,7 @@ import controllers.LoginController;
 import exceptions.InvalidEmailFormatException;
 import exceptions.UserNotFoundException;
 import models.CarGear;
-import scanners.SpecifiedScanner;
+import scanners.CustomizedScanners;
 
 import java.util.Scanner;
 import java.util.logging.Logger;
@@ -16,8 +16,8 @@ public class LoginView {
     }
 
     public static void login() {
-        String email = SpecifiedScanner.scanNonEmptyString(EMAIL, new Scanner(System.in));
-        String password = SpecifiedScanner.scanNonEmptyString("Password", new Scanner(System.in));
+        String email = CustomizedScanners.scanNonEmptyString(EMAIL, new Scanner(System.in));
+        String password = CustomizedScanners.scanNonEmptyString("Password", new Scanner(System.in));
         while (true) {
             try {
                 if (LoginController.login(email, password)) {
@@ -26,14 +26,14 @@ public class LoginView {
                     break;
                 } else {
                     logger.warning("wrong Password , try again or choose Forget My Password");
-                    password = SpecifiedScanner.scanNonEmptyString("Password", new Scanner(System.in));
+                    password = CustomizedScanners.scanNonEmptyString("Password", new Scanner(System.in));
                 }
             } catch (UserNotFoundException e) {
                 logger.warning("User not found.");
-                email = SpecifiedScanner.scanNonEmptyString(EMAIL, new Scanner(System.in));
+                email = CustomizedScanners.scanNonEmptyString(EMAIL, new Scanner(System.in));
             } catch (InvalidEmailFormatException e) {
                 logger.warning("Not a real email, please enter a valid one.");
-                email = SpecifiedScanner.scanNonEmptyString(EMAIL, new Scanner(System.in));
+                email = CustomizedScanners.scanNonEmptyString(EMAIL, new Scanner(System.in));
             }
 
         }

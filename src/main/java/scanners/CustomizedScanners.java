@@ -5,11 +5,11 @@ import enums.UserType;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.logging.Logger;
-public class SpecifiedScanner {
+public class CustomizedScanners {
 
-    private static final Logger logger = Logger.getLogger(SpecifiedScanner.class.getName());
+    private static final Logger logger = Logger.getLogger(CustomizedScanners.class.getName());
 
-    private SpecifiedScanner() {
+    private CustomizedScanners() {
     }
 
     private static void printScanMsg(String credential) {

@@ -24,7 +24,7 @@ public class TestAddProduct {
     }
     @When("the product id is valid and equals {int}")
     public void theProductIdIsValidAndEquals(Integer int1) {
-        product = new Product(int1 , new ProductInfo("name", "des" , 10 , null,5),true);
+        product = new Product(int1 , new ProductInfo("name", "des" , 10 , 5),true);
     }
 
     @Then("the product will be added successfully and nothing will be thrown")
@@ -41,7 +41,7 @@ public class TestAddProduct {
 
     @When("the product id is already exists and equals {int}")
     public void theProductIdIsAlreadyExistsAndEquals(Integer int1) {
-        notValidProduct = new Product(int1 , new ProductInfo("name", "des" , 10 , null,5),true);
+        notValidProduct = new Product(int1 , new ProductInfo("name", "des" , 10 , 5),true);
     }
     @Then("the product will not be added and product already exist exception will be thrown")
     public void theProductWillNotBeAddedAndProductAlreadyExistExceptionWillBeThrown() {

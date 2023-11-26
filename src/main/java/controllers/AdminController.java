@@ -3,12 +3,13 @@ package controllers;
 import enums.UserType;
 import exceptions.*;
 import helpers.EmailFormatChecker;
-import models.CarGear;
-import models.Category;
-import models.Product;
-import models.User;
+import models.*;
 
+
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
+
 
 public class AdminController {
     private AdminController() {
@@ -88,7 +89,7 @@ public class AdminController {
             throw new CategoryNotFoundException();
         }
 
-        if (!CarGear.getProducts(c).contains(CarGear.getProductById(c,id))){
+        if (!CarGear.getProductsOfCategory(c).contains(CarGear.getProductById(c,id))){
             throw new ProductNotFoundException();
         }
         CarGear.removeProduct(c, CarGear.getProductById(c,id));
@@ -116,7 +117,72 @@ public class AdminController {
         return CarGear.getCategoryByName(category);
     }
 
-    public static Product searchForProductById(Category category, int id) throws ProductNotFoundException {
-        return CarGear.getProductById(category,id);
+    public static List<Product> searchForProducts(String searchType,String value) {
+
+        if (searchType.equalsIgnoreCase("ID")) {
+            return CarGear.getAllProducts().stream().filter(product -> product.getId() == Integer.parseInt(value)).toList();
+
+        }
+        else if (searchType.equalsIgnoreCase("Name")) {
+            return CarGear.getAllProducts().stream().filter(product -> product.getProductInfo().getProductName().equalsIgnoreCase(value)).toList();
+
+        }
+        else if (searchType.equalsIgnoreCase("Description")) {
+            return CarGear.getAllProducts().stream().filter(product -> product.getProductInfo().getDescription().equalsIgnoreCase(value)).toList();
+
+        }
+        else if (searchType.equalsIgnoreCase("Price")) {
+            return CarGear.getAllProducts().stream().filter(product -> product.getProductInfo().getPrice() == Integer.parseInt(value)).toList();
+
+        }
+        else if (searchType.equalsIgnoreCase("Quantity")) {
+            return CarGear.getAllProducts().stream().filter(product -> product.getProductInfo().getQuantity() == Integer.parseInt(value)).toList();
+
+        }
+        else if (searchType.equalsIgnoreCase("Availability")) {
+            return CarGear.getAllProducts().stream().filter(product -> product.isAvailable() == Boolean.parseBoolean(value)).toList();
+
+        }
+        return Collections.emptyList();
     }
+
+
+    public static void editProduct(String categoryName,int id,String editType,String newValue) throws ProductNotFoundException,CannotEditIdException {
+        Product product = CarGear.getProductById(Objects.requireNonNull(CarGear.getCategoryByName(categoryName)),id);
+
+        if (editType.equalsIgnoreCase("ID")) {
+            throw new CannotEditIdException();
+
+        }
+        else if (editType.equalsIgnoreCase("Name")) {
+            product.getProductInfo().setProductName(newValue);
+
+        }
+        else if (editType.equalsIgnoreCase("Description")) {
+            product.getProductInfo().setDescription(newValue);
+
+        }
+        else if (editType.equalsIgnoreCase("Price")) {
+            product.getProductInfo().setPrice(Integer.parseInt(newValue));
+
+        }
+        else if (editType.equalsIgnoreCase("Quantity")) {
+            product.getProductInfo().setQuantity(Integer.parseInt(newValue));
+
+
+        }
+        else if (editType.equalsIgnoreCase("Availability")) {
+            product.setAvailable(Boolean.parseBoolean(newValue));
+
+
+        }
+
+
+    }
+
+
+
+
+
+
 }
