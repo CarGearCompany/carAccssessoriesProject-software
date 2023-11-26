@@ -28,3 +28,11 @@ Feature: Edit Products
       And edit field is 'ID'
       And new value is '2'
       Then he will fail to edit and cannot edit id exception will be thrown
+
+
+  Scenario: Product is not found
+    When category is 'interior'
+    And id is 5
+    And edit field is 'price'
+    And new value is '100'
+    Then it will fail due to product not found exception

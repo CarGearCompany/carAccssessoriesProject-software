@@ -4,6 +4,7 @@ import controllers.AdminController;
 import controllers.CustomerController;
 import controllers.LoginController;
 import exceptions.CannotEditIdException;
+import exceptions.ProductNotFoundException;
 import exceptions.UserNotFoundException;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -42,6 +43,11 @@ public class TestEditProduct {
         assertDoesNotThrow(()->{
             AdminController.editProduct(category,id,editField,newValue);
         });
+    }
+
+    @Then("it will fail due to product not found exception")
+    public void itWillFailDueToProductNotFoundException() {
+        assertThrows(ProductNotFoundException.class,()-> AdminController.editProduct(category,id,editField,newValue));
     }
 
 }
