@@ -61,12 +61,15 @@ public class MenuPrinter {
     public static void printCustomerMenu(){
         String string = """
           
-                1- List all products
-                2- Purchase product\s
-                3- View my orders
-                4- Edit my password
-                5- Edit my location info (city , street)
-                6- Logout
+                1- List all products.
+                2- Purchase product.
+                3- View my purchase orders history.
+                4- Display installer's schedules.
+                5- Request installation service.
+                6- View my installation requests.
+                7- Edit my password.
+                8- Edit my location info (city , street).
+                9- Logout.
                 
                 """;
         logger.info(string);

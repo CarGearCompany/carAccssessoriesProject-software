@@ -70,7 +70,7 @@ public class AdminController {
 
     }
 
-    public static void addCategory(Category category) throws CategoryAlreadyExistsException {
+    public static void addCategory(Category category) throws CategoryAlreadyExistsException, CategoryNotFoundException {
         if (CarGear.getCategories().contains(CarGear.getCategoryByName(category.getCategoryName()))) {
             throw new CategoryAlreadyExistsException();
         }else
@@ -95,7 +95,7 @@ public class AdminController {
         CarGear.removeProduct(c, CarGear.getProductById(c,id));
     }
 
-    public static void removeCategory(Category category) throws ItemNotFoundException {
+    public static void removeCategory(Category category) throws ItemNotFoundException, CategoryNotFoundException {
         if (CarGear.getCategoryByName(category.getCategoryName()) == null){
             throw new ItemNotFoundException();
         }
@@ -110,7 +110,7 @@ public class AdminController {
         return CarGear.getCategories();
     }
 
-    public static Category searchForCategoryByName(String category) throws ItemNotFoundException {
+    public static Category searchForCategoryByName(String category) throws ItemNotFoundException, CategoryNotFoundException {
         if (!CarGear.getCategories().contains(CarGear.getCategoryByName(category))){
             throw new ItemNotFoundException();
         }
@@ -147,7 +147,7 @@ public class AdminController {
     }
 
 
-    public static void editProduct(String categoryName,int id,String editType,String newValue) throws ProductNotFoundException,CannotEditIdException {
+    public static void editProduct(String categoryName,int id,String editType,String newValue) throws ProductNotFoundException, CannotEditIdException, CategoryNotFoundException {
         Product product = CarGear.getProductById(Objects.requireNonNull(CarGear.getCategoryByName(categoryName)),id);
 
         if (editType.equalsIgnoreCase("ID")) {

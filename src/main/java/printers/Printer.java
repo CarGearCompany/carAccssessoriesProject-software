@@ -104,6 +104,19 @@ public class Printer {
 
 
     }
+
+    public static void printSchedules(List<Schedule> schedules){
+        if(schedules.isEmpty()){
+            logger.info("Schedule is empty.");
+        }
+        else {
+            for (Schedule s:schedules){
+                printSchedule(s);
+            }
+        }
+    }
+
+
     public static void printUser(User u) {
         String string = genarateUserString(u);
         logger.info(string);

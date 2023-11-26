@@ -13,12 +13,8 @@ public class InstallerController {
 
 
     public static void showSchedule(String email) throws InvalidEmailFormatException {
-        List<Schedule> apps = CarGear.getAppointmentByEmail(email);
-        for (Schedule a:
-             apps) {
-            Printer.printSchedule(a);
-
-        }
+        List<Schedule> schedule = CarGear.getScheduleByEmail(email);
+        Printer.printSchedules(schedule);
 
     }
 }

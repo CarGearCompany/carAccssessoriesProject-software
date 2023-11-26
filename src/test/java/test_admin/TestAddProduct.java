@@ -19,7 +19,7 @@ public class TestAddProduct {
     Product product;
     Product notValidProduct;
     @When("the admin enter the name {string} of the category")
-    public void theAdminEnterTheNameOfTheCategory(String string) {
+    public void theAdminEnterTheNameOfTheCategory(String string) throws CategoryNotFoundException {
        category = CarGear.getCategoryByName(string);
     }
     @When("the product id is valid and equals {int}")

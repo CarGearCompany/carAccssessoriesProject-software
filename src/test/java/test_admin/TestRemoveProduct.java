@@ -16,7 +16,7 @@ public class TestRemoveProduct {
     private int productId;
     private int size;
     @When("the name of the  is Valid and the category to be removed is {string}")
-    public void theNameOfTheIsValidAndTheCategoryToBeRemovedIs(String string) {
+    public void theNameOfTheIsValidAndTheCategoryToBeRemovedIs(String string) throws CategoryNotFoundException {
         category = CarGear.getCategoryByName(string);
     }
     @When("the product id is exist and equals {int}")
@@ -34,7 +34,7 @@ public class TestRemoveProduct {
         assertEquals(int1,size);
     }
     @When("the name of the  is invalid and the category to be removed is {string}")
-    public void theNameOfTheIsInvalidAndTheCategoryToBeRemovedIs(String string) {
+    public void theNameOfTheIsInvalidAndTheCategoryToBeRemovedIs(String string) throws CategoryNotFoundException {
         notValidCategory = CarGear.getCategoryByName(string);
     }
     @Then("nothing will be removed and an category not found exception will be thrown")

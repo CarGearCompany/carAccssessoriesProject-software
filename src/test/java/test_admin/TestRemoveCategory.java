@@ -1,6 +1,7 @@
 package test_admin;
 
 import controllers.AdminController;
+import exceptions.CategoryNotFoundException;
 import exceptions.ItemNotFoundException;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -18,7 +19,7 @@ public class TestRemoveCategory {
         this.name = string;
     }
     @Then("this category will be removed and the size of categories will be {int}")
-    public void thisCategoryWillBeRemovedAndTheSizeOfCategoriesWillBe(Integer int1) throws ItemNotFoundException {
+    public void thisCategoryWillBeRemovedAndTheSizeOfCategoriesWillBe(Integer int1) throws ItemNotFoundException, CategoryNotFoundException {
         c = CarGear.getCategoryByName(name);
         assert c != null;
         AdminController.removeCategory(c);
@@ -29,7 +30,7 @@ public class TestRemoveCategory {
 
 
     @Then("nothing will be removed and an item not found exception will be thrown")
-    public void nothingWillBeRemovedAndAnItemNotFoundExceptionWillBeThrown() {
+    public void nothingWillBeRemovedAndAnItemNotFoundExceptionWillBeThrown() throws CategoryNotFoundException {
         c = CarGear.getCategoryByName(name);
         assertThrows(NullPointerException.class, () -> AdminController.removeCategory(c));
     }

@@ -10,7 +10,8 @@ import java.util.List;
 public class CarGear {
     private static final List<User> users = new ArrayList<>();
     private static final List<Category> categories = new ArrayList<>();
-    private static final List<Schedule> SCHEDULES = new ArrayList<>();
+    private static final List<Schedule> schedules= new ArrayList<>(); //this is the schedule for all installers.
+
     private static User currentUser = null;
 
     private CarGear() {
@@ -31,12 +32,17 @@ public class CarGear {
     public static List<Category> getCategories(){
         return categories;
     }
-    public static List<Schedule> getAppointments() { return SCHEDULES; }
+    public static List<Schedule> getSchedules() { return schedules; }
 
     public static List<Product> getProductsOfCategory(Category category){
         return category.getProducts();
     }
-
+    /*public static List<Request> getCustomerRequests(Customer customer){
+        return customer.getRequests();
+    }
+    public static List<Product> getCustomerProducts(Customer customer){
+        return customer.getPurchasedProducts();
+    } */
     public static Category getCategoryOfProduct(Product product){
 
         for (Category c:getCategories()) {
@@ -81,20 +87,12 @@ public class CarGear {
         return false;
     }
 
-    public static List<Schedule> getAppointmentByEmail(String email) throws InvalidEmailFormatException {
+    public static List<Schedule> getScheduleByEmail(String email) throws InvalidEmailFormatException {
         if (!EmailFormatChecker.hasCorrectEmailFormat(email)) {
             throw new InvalidEmailFormatException();
         }
-        List<Schedule> tmpList = new ArrayList<>();
 
-        for (Schedule a:
-                SCHEDULES) {
-            if(a.getInstallerEmail().equals(email))
-                tmpList.add(a);
-        }
-
-
-            return tmpList;
+            return  CarGear.getSchedules().stream().filter(s -> s.getInstallerEmail().equalsIgnoreCase(email)).toList();
         }
 
 
@@ -120,7 +118,7 @@ public class CarGear {
         }
     }
 
-    public static Category getCategoryByName(String string) {
+    public static Category getCategoryByName(String string) throws CategoryNotFoundException {
         int categoryIndex = -1;
         for (int i = 0; i < categories.size(); i++) {
             if (categories.get(i).getCategoryName().equals(string)) {
@@ -129,9 +127,10 @@ public class CarGear {
             }
         }
         if (categoryIndex != -1){
+
             return categories.get(categoryIndex);
         }
-        return null;
+        throw new CategoryNotFoundException();
     }
 
     public static Product getProductById(Category category,int id) throws ProductNotFoundException {
@@ -177,9 +176,9 @@ public class CarGear {
         CarGear.getCategories().clear();
     }
 
-    public static void addAppointment(Schedule schedule){ SCHEDULES.add(schedule);}
+    public static void addAppointment(Schedule schedule){ schedules.add(schedule);}
 
-    public static void removeAppointment(Schedule schedule){ SCHEDULES.remove(schedule);}
+    public static void removeAppointment(Schedule schedule){ schedules.remove(schedule);}
 
     public static void promoteUser(User user) {
         user.setUserType(UserType.ADMIN);
@@ -190,7 +189,7 @@ public class CarGear {
         clearData();
 
         //the first admin data
-        User firstAdmin = new User(
+        Admin firstAdmin = new Admin(
                 new Name("Nabeel", "Jamous"),
                 20,
                 Gender.MALE,
@@ -200,7 +199,7 @@ public class CarGear {
                 UserType.ADMIN);
 
         //the second admin data
-        User secAdmin = new User(
+        Admin secAdmin = new Admin(
                 new Name("Mahmoud", "AbuHanoud"),
                 21,
                 Gender.MALE,
@@ -209,7 +208,7 @@ public class CarGear {
                         new Location("Nablus", "Balata")),
                 UserType.ADMIN);
 
-        User firstCustomer = new User(
+        Customer firstCustomer = new Customer(
                 new Name("Saleh", "Sawalha"),
                 21,
                 Gender.MALE,
@@ -218,7 +217,7 @@ public class CarGear {
                         new Location("Ramallah", "Ersal")),
                 UserType.CUSTOMER);
 
-        User secCustomer = new User(
+        Customer secCustomer = new Customer(
                 new Name("Jana", "Hosam"),
                 25,
                 Gender.FEMALE,
@@ -227,7 +226,7 @@ public class CarGear {
                         new Location("Jenin", "Jenin")),
                 UserType.CUSTOMER);
 
-        User firstInstaller = new User(
+        Installer firstInstaller = new Installer(
                 new Name("Mahmoud", "Jawabreh"),
                 30,
                 Gender.MALE,
@@ -236,7 +235,7 @@ public class CarGear {
                         new Location("Gaza", "Gaza")),
                 UserType.INSTALLER);
 
-        User secInstaller = new User(
+        Installer secInstaller = new Installer(
                 new Name("Hala", "Qasem"),
                 27,
                 Gender.FEMALE,

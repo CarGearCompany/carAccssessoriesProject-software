@@ -1,15 +1,17 @@
 package controllers;
 
+import exceptions.ProductNotFoundException;
 import exceptions.WeakPasswordException;
 import helpers.PasswordChecker;
-import models.CarGear;
-import models.Location;
-import models.User;
+import models.*;
 
 public class CustomerController {
     private CustomerController() {
     }
 
+    public static void purchaseProduct(Category c, int id,Customer customer) throws ProductNotFoundException {
+       customer.addProduct(CarGear.getProductById(c,id));
+    }
     public static void editPassword(String newPassword) throws WeakPasswordException {
         if(!PasswordChecker.isStrongPassword(newPassword))
             throw new WeakPasswordException();

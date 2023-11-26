@@ -1,15 +1,32 @@
 package views;
 
+import controllers.AdminController;
+import exceptions.CategoryNotFoundException;
+import exceptions.ProductNotFoundException;
 import exceptions.WeakPasswordException;
+import models.CarGear;
+import models.Category;
+import models.Customer;
+import models.User;
+import printers.Printer;
 import scanners.CustomizedScanners;
 import controllers.CustomerController;
 
+import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
 public class CustomerView {
     private static final Logger logger = Logger.getLogger(CustomerView.class.getName());
     private CustomerView() {
+    }
+
+    public static void listAllProducts(){
+        List<Category> categories = AdminController.getAllCategories();
+        for (Category c: categories) {
+            Printer.printCategoryAllProducts(c);
+        }
+
     }
 
     public static void editPassword() {
@@ -33,6 +50,34 @@ public class CustomerView {
 
         CustomerController.editLocation(newCity,newStreet);
         logger.info("Location changed successfully!");
+
+
+    }
+
+    public static void purchaseProduct(){
+        String category = CustomizedScanners.scanNonEmptyString("category", new Scanner(System.in));
+        int id = CustomizedScanners.scanInt("ID of the product ", new Scanner(System.in));
+        User customer = CarGear.getCurrentUser();
+        Category c;
+
+        while (true){
+            try {
+                c = CarGear.getCategoryByName(category);
+                CustomerController.purchaseProduct(c,id, (Customer) customer);
+            } catch (ProductNotFoundException e) {
+                logger.warning("Product is not found. Try again");
+                id = CustomizedScanners.scanInt("ID of the product ", new Scanner(System.in));
+            } catch (CategoryNotFoundException e) {
+                logger.warning("Category not found");
+            }
+        }
+
+
+
+
+
+
+
 
 
     }

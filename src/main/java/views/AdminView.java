@@ -130,6 +130,8 @@ public class AdminView {
             } catch (CategoryAlreadyExistsException e) {
                 logger.warning("This Category is already exists");
                 categoryString = CustomizedScanners.scanNonEmptyString(CATEGORY, new Scanner(System.in));
+            } catch (CategoryNotFoundException e) {
+                logger.warning("This Category is not found");
             }
         }
     }
@@ -162,7 +164,7 @@ public class AdminView {
                 AdminController.removeCategory(category);
                 logger.info("Category removed successfully");
                 break;
-            } catch (ItemNotFoundException e) {
+            } catch (ItemNotFoundException | CategoryNotFoundException e) {
                 logger.warning(WARNING);
                 categoryString = CustomizedScanners.scanNonEmptyString(CATEGORY, new Scanner(System.in));
             }
@@ -181,6 +183,8 @@ public class AdminView {
             } catch (ItemNotFoundException e) {
                 logger.warning(WARNING);
                 categoryString = CustomizedScanners.scanNonEmptyString(CATEGORY, new Scanner(System.in));
+            } catch (CategoryNotFoundException e) {
+                logger.warning("Category is not found");
             }
         }
     }
@@ -213,6 +217,8 @@ public class AdminView {
             } catch (CannotEditIdException e) {
                logger.warning("ID's cannot be edited.");
                break;
+            } catch (CategoryNotFoundException e) {
+                logger.warning("Category not found");
             }
         }
     }

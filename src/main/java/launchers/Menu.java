@@ -126,7 +126,7 @@ public class Menu {
     private static void customerOption(int choice){
         switch (choice) {
             case 1:
-
+                CustomerView.listAllProducts();
                 break;
             case 2:
                 break;
@@ -134,11 +134,18 @@ public class Menu {
 
                 break;
             case 4:
-                CustomerView.editPassword();
+
                 break;
             case 5:
+
+                break;
+            case 6:
+                CustomerView.editPassword();
+                break;
+            case 7:
                 CustomerView.editLocation();
                 break;
+
             default:
         }
 
@@ -148,7 +155,7 @@ public class Menu {
             MenuPrinter.printCustomerMenu();
             int choice = CustomizedScanners.scanInt("choice", new Scanner(System.in));
             customerOption(choice);
-            if (choice == 6) {
+            if (choice == 8) {
                 MenuPrinter.printFinishMsg();
                 LogoutView.logout();
                 break;
