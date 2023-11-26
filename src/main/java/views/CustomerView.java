@@ -57,18 +57,24 @@ public class CustomerView {
     public static void purchaseProduct(){
         String category = CustomizedScanners.scanNonEmptyString("category", new Scanner(System.in));
         int id = CustomizedScanners.scanInt("ID of the product ", new Scanner(System.in));
+        String confirm = CustomizedScanners.scanNonEmptyString2("Confirm purchase (Y/N) ", new Scanner(System.in));
         User customer = CarGear.getCurrentUser();
         Category c;
-
-        while (true){
-            try {
-                c = CarGear.getCategoryByName(category);
-                CustomerController.purchaseProduct(c,id, (Customer) customer);
-            } catch (ProductNotFoundException e) {
-                logger.warning("Product is not found. Try again");
-                id = CustomizedScanners.scanInt("ID of the product ", new Scanner(System.in));
-            } catch (CategoryNotFoundException e) {
-                logger.warning("Category not found");
+        assert confirm != null;
+        if(confirm.equalsIgnoreCase("y")) {
+            while (true) {
+                try {
+                    c = CarGear.getCategoryByName(category);
+                    CustomerController.purchaseProduct(c, id, (Customer) customer);
+                    logger.info("Product is purchased successfully");
+                    break;
+                } catch (ProductNotFoundException e) {
+                    logger.warning("Product is not found. Try again");
+                    id = CustomizedScanners.scanInt("ID of the product ", new Scanner(System.in));
+                } catch (CategoryNotFoundException e) {
+                    logger.warning("Category not found");
+                    category = CustomizedScanners.scanNonEmptyString("category", new Scanner(System.in));
+                }
             }
         }
 
@@ -79,6 +85,9 @@ public class CustomerView {
 
 
 
+    }
 
+    public static void DisplayOrderHistory() {
+        //FUCK YOU, TOMORROW
     }
 }

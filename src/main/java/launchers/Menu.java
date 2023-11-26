@@ -129,8 +129,10 @@ public class Menu {
                 CustomerView.listAllProducts();
                 break;
             case 2:
+                CustomerView.purchaseProduct();
                 break;
             case 3:
+                CustomerView.DisplayOrderHistory();
 
                 break;
             case 4:

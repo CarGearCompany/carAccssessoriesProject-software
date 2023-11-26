@@ -22,6 +22,21 @@ public class CustomizedScanners {
         logger.warning(msg);
     }
 
+    private static void printScanMsg2(String credential) {
+        String msg = credential + " :";
+        logger.info(msg);
+    }
+
+    public static String scanNonEmptyString2(String type, Scanner scanner) {
+        printScanMsg2(type);
+        String scanString;
+        scanString = scanner.nextLine();
+        if (!scanString.isEmpty())
+            return scanString;
+        printWarnMsg(type);
+        return null; // invalid value
+    }
+
     public static int scanInt(String credential, Scanner scanner) {
         printScanMsg(credential);
         try {
