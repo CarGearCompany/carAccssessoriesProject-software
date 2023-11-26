@@ -79,7 +79,7 @@ public class Printer {
 
 
 
-    public static String generateAppointment(Appointment a){
+    public static String generateAppointment(Schedule a){
         String msg = "";
         if(Boolean.TRUE.equals(a.getReserved())){
             msg = " Installer Email: " + a.getInstallerEmail() + ", Date: " + a.getDate() + ", this date is already booked by Customer who has email:" +
@@ -98,7 +98,7 @@ public class Printer {
 
 
     }
-    public static void printSchedule(Appointment a){
+    public static void printSchedule(Schedule a){
         String msg = generateAppointment(a);
         logger.info(msg);
 

@@ -203,17 +203,16 @@ public class AdminView {
 
         while(true){
             try{
-
                 assert editType != null;
                 AdminController.editProduct(categoryString,id,editType,newValue);
                 logger.info("Product edited successfully.");
                 break;
-
-
             } catch(ProductNotFoundException e){
                 logger.warning("Product doesn't exist.");
+                id = CustomizedScanners.scanInt("id of the product ", new Scanner(System.in));
             } catch (CannotEditIdException e) {
                logger.warning("ID's cannot be edited.");
+               break;
             }
         }
     }

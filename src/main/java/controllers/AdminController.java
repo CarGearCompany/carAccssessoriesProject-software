@@ -152,28 +152,21 @@ public class AdminController {
 
         if (editType.equalsIgnoreCase("ID")) {
             throw new CannotEditIdException();
-
         }
         else if (editType.equalsIgnoreCase("Name")) {
             product.getProductInfo().setProductName(newValue);
-
         }
         else if (editType.equalsIgnoreCase("Description")) {
             product.getProductInfo().setDescription(newValue);
-
         }
         else if (editType.equalsIgnoreCase("Price")) {
             product.getProductInfo().setPrice(Integer.parseInt(newValue));
-
         }
         else if (editType.equalsIgnoreCase("Quantity")) {
             product.getProductInfo().setQuantity(Integer.parseInt(newValue));
-
-
         }
         else if (editType.equalsIgnoreCase("Availability")) {
             product.setAvailable(Boolean.parseBoolean(newValue));
-
 
         }
 

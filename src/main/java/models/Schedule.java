@@ -2,17 +2,18 @@ package models;
 
 
 
-public class Appointment {
+public class Schedule {
 
     private String date;
     private Boolean reserved;
     private String installerEmail;
     private String customerEmail;
 
-    public Appointment(String date, Boolean reserved,String installerEmail){
+    public Schedule(String date, Boolean reserved, String installerEmail){
         setDate(date);
         setReserved(reserved);
         setInstallerEmail(installerEmail);
+        setCustomerEmail(null);
     }
 
     private void setInstallerEmail(String installerEmail) {
@@ -40,4 +41,6 @@ public class Appointment {
     public void setCustomerEmail(String customerEmail) {
         this.customerEmail = customerEmail;
     }
+
+//    public void addDate(String date , )
 }

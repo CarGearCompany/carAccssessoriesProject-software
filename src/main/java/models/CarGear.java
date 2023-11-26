@@ -10,7 +10,7 @@ import java.util.List;
 public class CarGear {
     private static final List<User> users = new ArrayList<>();
     private static final List<Category> categories = new ArrayList<>();
-    private static final List<Appointment> appointments = new ArrayList<>();
+    private static final List<Schedule> SCHEDULES = new ArrayList<>();
     private static User currentUser = null;
 
     private CarGear() {
@@ -31,7 +31,7 @@ public class CarGear {
     public static List<Category> getCategories(){
         return categories;
     }
-    public static List<Appointment> getAppointments() { return appointments; }
+    public static List<Schedule> getAppointments() { return SCHEDULES; }
 
     public static List<Product> getProductsOfCategory(Category category){
         return category.getProducts();
@@ -81,14 +81,14 @@ public class CarGear {
         return false;
     }
 
-    public static List<Appointment> getAppointmentByEmail(String email) throws InvalidEmailFormatException {
+    public static List<Schedule> getAppointmentByEmail(String email) throws InvalidEmailFormatException {
         if (!EmailFormatChecker.hasCorrectEmailFormat(email)) {
             throw new InvalidEmailFormatException();
         }
-        List<Appointment> tmpList = new ArrayList<>();
+        List<Schedule> tmpList = new ArrayList<>();
 
-        for (Appointment a:
-             appointments) {
+        for (Schedule a:
+                SCHEDULES) {
             if(a.getInstallerEmail().equals(email))
                 tmpList.add(a);
         }
@@ -177,9 +177,9 @@ public class CarGear {
         CarGear.getCategories().clear();
     }
 
-    public static void addAppointment(Appointment appointment){ appointments.add(appointment);}
+    public static void addAppointment(Schedule schedule){ SCHEDULES.add(schedule);}
 
-    public static void removeAppointment(Appointment appointment){ appointments.remove(appointment);}
+    public static void removeAppointment(Schedule schedule){ SCHEDULES.remove(schedule);}
 
     public static void promoteUser(User user) {
         user.setUserType(UserType.ADMIN);
@@ -259,16 +259,16 @@ public class CarGear {
         Product firstElectronic = new Product(4,new ProductInfo("Stereo System","description5",180,10),true);
         Product secElectronic = new Product(5,new ProductInfo("Camera","description6",70,14),true);
 
-        Appointment firstAppointment = new Appointment("15/12/2023", false,"asamr@gmail.com" );
-        Appointment secondAppointment = new Appointment("7/1/2024", false,"asamr@gmail.com" );
-        Appointment thirdAppointment = new Appointment("8/2/2024", false,"hala@gmail.com" );
-        Appointment fourthAppointment = new Appointment("15/2/2024", false,"hala@gmail.com" );
+        Schedule firstSchedule = new Schedule("15/12/2023", false,"asamr@gmail.com" );
+        Schedule secondSchedule = new Schedule("7/1/2024", false,"asamr@gmail.com" );
+        Schedule thirdSchedule = new Schedule("8/2/2024", false,"hala@gmail.com" );
+        Schedule fourthSchedule = new Schedule("15/2/2024", false,"hala@gmail.com" );
 
 
-    addAppointment(firstAppointment);
-    addAppointment(secondAppointment);
-    addAppointment(thirdAppointment);
-    addAppointment(fourthAppointment);
+    addAppointment(firstSchedule);
+    addAppointment(secondSchedule);
+    addAppointment(thirdSchedule);
+    addAppointment(fourthSchedule);
 
     addUser(firstAdmin);
     addUser(secAdmin);
