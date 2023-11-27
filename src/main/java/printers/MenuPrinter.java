@@ -74,4 +74,20 @@ public class MenuPrinter {
                 """;
         logger.info(string);
     }
+
+    public static void printInstallerMenu(){
+        String string = """
+          
+                1- View my installation requests.
+                2- View my Schedule
+                3- Add new Date to my Schedule
+                4- Edit my password
+                5- Edit my location info (city , street).
+                6- Logout.
+                
+                """;
+        logger.info(string);
+    }
+
+
 }

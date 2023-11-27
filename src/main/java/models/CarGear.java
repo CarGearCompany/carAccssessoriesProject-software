@@ -37,12 +37,7 @@ public class CarGear {
     public static List<Product> getProductsOfCategory(Category category){
         return category.getProducts();
     }
-    /*public static List<Request> getCustomerRequests(Customer customer){
-        return customer.getRequests();
-    }
-    public static List<Product> getCustomerProducts(Customer customer){
-        return customer.getPurchasedProducts();
-    } */
+
     public static Category getCategoryOfProduct(Product product){
 
         for (Category c:getCategories()) {
@@ -60,12 +55,9 @@ public class CarGear {
 
         for (Category c:getCategories()) {
             allProducts.addAll(getProductsOfCategory(c));
-
         }
 
         return allProducts;
-
-
     }
 
     public static boolean isEmailRegistered(String email) {
@@ -185,7 +177,7 @@ public class CarGear {
     }
 
 
-    public static void initData() throws UserAlreadyExistsException, InvalidPhoneNumberException, InvalidEmailFormatException, WeakPasswordException { //this method use to initialize all the data in the main
+    public static void initData() throws UserAlreadyExistsException, WeakPasswordException { //this method use to initialize all the data in the main
         clearData();
 
         //the first admin data
@@ -231,7 +223,7 @@ public class CarGear {
                 30,
                 Gender.MALE,
                 "Mahmoud@123",
-                new ContactInfo("asamr@gmail.com", "0591234567",
+                new ContactInfo("mahmoudshoulicarva@gmail.com", "0591234567",
                         new Location("Gaza", "Gaza")),
                 UserType.INSTALLER);
 
@@ -258,8 +250,8 @@ public class CarGear {
         Product firstElectronic = new Product(4,new ProductInfo("Stereo System","description5",180,10));
         Product secElectronic = new Product(5,new ProductInfo("Camera","description6",70,0));
 
-        Schedule firstSchedule = new Schedule("15/12/2023", false,"asamr@gmail.com" );
-        Schedule secondSchedule = new Schedule("7/1/2024", false,"asamr@gmail.com" );
+        Schedule firstSchedule = new Schedule("15/12/2023", false,"mahmoudshoulicarva@gmail.com" );
+        Schedule secondSchedule = new Schedule("7/1/2024", true,"mahmoudshoulicarva@gmail.com" );
         Schedule thirdSchedule = new Schedule("8/2/2024", false,"hala@gmail.com" );
         Schedule fourthSchedule = new Schedule("15/2/2024", false,"hala@gmail.com" );
 
@@ -268,6 +260,10 @@ public class CarGear {
     addAppointment(secondSchedule);
     addAppointment(thirdSchedule);
     addAppointment(fourthSchedule);
+    firstInstaller.addSchedule(firstSchedule);
+    firstInstaller.addSchedule(secondSchedule);
+    secInstaller.addSchedule(thirdSchedule);
+    secInstaller.addSchedule(fourthSchedule);
 
     addUser(firstAdmin);
     addUser(secAdmin);

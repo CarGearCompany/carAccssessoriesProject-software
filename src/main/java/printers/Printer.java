@@ -143,6 +143,26 @@ public class Printer {
                 +", falls at the price of:- "+p.getProductInfo().getPrice()+", and we have "+p.getProductInfo().getQuantity() + " items of it.";
         logger.info(string);
         }
+
+    public static void printRequests(List<Request> requests){
+        if(requests.isEmpty()){
+            logger.info("No Requests found .");
+        }
+        else {
+            for (Request r : requests) {
+                printRequest(r);
+            }
+        }
     }
+    public static void printRequest(Request request) {
+        String string = "This request was requested by: " + request.getCustomerEmail() + ", and directed to: " + request.getInstallerEmail() +
+                ", for the product: "+ request.getProduct().getProductInfo().getProductName() + "to the car model: " + request.getCarModel()+
+                ", Booked for "+request.getDate();
+
+        logger.info(string);
+    }
+}
+
+
 
 

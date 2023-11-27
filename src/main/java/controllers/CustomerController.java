@@ -59,4 +59,34 @@ public class CustomerController {
         user.getContactInfo().setLocation(newLocation);
 
     }
+
+    public static void requestService(String installerEmail, String carModel, String date, String category, int productId) throws UserNotFoundException, InvalidEmailFormatException, CategoryNotFoundException, ProductNotFoundException, AlreadyReservedDateException, ItemNotFoundException, MessagingException {
+      Installer installer = (Installer) CarGear.getUserByEmail(installerEmail);
+      Customer customer = (Customer) CarGear.getCurrentUser();
+      Category c = CarGear.getCategoryByName(category);
+      Product p = CarGear.getProductById(c,productId);
+      Schedule s = installer.getScheduleByDate(date);
+      String msg ="";
+
+        if (Boolean.TRUE.equals(s.getReserved()))
+            throw new AlreadyReservedDateException();
+        else{
+            Request request = new Request(installerEmail,customer.getContactInfo().getEmail(),date,carModel,p);
+            installer.getRequests().add(request);
+            customer.getRequests().add(request);
+            installer.getSchedules().get(installer.getSchedules().indexOf(s)).setReserved(true);
+            s.setCustomerEmail(customer.getContactInfo().getEmail());
+            msg+="Installer: " + installer.getName().getFirstName() + " " + installer.getName().getLastName() + "\n" +
+                    "Requested by Customer : " + customer.getName().getFirstName() + " " + customer.getName().getLastName()  + "\n" +
+                    "Product Requested : " + p.getProductInfo().getProductName() + "\n"+
+                    "For Car Model : " + carModel + "\n" +
+                    "Date Booked For : " + date;
+            EmailSenderService.sendEmail(SENDER,installerEmail,msg);
+        }
+
+    }
+
+    public static void displayRequests(Customer customer) {
+        Printer.printRequests(customer.getRequests());
+    }
 }

@@ -17,6 +17,8 @@ import java.util.logging.Logger;
 
 public class CustomerView {
     private static final Logger logger = Logger.getLogger(CustomerView.class.getName());
+    private static final String PREFERREDDATE = "Preferred Date: ";
+    private static final String INSTALLEREMAIL ="Installer Email: ";
     private CustomerView() {
     }
 
@@ -108,5 +110,46 @@ public class CustomerView {
 
     public static void displaySchedules() {
         Printer.printSchedules(CarGear.getSchedules());
+    }
+
+    public static void requestService() {
+        String installerEmail = CustomizedScanners.scanNonEmptyString(INSTALLEREMAIL, new Scanner(System.in));
+        String carModel = CustomizedScanners.scanNonEmptyString("Car Model:", new Scanner(System.in));
+        String date = CustomizedScanners.scanNonEmptyString(PREFERREDDATE, new Scanner(System.in));
+        String category = CustomizedScanners.scanNonEmptyString("Category of the product", new Scanner(System.in));
+        int productId = CustomizedScanners.scanInt("Product ID:", new Scanner(System.in));
+
+        while (true){
+            try{
+                CustomerController.requestService(installerEmail , carModel , date , category , productId);
+                logger.info("the Service is Requested successfully .");
+                break;
+            } catch (UserNotFoundException e) {
+                logger.warning("Installer not found");
+                installerEmail = CustomizedScanners.scanNonEmptyString(INSTALLEREMAIL, new Scanner(System.in));
+            } catch (MessagingException e) {
+                logger.warning("Email flied to send");
+            } catch (AlreadyReservedDateException e) {
+                logger.warning("try to enter an available date");
+                date = CustomizedScanners.scanNonEmptyString(PREFERREDDATE, new Scanner(System.in));
+            } catch (CategoryNotFoundException e) {
+                logger.warning("Category not found");
+                 category = CustomizedScanners.scanNonEmptyString("Category of the product", new Scanner(System.in));
+            } catch (ProductNotFoundException e) {
+                logger.warning("product not found");
+                productId = CustomizedScanners.scanInt("Product ID:", new Scanner(System.in));
+            } catch (InvalidEmailFormatException e) {
+                logger.warning("Enter valid format for the email");
+                installerEmail = CustomizedScanners.scanNonEmptyString(INSTALLEREMAIL, new Scanner(System.in));
+            } catch (ItemNotFoundException e) {
+                logger.warning("enter an existing date");
+                date = CustomizedScanners.scanNonEmptyString(PREFERREDDATE, new Scanner(System.in));
+            }
+        }
+    }
+
+    public static void displayRequests() {
+        Customer customer =  (Customer) CarGear.getCurrentUser();
+        CustomerController.displayRequests(customer);
     }
 }

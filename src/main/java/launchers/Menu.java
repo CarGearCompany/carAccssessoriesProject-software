@@ -34,13 +34,11 @@ public class Menu {
                     customerHandler();
                     break;
                 case INSTALLER:
-                    //installerHandler();
+                    installerHandler();
                     break;
             }
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | CategoryNotFoundException e) {
             // to avoid the nullPointer Exception
-        } catch (CategoryNotFoundException e) {
-            //
         } catch (ProductNotFoundException e) {
             //
         }
@@ -146,10 +144,10 @@ public class Menu {
 
                 break;
             case 5:
-
+                CustomerView.requestService();
                 break;
             case 6:
-
+                CustomerView.displayRequests();
                 break;
             case 7:
                 CustomerView.editPassword();
@@ -174,12 +172,40 @@ public class Menu {
             }
         }
     }
-//    private static void installerOption(){
-//        // not finished , Under construction
-//    }
-//    public static void installerHandler(){
-//        // not finished , Under construction
-//    }
+    private static void installerOption(int choice){
+        switch (choice) {
+            case 1:
+                InstallerView.viewInstallationRequests();
+                break;
+            case 2:
+                InstallerView.viewSchedule();
+                break;
+            case 3:
+                InstallerView.addDatesToSchedule();
+
+                break;
+            case 4:
+                InstallerView.editMyPassword();
+
+                break;
+            case 5:
+                InstallerView.EditMyLocation();
+                break;
+            default:
+        }
+    }
+    public static void installerHandler(){
+        while (true) {
+            MenuPrinter.printInstallerMenu();
+            int choice = CustomizedScanners.scanInt("choice", new Scanner(System.in));
+            installerOption(choice);
+            if (choice == 6) {
+                MenuPrinter.printFinishMsg();
+                LogoutView.logout();
+                break;
+            }
+        }
+    }
 
 
     }
