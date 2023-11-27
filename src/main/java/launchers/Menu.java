@@ -2,6 +2,7 @@ package launchers;
 
 import controllers.LoginController;
 import enums.UserType;
+import exceptions.AlreadyReservedDateException;
 import exceptions.CategoryNotFoundException;
 import exceptions.ProductNotFoundException;
 import printers.MenuPrinter;
@@ -41,6 +42,8 @@ public class Menu {
             // to avoid the nullPointer Exception
         } catch (ProductNotFoundException e) {
             //
+        } catch (AlreadyReservedDateException e) {
+            throw new RuntimeException(e);
         }
 
     }
@@ -172,7 +175,7 @@ public class Menu {
             }
         }
     }
-    private static void installerOption(int choice){
+    private static void installerOption(int choice) throws AlreadyReservedDateException {
         switch (choice) {
             case 1:
                 InstallerView.viewInstallationRequests();
@@ -189,12 +192,12 @@ public class Menu {
 
                 break;
             case 5:
-                InstallerView.EditMyLocation();
+                InstallerView.editMyLocation();
                 break;
             default:
         }
     }
-    public static void installerHandler(){
+    public static void installerHandler() throws AlreadyReservedDateException {
         while (true) {
             MenuPrinter.printInstallerMenu();
             int choice = CustomizedScanners.scanInt("choice", new Scanner(System.in));

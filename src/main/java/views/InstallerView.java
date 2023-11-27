@@ -1,10 +1,9 @@
 package views;
 
-import controllers.CustomerController;
 import controllers.InstallerController;
+import exceptions.AlreadyReservedDateException;
 import exceptions.WeakPasswordException;
 import models.CarGear;
-import models.Customer;
 import models.Installer;
 import printers.Printer;
 import scanners.CustomizedScanners;
@@ -29,8 +28,21 @@ public class InstallerView {
         Printer.printSchedules(installer.getSchedules());
     }
 
-    public static void addDatesToSchedule() {
-        // under constructed
+    public static void addDatesToSchedule() throws AlreadyReservedDateException {
+        String newDate = CustomizedScanners.scanNonEmptyString("New Date to add to your Schedule", new Scanner(System.in));
+
+        while (true){
+            try{
+                InstallerController.addDateToSchedule(newDate);
+                logger.info("new date added successfully");
+                break;
+            }catch (AlreadyReservedDateException e){
+                logger.warning("This Date is Already Exist , try to enter new one");
+                newDate = CustomizedScanners.scanNonEmptyString("New Date to add to your Schedule", new Scanner(System.in));
+            }
+
+        }
+
     }
 
     public static void editMyPassword() {
@@ -47,7 +59,7 @@ public class InstallerView {
         }
     }
 
-    public static void EditMyLocation() {
+    public static void editMyLocation() {
         String newCity = CustomizedScanners.scanNonEmptyString("City", new Scanner(System.in));
         String newStreet = CustomizedScanners.scanNonEmptyString("Street", new Scanner(System.in));
 
