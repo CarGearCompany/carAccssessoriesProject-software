@@ -104,7 +104,7 @@ public class AdminView {
         while (true) {
             try {
                 Category category = CarGear.getCategoryByName(categoryString);
-                Product product = new Product(productId, new ProductInfo(productName, productDescription, price,  quantity), true);
+                Product product = new Product(productId, new ProductInfo(productName, productDescription, price,  quantity));
                 AdminController.addProduct(category, product);
                 logger.info("product added successfully");
                 break;

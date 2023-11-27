@@ -3,7 +3,7 @@ Feature: Search for user by email
     Given Database is already filled
 
   Scenario: Search about user
-    When the admin enter email is 'saleh@gmail.com'
+    When the admin enter email is 'mahmoud.shouli.yes@gmail.com'
     Then the object is returned nothing will be thrown
 
   Scenario: search will failed due to user not found exception

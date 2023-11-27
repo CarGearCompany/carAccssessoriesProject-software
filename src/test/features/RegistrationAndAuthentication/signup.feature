@@ -26,9 +26,9 @@ Feature: Signup
     Then User will fail to sign up and user already exists exception will be thrown
 
     Examples:
-      | firstName | lastName  | email             | phoneNumber  | city     | street     | age | gender   | password    | userType    |
-      | 'saleh'   | 'sawalha' | 'saleh@gmail.com' | '0597846668' | 'nablus' | 'asira'    | 21  | 'male'   | 'Saleh@123' | 'installer' |
-      | 'haya'    | 'samaneh' | 'jana@gmail.com'  | '0599011043' | 'nablus' | 'rafeedia' | 30  | 'female' | 'Haya@123'  | 'customer'  |
+      | firstName | lastName  | email                          | phoneNumber  | city     | street     | age | gender   | password    | userType    |
+      | 'saleh'   | 'sawalha' | 'mahmoud.shouli.yes@gmail.com' | '0597846668' | 'nablus' | 'asira'    | 21  | 'male'   | 'Saleh@123' | 'installer' |
+      | 'haya'    | 'samaneh' | 'jana@gmail.com'               | '0599011043' | 'nablus' | 'rafeedia' | 30  | 'female' | 'Haya@123'  | 'customer'  |
 
   Scenario Outline: Sign Up Failed Due To Weak Password Exception
     When newName is <firstName> <lastName>

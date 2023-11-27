@@ -3,7 +3,7 @@ Feature: Promote User To Admin
     Given Database is already filled
 
  Scenario: promote successfully
-   When the admin enters the 'saleh@gmail.com' of the user
+   When the admin enters the 'mahmoud.shouli.yes@gmail.com' of the user
    Then the promote will pass and nothing will be thrwon
 
  Scenario: promote failed due to user not found exception

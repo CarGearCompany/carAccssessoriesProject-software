@@ -2,6 +2,8 @@ package launchers;
 
 import controllers.LoginController;
 import enums.UserType;
+import exceptions.CategoryNotFoundException;
+import exceptions.ProductNotFoundException;
 import printers.MenuPrinter;
 import scanners.CustomizedScanners;
 import views.*;
@@ -37,6 +39,10 @@ public class Menu {
             }
         } catch (NullPointerException e) {
             // to avoid the nullPointer Exception
+        } catch (CategoryNotFoundException e) {
+            //
+        } catch (ProductNotFoundException e) {
+            //
         }
 
     }
@@ -123,7 +129,7 @@ public class Menu {
             }
         }
     }
-    private static void customerOption(int choice){
+    private static void customerOption(int choice) throws CategoryNotFoundException, ProductNotFoundException {
         switch (choice) {
             case 1:
                 CustomerView.listAllProducts();
@@ -132,19 +138,23 @@ public class Menu {
                 CustomerView.purchaseProduct();
                 break;
             case 3:
-                CustomerView.DisplayOrderHistory();
+                CustomerView.displayOrderHistory();
 
                 break;
             case 4:
+                CustomerView.displaySchedules();
 
                 break;
             case 5:
 
                 break;
             case 6:
-                CustomerView.editPassword();
+
                 break;
             case 7:
+                CustomerView.editPassword();
+                break;
+            case 8:
                 CustomerView.editLocation();
                 break;
 
@@ -152,12 +162,12 @@ public class Menu {
         }
 
     }
-    private static void customerHandler(){
+    private static void customerHandler() throws CategoryNotFoundException, ProductNotFoundException {
         while (true) {
             MenuPrinter.printCustomerMenu();
             int choice = CustomizedScanners.scanInt("choice", new Scanner(System.in));
             customerOption(choice);
-            if (choice == 8) {
+            if (choice == 9) {
                 MenuPrinter.printFinishMsg();
                 LogoutView.logout();
                 break;

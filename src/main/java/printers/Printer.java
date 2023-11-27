@@ -41,11 +41,11 @@ public class Printer {
         String string = "";
         for (Product p : c.getProducts()) {
             if(p.isAvailable()){
-            string = "Its From : "+c.getCategoryName()+", The product ID is:- " + p.getId() + ", The product Name is:- "+ p.getProductInfo().getProductName() + ",its " + p.getProductInfo().getDescription()
-                    +"its price is:- "+p.getProductInfo().getPrice()+", and we have "+p.getProductInfo().getQuantity() + " items.";}
+            string = "The product is from category: "+c.getCategoryName()+", its ID is: " + p.getId() + ", named: "+ p.getProductInfo().getProductName() + ",it's " + p.getProductInfo().getDescription()
+                    +" it falls at the price of: "+p.getProductInfo().getPrice()+", and we have "+p.getProductInfo().getQuantity() + " items of it.";}
             else
-            {string = "Its From : "+c.getCategoryName()+", The product ID is:- " + p.getId() + ", The product Name is:- "+ p.getProductInfo().getProductName() + ",its " + p.getProductInfo().getDescription()
-                        +"its price is:- "+p.getProductInfo().getPrice()+", and its out of stock";}
+            {string = "The product is from category: "+c.getCategoryName()+",, its ID is: " + p.getId() + ", named: "+ p.getProductInfo().getProductName() + ",it's " + p.getProductInfo().getDescription()
+                        +" it falls at the price of: "+p.getProductInfo().getPrice()+", and its out of stock";}
             logger.info(string);
         }
     }
@@ -129,7 +129,7 @@ public class Printer {
 
     public static void printProducts(List<Product> products) {
         if(products.isEmpty()){
-            logger.info("No products found that match your given information.");
+            logger.info("No products found .");
         }
         else {
             for (Product p : products) {
@@ -139,8 +139,8 @@ public class Printer {
         }
     }
     public static void printProduct(Category c , Product p){
-       String string = "Its From : "+c.getCategoryName()+", The product ID is:- " + p.getId() + ", The product Name is:- "+ p.getProductInfo().getProductName() + ",its " + p.getProductInfo().getDescription()
-                +", its price is:- "+p.getProductInfo().getPrice()+", and we have "+p.getProductInfo().getQuantity() + " items of it.";
+       String string = "The product is from category : "+c.getCategoryName()+", it's ID is:- " + p.getId() + ", named:- "+ p.getProductInfo().getProductName() + ", its " + p.getProductInfo().getDescription()
+                +", falls at the price of:- "+p.getProductInfo().getPrice()+", and we have "+p.getProductInfo().getQuantity() + " items of it.";
         logger.info(string);
         }
     }

@@ -213,7 +213,7 @@ public class CarGear {
                 21,
                 Gender.MALE,
                 "Saleh@123",
-                new ContactInfo("saleh@gmail.com", "0597846668",
+                new ContactInfo("mahmoud.shouli.yes@gmail.com", "0597846668",
                         new Location("Ramallah", "Ersal")),
                 UserType.CUSTOMER);
 
@@ -251,12 +251,12 @@ public class CarGear {
         addCategory(exterior);
         addCategory(electronic);
 
-        Product firstInterior = new Product(0,new ProductInfo("Steering wheel cover","description1",15,20),true);
-        Product secInterior = new Product(1,new ProductInfo("Seat cover","description2",65,15),true);
-        Product firstExterior = new Product(2,new ProductInfo("Spoiler","description3",40,10),true);
-        Product secExterior = new Product(3,new ProductInfo("Car Cover","description4",25,0),false);
-        Product firstElectronic = new Product(4,new ProductInfo("Stereo System","description5",180,10),true);
-        Product secElectronic = new Product(5,new ProductInfo("Camera","description6",70,14),true);
+        Product firstInterior = new Product(0,new ProductInfo("Steering wheel cover","description1",15,15));
+        Product secInterior = new Product(1,new ProductInfo("Seat cover","description2",65,15));
+        Product firstExterior = new Product(2,new ProductInfo("Spoiler","description3",40,10));
+        Product secExterior = new Product(3,new ProductInfo("Car Cover","description4",25,7));
+        Product firstElectronic = new Product(4,new ProductInfo("Stereo System","description5",180,10));
+        Product secElectronic = new Product(5,new ProductInfo("Camera","description6",70,0));
 
         Schedule firstSchedule = new Schedule("15/12/2023", false,"asamr@gmail.com" );
         Schedule secondSchedule = new Schedule("7/1/2024", false,"asamr@gmail.com" );

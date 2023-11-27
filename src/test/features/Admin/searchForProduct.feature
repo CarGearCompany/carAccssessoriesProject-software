@@ -13,7 +13,7 @@ Feature: Search for product
     | 'name'         | 'Spoiler'      | 1          |
     | 'description'  | 'description5' | 1          |
     | 'price'        | '180'          | 1          |
-    | 'quantity'     | '20'           | 1          |
+    | 'quantity'     | '15'           | 2          |
     | 'availability' | 'false'        | 1          |
     | 'availability' | 'true'         | 5          |
     | 'id'           | '9'            | 0          |

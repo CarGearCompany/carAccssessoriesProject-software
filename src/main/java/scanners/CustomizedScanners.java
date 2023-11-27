@@ -48,6 +48,17 @@ public class CustomizedScanners {
         }
     }
 
+    public static int scanInt2(String credential, Scanner scanner) {
+        printScanMsg2(credential);
+        try {
+            return scanner.nextInt();
+        } catch (InputMismatchException inputMismatchException) {
+            scanner.next();
+            printWarnMsg(credential);
+            return -1; // invalid value
+        }
+    }
+
     public static UserType scanUserType(Scanner scanner) {
         printScanMsg("user type");
         UserType userType;

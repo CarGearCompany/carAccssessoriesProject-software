@@ -1,17 +1,16 @@
 package views;
 
 import controllers.AdminController;
-import exceptions.CategoryNotFoundException;
-import exceptions.ProductNotFoundException;
-import exceptions.WeakPasswordException;
+import exceptions.*;
 import models.CarGear;
 import models.Category;
 import models.Customer;
-import models.User;
+import models.Product;
 import printers.Printer;
 import scanners.CustomizedScanners;
 import controllers.CustomerController;
 
+import javax.mail.MessagingException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Logger;
@@ -54,19 +53,25 @@ public class CustomerView {
 
     }
 
-    public static void purchaseProduct(){
+    public static void purchaseProduct() throws CategoryNotFoundException, ProductNotFoundException {
         String category = CustomizedScanners.scanNonEmptyString("category", new Scanner(System.in));
         int id = CustomizedScanners.scanInt("ID of the product ", new Scanner(System.in));
+        int quantity = CustomizedScanners.scanInt2("How many of it do you want to buy? ", new Scanner(System.in));
         String confirm = CustomizedScanners.scanNonEmptyString2("Confirm purchase (Y/N) ", new Scanner(System.in));
-        User customer = CarGear.getCurrentUser();
-        Category c;
-        assert confirm != null;
-        if(confirm.equalsIgnoreCase("y")) {
+        Customer customer = (Customer) CarGear.getCurrentUser();
+        Product product = CarGear.getProductById(CarGear.getCategoryByName(category),id);
+        String msg = "";
+
+
+
             while (true) {
                 try {
-                    c = CarGear.getCategoryByName(category);
-                    CustomerController.purchaseProduct(c, id, (Customer) customer);
-                    logger.info("Product is purchased successfully");
+
+                    assert confirm != null;
+                    CustomerController.purchaseProduct(category, id, customer,confirm,quantity);
+                    logger.info("Product is purchased successfully.");
+
+
                     break;
                 } catch (ProductNotFoundException e) {
                     logger.warning("Product is not found. Try again");
@@ -74,20 +79,34 @@ public class CustomerView {
                 } catch (CategoryNotFoundException e) {
                     logger.warning("Category not found");
                     category = CustomizedScanners.scanNonEmptyString("category", new Scanner(System.in));
+                } catch (PurchaseNotConfirmedException e) {
+                    logger.warning("Transaction not confirmed.");
+                    break;
+                } catch (MessagingException e) {
+                    //
+                } catch (OutOfStockException e) {
+                    logger.warning("This product is out of stock, sorry!");
+                    break;
+                } catch (NotEnoughItemsAvailableException e) {
+                    msg += "Sorry! We only have " + product.getProductInfo().getQuantity() + " :(";
+                    logger.warning(msg);
+                    break;
                 }
+
+
             }
-        }
-
-
-
-
-
-
 
 
     }
 
-    public static void DisplayOrderHistory() {
-        //FUCK YOU, TOMORROW
+    public static void displayOrderHistory() {
+      Customer customer =  (Customer) CarGear.getCurrentUser();
+       CustomerController.displayOrderHistory(customer);
+
+    }
+
+
+    public static void displaySchedules() {
+        Printer.printSchedules(CarGear.getSchedules());
     }
 }

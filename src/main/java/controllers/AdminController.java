@@ -163,11 +163,6 @@ public class AdminController {
         else if (editType.equalsIgnoreCase("Quantity")) {
             product.getProductInfo().setQuantity(Integer.parseInt(newValue));
         }
-        else if (editType.equalsIgnoreCase("Availability")) {
-            product.setAvailable(Boolean.parseBoolean(newValue));
-
-        }
-
 
     }
 

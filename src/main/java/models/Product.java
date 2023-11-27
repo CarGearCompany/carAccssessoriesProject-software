@@ -2,13 +2,11 @@ package models;
 public class Product {
     private int id;
     private ProductInfo productInfo;
-    private boolean isAvailable;
 
-
-    public Product(int id,ProductInfo productInfo, boolean isAvailable ) {
+    public Product(int id,ProductInfo productInfo ) {
         setId(id);
         setProductInfo(productInfo);
-        setAvailable(isAvailable);
+
     }
 
     public int getId() {
@@ -28,10 +26,9 @@ public class Product {
     }
 
     public boolean isAvailable() {
-        return isAvailable;
+        return this.getProductInfo().getQuantity() != 0;
+
     }
 
-    public void setAvailable(boolean available) {
-        isAvailable = available;
-    }
+
 }

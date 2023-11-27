@@ -3,7 +3,7 @@ Feature: Remove User
     Given Database is already filled
 
   Scenario: Remove User Successfully
-    When the email of the user to be removed is 'saleh@gmail.com'
+    When the email of the user to be removed is 'mahmoud.shouli.yes@gmail.com'
     Then this user will be removed
 
   Scenario: Remove User Failed Due to User Not Found Exception

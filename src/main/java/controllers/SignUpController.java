@@ -30,7 +30,11 @@ public class SignUpController {
         if(!PasswordChecker.isStrongPassword(password))
             throw new WeakPasswordException();
 
-        CarGear.addUser(new User(name, age, gender, password, contactInfo,userType));
+        if(userType == UserType.CUSTOMER)
+            CarGear.addUser(new Customer(name, age, gender, password, contactInfo,userType));
+
+        if(userType == UserType.INSTALLER)
+            CarGear.addUser(new Installer(name, age, gender, password, contactInfo,userType));
     }
 
 }
