@@ -84,7 +84,7 @@ public class MenuPrinter {
                 4- Edit my password
                 5- Edit my location info (city , street).
                 6- Logout.
-                
+    
                 """;
         logger.info(string);
     }
