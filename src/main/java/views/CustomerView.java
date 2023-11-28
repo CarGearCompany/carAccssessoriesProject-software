@@ -108,7 +108,7 @@ public class CustomerView {
     }
 
 
-    public static void displaySchedules() {
+    public static void displaySchedules() throws WeakPasswordException {
         Printer.printSchedules(CarGear.getSchedules());
     }
 

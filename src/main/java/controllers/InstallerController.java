@@ -25,7 +25,7 @@ public class InstallerController {
         user.getContactInfo().setLocation(newLocation);
     }
 
-    public static void addDateToSchedule(String newDate) throws AlreadyReservedDateException {
+    public static void addDateToSchedule(String newDate) throws AlreadyReservedDateException, WeakPasswordException {
         Installer installer = (Installer) CarGear.getCurrentUser();
         Schedule newSchedule = new Schedule(newDate,false,installer.getContactInfo().getEmail());
         for (Schedule s:

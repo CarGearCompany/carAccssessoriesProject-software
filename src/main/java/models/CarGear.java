@@ -9,8 +9,9 @@ import java.util.List;
 
 public class CarGear {
     private static final List<User> users = new ArrayList<>();
+
+
     private static final List<Category> categories = new ArrayList<>();
-    private static final List<Schedule> schedules= new ArrayList<>(); //this is the schedule for all installers.
 
     private static User currentUser = null;
 
@@ -32,7 +33,26 @@ public class CarGear {
     public static List<Category> getCategories(){
         return categories;
     }
-    public static List<Schedule> getSchedules() { return schedules; }
+    public static List<Schedule> getSchedules() throws WeakPasswordException {
+        List<Schedule> allSchedules = new ArrayList<>();
+        List<User> installersUsers =  CarGear.getUsers().stream().filter(user -> user.getUserType().equals(UserType.INSTALLER)).toList();
+        List<Installer> installers = new ArrayList<>();
+
+        for (User u:
+             installersUsers) {
+            installers.add((Installer) u);
+
+        }
+
+        for (Installer i:
+                installers
+             ) {
+            allSchedules.addAll(i.getSchedules());
+        }
+
+        return allSchedules;
+
+         }
 
     public static List<Product> getProductsOfCategory(Category category){
         return category.getProducts();
@@ -79,7 +99,7 @@ public class CarGear {
         return false;
     }
 
-    public static List<Schedule> getScheduleByEmail(String email) throws InvalidEmailFormatException {
+    public static List<Schedule> getScheduleByEmail(String email) throws InvalidEmailFormatException, WeakPasswordException {
         if (!EmailFormatChecker.hasCorrectEmailFormat(email)) {
             throw new InvalidEmailFormatException();
         }
@@ -168,9 +188,9 @@ public class CarGear {
         CarGear.getCategories().clear();
     }
 
-    public static void addAppointment(Schedule schedule){ schedules.add(schedule);}
 
-    public static void removeAppointment(Schedule schedule){ schedules.remove(schedule);}
+
+
 
     public static void promoteUser(User user) {
         user.setUserType(UserType.ADMIN);
@@ -256,10 +276,7 @@ public class CarGear {
         Schedule fourthSchedule = new Schedule("15/2/2024", false,"hala@gmail.com" );
 
 
-    addAppointment(firstSchedule);
-    addAppointment(secondSchedule);
-    addAppointment(thirdSchedule);
-    addAppointment(fourthSchedule);
+
     firstInstaller.addSchedule(firstSchedule);
     firstInstaller.addSchedule(secondSchedule);
     secInstaller.addSchedule(thirdSchedule);

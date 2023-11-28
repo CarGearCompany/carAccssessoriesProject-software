@@ -2,10 +2,7 @@ package views;
 
 import controllers.AdminController;
 import exceptions.*;
-import models.CarGear;
-import models.Category;
-import models.Product;
-import models.ProductInfo;
+import models.*;
 import printers.Printer;
 import scanners.CustomizedScanners;
 
@@ -34,21 +31,13 @@ public class AdminView {
 
     }
 
-    public static void searchForUserByEmailView() {
-        String email = CustomizedScanners.scanNonEmptyString(EMAIL, new Scanner(System.in));
-    while (true){
-        try {
-            Printer.printUser(AdminController.searchForUserByEmail(email));
-            break;
-        }catch (UserNotFoundException e){
-            logger.warning("User Doesn't Exist");
-            email = CustomizedScanners.scanNonEmptyString(EMAIL, new Scanner(System.in));
-        }catch (InvalidEmailFormatException e){
-            logger.warning("Invalid email format! Must be a real email.");
-            email = CustomizedScanners.scanNonEmptyString(EMAIL, new Scanner(System.in));
-            }
+    public static void searchForUser() {
+        String searchType = CustomizedScanners.scanNonEmptyString("search credential (what do you want to search by)",new Scanner(System.in));
+        String value = CustomizedScanners.scanNonEmptyString("the value " ,new Scanner(System.in));
 
-        }
+        assert searchType != null;
+        List<User> users = AdminController.searchForUser(searchType,value);
+        Printer.printUsers(users);
     }
 
     public static void removeUserView() {
@@ -222,4 +211,18 @@ public class AdminView {
     }
 
 
+    public static void listAllRequests() {
+    }
+
+    public static void addRequest() {
+    }
+
+    public static void removeRequest() {
+    }
+
+    public static void searchForRequest() {
+    }
+
+    public static void editRequest() {
+    }
 }

@@ -2,6 +2,7 @@ package test_installer;
 
 import controllers.InstallerController;
 import exceptions.AlreadyReservedDateException;
+import exceptions.WeakPasswordException;
 import io.cucumber.java.en.*;
 import models.CarGear;
 import models.Installer;
@@ -17,7 +18,7 @@ public class TestViewMySchedule {
         resultSize = installer.getSchedules().size();
     }
     @When("the installer add a valid date {string}")
-    public void theInstallerAddAValidDate(String string) throws AlreadyReservedDateException {
+    public void theInstallerAddAValidDate(String string) throws AlreadyReservedDateException, WeakPasswordException {
         installer = (Installer) CarGear.getCurrentUser();
         InstallerController.addDateToSchedule(string);
         resultSize = installer.getSchedules().size();

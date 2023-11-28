@@ -36,7 +36,7 @@ public class InstallerView {
                 InstallerController.addDateToSchedule(newDate);
                 logger.info("new date added successfully");
                 break;
-            }catch (AlreadyReservedDateException e){
+            }catch (AlreadyReservedDateException | WeakPasswordException e){
                 logger.warning("This Date is Already Exist , try to enter new one");
                 newDate = CustomizedScanners.scanNonEmptyString("New Date to add to your Schedule", new Scanner(System.in));
             }

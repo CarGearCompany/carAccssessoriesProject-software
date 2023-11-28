@@ -18,7 +18,7 @@ public class EmailSenderService {
     private EmailSenderService() {
     }
 
-    public static void sendEmail(String senderEmail,String receiverEmail,String emailMessage) throws MessagingException{
+    public static void sendEmail(String senderEmail,String receiverEmail,String emailMessage,String subject,int flag) throws MessagingException{
         try {
             Properties properties = System.getProperties();
             properties.put("mail.smtp.host", "smtp.gmail.com");
@@ -36,10 +36,13 @@ public class EmailSenderService {
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(senderEmail));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(receiverEmail,false));
-            message.setSubject("Purchase Order Notification.");
+            message.setSubject(subject);
             message.setText(emailMessage);
             Transport.send(message);
-            logger.info("Order receipt is sent to your email.");
+            if(flag==0)
+                logger.info("Order receipt is sent to your email.");
+            else
+                logger.info("Order receipt is sent to your installer's email.");
 
         }
         catch (MessagingException m){

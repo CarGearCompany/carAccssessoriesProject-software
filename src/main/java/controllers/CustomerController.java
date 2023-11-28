@@ -19,6 +19,7 @@ public class CustomerController {
     }
     public static int purchaseProduct(String category, int id,Customer customer,String confirm,int reqQuantity) throws ProductNotFoundException, CategoryNotFoundException, PurchaseNotConfirmedException, MessagingException, OutOfStockException, NotEnoughItemsAvailableException {
         String msg = "";
+        String subj = "";
         String customerEmail = customer.getContactInfo().getEmail();
         int newQuantity;
         Category c = CarGear.getCategoryByName(category);
@@ -31,9 +32,10 @@ public class CustomerController {
                     newQuantity = availQuantity - reqQuantity;
                     product.getProductInfo().setQuantity(newQuantity);
                     customer.addProduct(product);
+                    subj+= "Purchase Order Notification.";
                     msg += "Customer Name: " + customer.getName().getFirstName() + " " + customer.getName().getLastName() + "\n" + "Product ID: " + id + "\n" + "Product Name: " + product.getProductInfo().getProductName()
                     + "\n"+ "Quantity bought: " + reqQuantity;
-                    EmailSenderService.sendEmail(SENDER, customerEmail, msg);
+                    EmailSenderService.sendEmail(SENDER, customerEmail, msg,subj,0);
                     return newQuantity;
                 } else
                     throw new PurchaseNotConfirmedException();
@@ -67,6 +69,7 @@ public class CustomerController {
       Product p = CarGear.getProductById(c,productId);
       Schedule s = installer.getScheduleByDate(date);
       String msg ="";
+      String subj = "";
 
         if (Boolean.TRUE.equals(s.getReserved()))
             throw new AlreadyReservedDateException();
@@ -76,12 +79,13 @@ public class CustomerController {
             customer.getRequests().add(request);
             installer.getSchedules().get(installer.getSchedules().indexOf(s)).setReserved(true);
             s.setCustomerEmail(customer.getContactInfo().getEmail());
+            subj += "Installation Request Notification";
             msg+="Installer: " + installer.getName().getFirstName() + " " + installer.getName().getLastName() + "\n" +
                     "Requested by Customer : " + customer.getName().getFirstName() + " " + customer.getName().getLastName()  + "\n" +
                     "Product Requested : " + p.getProductInfo().getProductName() + "\n"+
                     "For Car Model : " + carModel + "\n" +
                     "Date Booked For : " + date;
-            EmailSenderService.sendEmail(SENDER,installerEmail,msg);
+            EmailSenderService.sendEmail(SENDER,installerEmail,msg,subj,1);
         }
 
     }

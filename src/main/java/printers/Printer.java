@@ -20,23 +20,18 @@ public class Printer {
         String string ="";
         if(u.getGender() == Gender.MALE){
             string=  FIRSTNAME + u.getName().getFirstName() + LASTNAME + u.getName().getLastName() + "\n"
-                    +"He is " +u.getAge() +" years old , his Email is: " +u.getContactInfo().getEmail()+
-                    " , he lives in " + u.getContactInfo().getLocation().getCity() + " at "+u.getContactInfo().getLocation().getStreet()+STREET
-                    + " and his phone-number: " + u.getContactInfo().getPhoneNumber() +"\n"+"And he is a " +u.getUserType();
+                    +" He is " +u.getAge() +" years old , his email is: " +u.getContactInfo().getEmail()+
+                    ", he lives in " + u.getContactInfo().getLocation().getCity() + " at "+u.getContactInfo().getLocation().getStreet()+STREET
+                    + " and his phone-number is: " + u.getContactInfo().getPhoneNumber() +"\n"+" and he is a " +u.getUserType();
         } else if (u.getGender() == Gender.FEMALE) {
             string=  FIRSTNAME + u.getName().getFirstName() + LASTNAME + u.getName().getLastName() + "\n"
-                    +"she is " +u.getAge() +" years old , her Email is: " +u.getContactInfo().getEmail()
-                    +" , she lives in " + u.getContactInfo().getLocation().getCity() + " at "+u.getContactInfo().getLocation().getStreet()+STREET
-                    + " and her phone-number: " + u.getContactInfo().getPhoneNumber() +"\n"+"And she is a " +u.getUserType();
+                    +"She is " +u.getAge() +" years old , her email is: " +u.getContactInfo().getEmail()
+                    +", she lives in " + u.getContactInfo().getLocation().getCity() + " at "+u.getContactInfo().getLocation().getStreet()+STREET
+                    + " and her phone-number is : " + u.getContactInfo().getPhoneNumber() +"\n"+" and she is a " +u.getUserType();
         }
         return string;
     }
-    public static String generateProductAvailability(Product product){
-        if(product.isAvailable())
-            return "Available";
-        else
-            return "Not available";
-    }
+
     public static void genarateCategoryString(Category c) {
         String string = "";
         for (Product p : c.getProducts()) {
@@ -49,31 +44,7 @@ public class Printer {
             logger.info(string);
         }
     }
-    public static void printUsers(List<User> users) {
-        String string;
-        if (users.isEmpty())
-            logger.info("No users!");
 
-        logger.info("Customers :-");
-        for (User u : users) {
-            if(u.getUserType() == UserType.CUSTOMER ) {
-                string = genarateUserString(u);
-                logger.info(string);
-            }
-        }
-        logger.info("Installers :-");
-        for (User u : users) {
-            if(u.getUserType() == UserType.INSTALLER) {
-                string = genarateUserString(u);
-                logger.info(string);
-            }
-        }
-
-    }
-    public static void appendHorizontalLine(StringBuilder stringBuilder, int count) {
-        stringBuilder.append("\n");
-        stringBuilder.append("-".repeat(count));
-    }
 
 
 
@@ -126,6 +97,17 @@ public class Printer {
         genarateCategoryString(c);
 
     }
+    public static void printUsers(List<User> users) {
+        if(users.isEmpty()){
+            logger.info("No users found .");
+        }
+        else {
+            for (User u : users) {
+                printUser(u);
+
+            }
+        }
+    }
 
     public static void printProducts(List<Product> products) {
         if(products.isEmpty()){
@@ -146,7 +128,7 @@ public class Printer {
 
     public static void printRequests(List<Request> requests){
         if(requests.isEmpty()){
-            logger.info("No Requests found .");
+            logger.info("No requests found.");
         }
         else {
             for (Request r : requests) {
@@ -157,7 +139,7 @@ public class Printer {
     public static void printRequest(Request request) {
         String string = "This request was requested by: " + request.getCustomerEmail() + ", and directed to: " + request.getInstallerEmail() +
                 ", for the product: "+ request.getProduct().getProductInfo().getProductName() + "to the car model: " + request.getCarModel()+
-                ", Booked for "+request.getDate();
+                ", booked for "+request.getDate();
 
         logger.info(string);
     }

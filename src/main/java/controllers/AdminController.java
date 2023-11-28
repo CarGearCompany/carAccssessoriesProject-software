@@ -35,14 +35,42 @@ public class AdminController {
         c.addProducts(p);
     }
 
-    public static User searchForUserByEmail(String email) throws UserNotFoundException, InvalidEmailFormatException {
-        if (!EmailFormatChecker.hasCorrectEmailFormat(email)) {
-            throw new InvalidEmailFormatException();
+    public static List<User> searchForUser(String searchType,String value)  {
+        if (searchType.equalsIgnoreCase("first name")) {
+            return CarGear.getUsers().stream().filter(user -> user.getName().getFirstName().equalsIgnoreCase(value)).toList();
+
         }
-        if (!CarGear.getUserByEmail(email).getContactInfo().getEmail().equals(email)) {
-            throw new UserNotFoundException();
+        else if (searchType.equalsIgnoreCase("last name")) {
+            return CarGear.getUsers().stream().filter(user -> user.getName().getLastName().equalsIgnoreCase(value)).toList();
+
         }
-        return CarGear.getUserByEmail(email);
+        else if (searchType.equalsIgnoreCase("age")) {
+            return CarGear.getUsers().stream().filter(user -> user.getAge()== Integer.parseInt(value)).toList();
+
+        }
+        else if (searchType.equalsIgnoreCase("gender")) {
+            return CarGear.getUsers().stream().filter(user -> user.getGender().toString().equalsIgnoreCase(value)).toList();
+
+        }
+        else if (searchType.equalsIgnoreCase("email")) {
+            return CarGear.getUsers().stream().filter(user -> user.getContactInfo().getEmail().equalsIgnoreCase(value)).toList();
+
+        }
+        else if (searchType.equalsIgnoreCase("phone number")) {
+            return CarGear.getUsers().stream().filter(user -> user.getContactInfo().getPhoneNumber().equalsIgnoreCase(value)).toList();
+
+        }
+        else if (searchType.equalsIgnoreCase("city")) {
+            return CarGear.getUsers().stream().filter(user -> user.getContactInfo().getLocation().getCity().equalsIgnoreCase(value)).toList();
+
+        }
+        else if (searchType.equalsIgnoreCase("user type")) {
+            return CarGear.getUsers().stream().filter(user -> user.getUserType().toString().equalsIgnoreCase(value)).toList();
+
+        }
+
+
+        return  Collections.emptyList();
     }
 
 

@@ -5,6 +5,7 @@ import enums.UserType;
 import exceptions.AlreadyReservedDateException;
 import exceptions.CategoryNotFoundException;
 import exceptions.ProductNotFoundException;
+import exceptions.WeakPasswordException;
 import printers.MenuPrinter;
 import scanners.CustomizedScanners;
 import views.*;
@@ -44,6 +45,8 @@ public class Menu {
             //
         } catch (AlreadyReservedDateException e) {
             throw new RuntimeException(e);
+        } catch (WeakPasswordException e) {
+            throw new RuntimeException(e);
         }
 
     }
@@ -79,58 +82,155 @@ public class Menu {
     private static void adminOption(int choice)  {
         switch (choice) {
             case 1:
-                AdminView.listAllUsersView();
+                adminUsersManagementHandler();
                 break;
             case 2:
-                AdminView.listAllProducts();
+                adminProductsManagementHandler();
                 break;
             case 3:
-                AdminView.addProduct();
-                break;
-            case 4:
-                AdminView.addCategory();
-                break;
-            case 5:
-                AdminView.removeUserView();
-                break;
-            case 6:
-                AdminView.removeProduct();
-                break;
-            case 7:
-                AdminView.removeCategory();
-                break;
-            case 8:
-                AdminView.editProduct();
-                break;
-            case 9:
-                AdminView.searchForUserByEmailView();
-                break;
-            case 10:
-                AdminView.searchForProduct();
-                break;
-            case 11:
-                AdminView.searchForCategoryByName();
-                break;
-            case 12:
-                AdminView.promoteUserView();
+                adminRequestsManagementHandler();
                 break;
             default:
         }
     }
+
+
+
+    private static void adminManageRequestsOption(int choice) {
+        switch (choice) {
+            case 1:
+                AdminView.listAllRequests();
+                break;
+            case 2:
+                AdminView.addRequest();
+                break;
+            case 3:
+                AdminView.removeRequest();
+                break;
+            case 4:
+                AdminView.searchForRequest();
+                break;
+            case 5:
+                AdminView.editRequest();
+                break;
+
+            default:
+        }
+
+
+
+
+
+
+
+
+
+    }
+
+    private static void adminManageProductsOption(int choice) {
+
+        switch (choice) {
+            case 1:
+                AdminView.listAllProducts();
+                break;
+            case 2:
+                AdminView.addProduct();
+                break;
+            case 3:
+                AdminView.addCategory();
+                break;
+            case 4:
+                AdminView.removeProduct();
+                break;
+            case 5:
+                AdminView.removeCategory();
+                break;
+            case 6:
+                AdminView.editProduct();
+                break;
+            case 7:
+                AdminView.searchForProduct();
+                break;
+            case 8:
+                AdminView.searchForCategoryByName();
+                break;
+
+
+            default:
+        }
+    }
+
+    private static void adminManageUsersOption(int choice) {
+        switch (choice) {
+            case 1:
+                AdminView.listAllUsersView();
+                break;
+            case 2:
+                AdminView.removeUserView();
+                break;
+            case 3:
+                AdminView.searchForUser();
+                break;
+            case 4:
+                AdminView.promoteUserView();
+                break;
+            case 5:
+                break;
+
+            default:
+        }
+
+
+
+    }
+
+    public static void adminUsersManagementHandler()  {
+        while (true) {
+            MenuPrinter.printAdminManageUsersMenu();
+            int choice = CustomizedScanners.scanInt("choice", new Scanner(System.in));
+            adminManageUsersOption(choice);
+            if (choice == 5) {
+                break;
+            }
+        }
+    }
+
+   public static void adminRequestsManagementHandler() {
+       while (true) {
+           MenuPrinter.printAdminManageRequestsMenu();
+           int choice = CustomizedScanners.scanInt("choice", new Scanner(System.in));
+           adminManageRequestsOption(choice);
+           if (choice == 6) {
+               break;
+           }
+       }
+    }
+
+    public static void adminProductsManagementHandler() {
+        while (true) {
+            MenuPrinter.printAdminManageProductsMenu();
+            int choice = CustomizedScanners.scanInt("choice", new Scanner(System.in));
+            adminManageProductsOption(choice);
+            if (choice == 9) {
+                break;
+            }
+        }
+    }
+
 
     public static void adminHandler()  {
         while (true) {
             MenuPrinter.printAdminMenu();
             int choice = CustomizedScanners.scanInt("choice", new Scanner(System.in));
             adminOption(choice);
-            if (choice == 13) {
+            if (choice == 4) {
                 MenuPrinter.printFinishMsg();
                 LogoutView.logout();
                 break;
             }
         }
     }
-    private static void customerOption(int choice) throws CategoryNotFoundException, ProductNotFoundException {
+    private static void customerOption(int choice) throws CategoryNotFoundException, ProductNotFoundException, WeakPasswordException {
         switch (choice) {
             case 1:
                 CustomerView.listAllProducts();
@@ -144,7 +244,6 @@ public class Menu {
                 break;
             case 4:
                 CustomerView.displaySchedules();
-
                 break;
             case 5:
                 CustomerView.requestService();
@@ -163,7 +262,7 @@ public class Menu {
         }
 
     }
-    private static void customerHandler() throws CategoryNotFoundException, ProductNotFoundException {
+    private static void customerHandler() throws CategoryNotFoundException, ProductNotFoundException, WeakPasswordException {
         while (true) {
             MenuPrinter.printCustomerMenu();
             int choice = CustomizedScanners.scanInt("choice", new Scanner(System.in));
