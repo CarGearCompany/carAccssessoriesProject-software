@@ -9,7 +9,7 @@ public class Schedule {
     private String installerEmail;
     private String customerEmail;
 
-    public Schedule(String date, Boolean reserved, String installerEmail){
+    public Schedule(String date, Boolean reserved, String installerEmail) {
         setDate(date);
         setReserved(reserved);
         setInstallerEmail(installerEmail);
@@ -26,13 +26,19 @@ public class Schedule {
 
     public void setDate(String date) {
         this.date = date;
-
     }
 
-    public String getDate() { return this.date; }
+    public String getDate() {
+        return this.date;
+    }
 
-    public Boolean getReserved() { return this.reserved; }
-    public String getInstallerEmail() {return this.installerEmail;}
+    public Boolean getReserved() {
+        return this.reserved;
+    }
+
+    public String getInstallerEmail() {
+        return this.installerEmail;
+    }
 
     public String getCustomerEmail() {
         return customerEmail;
@@ -42,5 +48,6 @@ public class Schedule {
         this.customerEmail = customerEmail;
     }
 
-//    public void addDate(String date , )
 }
+
+

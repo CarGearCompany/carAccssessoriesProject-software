@@ -1,7 +1,6 @@
 package printers;
 
 import enums.Gender;
-import enums.UserType;
 import models.*;
 
 import java.util.List;
@@ -32,7 +31,7 @@ public class Printer {
         return string;
     }
 
-    public static void genarateCategoryString(Category c) {
+    public static void generateCategoryString(Category c) {
         String string = "";
         for (Product p : c.getProducts()) {
             if(p.isAvailable()){
@@ -94,7 +93,7 @@ public class Printer {
     }
 
     public static void printCategoryAllProducts(Category c) {
-        genarateCategoryString(c);
+        generateCategoryString(c);
 
     }
     public static void printUsers(List<User> users) {

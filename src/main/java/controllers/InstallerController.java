@@ -35,7 +35,7 @@ public class InstallerController {
             }
         }
 
-            installer.getSchedules().add(newSchedule);
+            installer.addSchedule(newSchedule);
             CarGear.getSchedules().add(newSchedule);
 
     }

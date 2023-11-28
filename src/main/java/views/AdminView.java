@@ -7,6 +7,8 @@ import printers.Printer;
 import scanners.CustomizedScanners;
 
 
+import javax.mail.MessagingException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Logger;
@@ -212,17 +214,111 @@ public class AdminView {
 
 
     public static void listAllRequests() {
+        Printer.printRequests(CarGear.getRequests());
     }
 
     public static void addRequest() {
+        String customerEmail = CustomizedScanners.scanNonEmptyString("Customer Email: ", new Scanner(System.in));
+        String installerEmail = CustomizedScanners.scanNonEmptyString("installer Email: ", new Scanner(System.in));
+        String date = CustomizedScanners.scanNonEmptyString("Date for the request: ", new Scanner(System.in));
+        String carModel = CustomizedScanners.scanNonEmptyString("CarModel: ", new Scanner(System.in));
+        String category = CustomizedScanners.scanNonEmptyString("Category: ", new Scanner(System.in));
+        int productId = CustomizedScanners.scanInt("Product ID: ", new Scanner(System.in));
+
+        while (true){
+            try{
+                AdminController.addRequest(customerEmail,installerEmail,date,carModel,category,productId);
+                logger.info("Request added successfully.");
+                break;
+            } catch (UserNotFoundException e) {
+                logger.warning("User not found");
+                installerEmail = CustomizedScanners.scanNonEmptyString("installer Email: ", new Scanner(System.in));
+                customerEmail = CustomizedScanners.scanNonEmptyString("Customer Email: ", new Scanner(System.in));
+            } catch (MessagingException e) {
+                logger.warning("Email flied to send");
+            } catch (AlreadyReservedDateException e) {
+                logger.warning("try to enter an available date");
+                date = CustomizedScanners.scanNonEmptyString("Date for the request: ", new Scanner(System.in));
+            } catch (CategoryNotFoundException e) {
+                logger.warning("Category not found");
+                category = CustomizedScanners.scanNonEmptyString("Category of the product", new Scanner(System.in));
+            } catch (ProductNotFoundException e) {
+                logger.warning("product not found");
+                productId = CustomizedScanners.scanInt("Product ID:", new Scanner(System.in));
+            } catch (InvalidEmailFormatException e) {
+                logger.warning("Enter valid format for the email");
+                installerEmail = CustomizedScanners.scanNonEmptyString("installer Email: ", new Scanner(System.in));
+            } catch (ItemNotFoundException e) {
+                logger.warning("enter an existing date");
+                date = CustomizedScanners.scanNonEmptyString("Date for the request: ", new Scanner(System.in));
+            }
+        }
     }
 
     public static void removeRequest() {
+        String installerEmail = CustomizedScanners.scanNonEmptyString("installer email that you want to remove request from : ", new Scanner(System.in));
+        String date = CustomizedScanners.scanNonEmptyString("Date for the request: ", new Scanner(System.in));
+        while(true){
+            try{
+                AdminController.removeRequest(installerEmail,date);
+                logger.info("the request removed successfully");
+                break;
+            } catch (UserNotFoundException e) {
+                logger.warning("Installer not found");
+                installerEmail = CustomizedScanners.scanNonEmptyString("the installer email that you want to remove request from : ", new Scanner(System.in));
+            } catch (InvalidEmailFormatException e) {
+                logger.warning("Invalid email format");
+                installerEmail = CustomizedScanners.scanNonEmptyString("the installer email that you want to remove request from : ", new Scanner(System.in));
+            } catch (ItemNotFoundException e) {
+                logger.warning("Installer not found");
+                installerEmail = CustomizedScanners.scanNonEmptyString("the installer email that you want to remove request from : ", new Scanner(System.in));
+            }
+
+        }
     }
 
     public static void searchForRequest() {
+        String searchType = CustomizedScanners.scanNonEmptyString("search credential (what do you want to search by)",new Scanner(System.in));
+        String value = CustomizedScanners.scanNonEmptyString("the value " ,new Scanner(System.in));
+
+        assert searchType != null;
+        List<Request> requests = AdminController.searchForRequests(searchType,value);
+        Printer.printRequests(requests);
     }
 
     public static void editRequest() {
+        String installerEmail = CustomizedScanners.scanNonEmptyString("installer email that you want to edit their request from : ", new Scanner(System.in));
+        String date = CustomizedScanners.scanNonEmptyString("Date for the request: ", new Scanner(System.in));
+        String editType = CustomizedScanners.scanNonEmptyString("edit credential (what do you want to edit by)",new Scanner(System.in));
+        String value = CustomizedScanners.scanNonEmptyString("the value " ,new Scanner(System.in));
+        String category;
+        assert editType != null;
+        if (editType.equalsIgnoreCase("product id")) {
+            category = CustomizedScanners.scanNonEmptyString("category: ", new Scanner(System.in));
+        }else {
+            category = null;
+        }
+        while (true){
+            try {
+                AdminController.editRequest(installerEmail , date , editType , value , category);
+                logger.info("the request edited successfully");
+                break;
+            } catch (UserNotFoundException e) {
+                logger.warning("User not found");
+                installerEmail = CustomizedScanners.scanNonEmptyString("installer Email: ", new Scanner(System.in));
+            } catch (InvalidEmailFormatException e) {
+                logger.warning("Enter valid format for the email");
+                installerEmail = CustomizedScanners.scanNonEmptyString("installer Email: ", new Scanner(System.in));
+            } catch (CategoryNotFoundException e) {
+                logger.warning("Category not found");
+                category = CustomizedScanners.scanNonEmptyString("Category of the product", new Scanner(System.in));
+            } catch (ProductNotFoundException e) {
+                logger.warning("product not found");
+                value = String.valueOf(CustomizedScanners.scanInt("Product ID:", new Scanner(System.in)));
+            } catch (ItemNotFoundException e) {
+                logger.warning("Installer not found");
+                installerEmail = CustomizedScanners.scanNonEmptyString("the installer email that you want to remove request from : ", new Scanner(System.in));
+            }
+        }
     }
 }

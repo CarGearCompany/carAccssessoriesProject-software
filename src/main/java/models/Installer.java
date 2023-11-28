@@ -48,6 +48,18 @@ public class Installer extends User{
         throw new ItemNotFoundException();
     }
 
+    public Request getRequestByDate(String date) throws ItemNotFoundException {
+        for (Request r:
+             getRequests()) {
+           if (r.getDate().equalsIgnoreCase(date)){
+               return r;
+            }
+
+        }
+        throw new ItemNotFoundException();
+    }
+
+
     public void addSchedule(Schedule schedule){
         scheduleList.add(schedule);
     }

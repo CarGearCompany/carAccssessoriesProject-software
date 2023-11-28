@@ -75,8 +75,8 @@ public class CustomerController {
             throw new AlreadyReservedDateException();
         else{
             Request request = new Request(installerEmail,customer.getContactInfo().getEmail(),date,carModel,p);
-            installer.getRequests().add(request);
-            customer.getRequests().add(request);
+            installer.addRequest(request);
+            customer.addRequest(request);
             installer.getSchedules().get(installer.getSchedules().indexOf(s)).setReserved(true);
             s.setCustomerEmail(customer.getContactInfo().getEmail());
             subj += "Installation Request Notification";

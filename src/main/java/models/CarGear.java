@@ -9,8 +9,6 @@ import java.util.List;
 
 public class CarGear {
     private static final List<User> users = new ArrayList<>();
-
-
     private static final List<Category> categories = new ArrayList<>();
 
     private static User currentUser = null;
@@ -33,15 +31,14 @@ public class CarGear {
     public static List<Category> getCategories(){
         return categories;
     }
-    public static List<Schedule> getSchedules() throws WeakPasswordException {
+    public static List<Schedule> getSchedules() {
         List<Schedule> allSchedules = new ArrayList<>();
-        List<User> installersUsers =  CarGear.getUsers().stream().filter(user -> user.getUserType().equals(UserType.INSTALLER)).toList();
+        List<User> installersUsers =  returnUsersByType(UserType.INSTALLER);
         List<Installer> installers = new ArrayList<>();
 
         for (User u:
              installersUsers) {
             installers.add((Installer) u);
-
         }
 
         for (Installer i:
@@ -53,6 +50,30 @@ public class CarGear {
         return allSchedules;
 
          }
+
+    public static List<Request> getRequests() {
+        List<Request> allRequests = new ArrayList<>();
+        List<User> installersUsers =  returnUsersByType(UserType.INSTALLER);
+        List<Installer> installers = new ArrayList<>();
+
+        for (User u:
+                installersUsers) {
+            installers.add((Installer) u);
+
+        }
+
+        for (Installer i:
+                installers
+        ) {
+            allRequests.addAll(i.getRequests());
+        }
+
+        return allRequests;
+    }
+
+   public static List<User> returnUsersByType(UserType userType){
+        return CarGear.getUsers().stream().filter(user -> user.getUserType().equals(userType)).toList();
+   }
 
     public static List<Product> getProductsOfCategory(Category category){
         return category.getProducts();
@@ -99,7 +120,7 @@ public class CarGear {
         return false;
     }
 
-    public static List<Schedule> getScheduleByEmail(String email) throws InvalidEmailFormatException, WeakPasswordException {
+    public static List<Schedule> getScheduleByEmail(String email) throws InvalidEmailFormatException {
         if (!EmailFormatChecker.hasCorrectEmailFormat(email)) {
             throw new InvalidEmailFormatException();
         }
