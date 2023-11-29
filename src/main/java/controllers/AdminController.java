@@ -244,7 +244,7 @@ public class AdminController {
     }
 
 
-    public static void editRequest(String installerEmail, String date, String editType, String value, String category) throws UserNotFoundException, InvalidEmailFormatException, ProductNotFoundException, CategoryNotFoundException, ItemNotFoundException {
+    public static void editRequest(String installerEmail, String date, String editType, String value, String category) throws UserNotFoundException, InvalidEmailFormatException, ProductNotFoundException, CategoryNotFoundException, ItemNotFoundException, AlreadyReservedDateException {
         Installer installer = (Installer) CarGear.getUserByEmail(installerEmail);
         Request request = installer.getRequestByDate(date);
         Customer customer = (Customer) CarGear.getUserByEmail(request.getCustomerEmail());
@@ -256,7 +256,6 @@ public class AdminController {
             installer.removeRequest(request);
             customer.removeRequest(request);
             // set the date in schedule to not reserved
-            installer.getSchedules().get(installer.getSchedules().indexOf(schedule)).setReserved(false);
             installer.getSchedules().get(installer.getSchedules().indexOf(schedule)).setReserved(false);
             // new Schedule
             Schedule newSchedule = new Schedule(date,true,value);
@@ -281,16 +280,41 @@ public class AdminController {
             installer.addRequest(newRequest);
 
         } else if (editType.equalsIgnoreCase("date")) {
-            // add a new date to installer's schedule
-            addDateToInstaller(installerEmail,value);
-            Schedule newSchedule = installer.getScheduleByDate(value);
-            // set the old date to available
-            installer.getSchedules().get(installer.getSchedules().indexOf(schedule)).setReserved(false);
-            // change the date of the old request
-            installer.getRequests().get(installer.getRequests().indexOf(request)).setDate(value);
-            customer.getRequests().get(customer.getRequests().indexOf(request)).setDate(value);
-            // the new schedule is not available now
-            installer.getSchedules().get(installer.getSchedules().indexOf(newSchedule)).setReserved(true);
+
+            boolean DateInSchedule = false;
+            Schedule newSchedule = null;
+
+            for (Schedule s:
+                 installer.getSchedules()) {
+                if (s.getDate().equals(value)){
+                    DateInSchedule = true;
+                    newSchedule = s;
+                }
+            }
+
+            if (DateInSchedule){
+                // if the date already exist in installer schedule and not reserved
+                if (Boolean.FALSE.equals(newSchedule.getReserved())){
+                    newSchedule.setReserved(true);
+                    installer.getSchedules().get(installer.getSchedules().indexOf(schedule)).setReserved(false);
+                    installer.getSchedules().get(installer.getSchedules().indexOf(newSchedule)).setCustomerEmail(schedule.getCustomerEmail());
+                }else {
+                    throw new AlreadyReservedDateException();
+                }
+            }else {
+                // if the date not in the installer schedule
+                schedule.setReserved(false); // make the old schedule not reserved
+                Schedule newSchedule1 = new Schedule(value,false,installerEmail);
+                addScheduleToInstaller(installerEmail,newSchedule1);
+                // change the date of the old request
+                installer.getRequests().get(installer.getRequests().indexOf(request)).setDate(value);
+                customer.getRequests().get(customer.getRequests().indexOf(request)).setDate(value);
+                // the new schedule is not available now
+                installer.getSchedules().get(installer.getSchedules().indexOf(newSchedule1)).setReserved(true);
+            }
+
+
+
 
         } else if (editType.equalsIgnoreCase("car model")) {
             installer.getRequests().get(installer.getRequests().indexOf(request)).setCarModel(value);
@@ -304,9 +328,9 @@ public class AdminController {
         }
     }
 
-    public static void addDateToInstaller(String installerEmail, String value) throws UserNotFoundException, InvalidEmailFormatException {
+    public static void addScheduleToInstaller(String installerEmail, Schedule schedule) throws UserNotFoundException, InvalidEmailFormatException {
         Installer installer = (Installer) CarGear.getUserByEmail(installerEmail);
-        installer.addSchedule(new Schedule(value,false,installerEmail));
+        installer.addSchedule(schedule);
     }
 
 }

@@ -318,6 +318,9 @@ public class AdminView {
             } catch (ItemNotFoundException e) {
                 logger.warning("Installer not found");
                 installerEmail = CustomizedScanners.scanNonEmptyString("the installer email that you want to remove request from : ", new Scanner(System.in));
+            } catch (AlreadyReservedDateException e) {
+                logger.warning("this date is already exist");
+                value = CustomizedScanners.scanNonEmptyString("the value " ,new Scanner(System.in));
             }
         }
     }
