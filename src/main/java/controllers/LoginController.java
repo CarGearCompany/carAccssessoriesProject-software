@@ -2,9 +2,12 @@ package controllers;
 
 import exceptions.InvalidEmailFormatException;
 import exceptions.UserNotFoundException;
+import helpers.EmailService;
 import models.CarGear;
 import models.User;
 import enums.UserType;
+
+import javax.mail.MessagingException;
 
 public class LoginController {
     private LoginController() {
@@ -21,4 +24,6 @@ public class LoginController {
     public static UserType getCurrentUserType() {
         return CarGear.getCurrentUser().getUserType();
     }
+
+
 }

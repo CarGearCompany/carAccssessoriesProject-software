@@ -1,7 +1,7 @@
 package controllers;
 
 import exceptions.*;
-import helpers.EmailSenderService;
+import helpers.EmailService;
 import helpers.PasswordChecker;
 import models.*;
 import printers.Printer;
@@ -35,7 +35,7 @@ public class CustomerController {
                     subj+= "Purchase Order Notification.";
                     msg += "Customer Name: " + customer.getName().getFirstName() + " " + customer.getName().getLastName() + "\n" + "Product ID: " + id + "\n" + "Product Name: " + product.getProductInfo().getProductName()
                     + "\n"+ "Quantity bought: " + reqQuantity;
-                    EmailSenderService.sendEmail(SENDER, customerEmail, msg,subj,0);
+                    EmailService.sendEmail(SENDER, customerEmail, msg,subj,0);
                     return newQuantity;
                 } else
                     throw new PurchaseNotConfirmedException();
@@ -85,7 +85,7 @@ public class CustomerController {
                     "Product Requested : " + p.getProductInfo().getProductName() + "\n"+
                     "For Car Model : " + carModel + "\n" +
                     "Date Booked For : " + date;
-            EmailSenderService.sendEmail(SENDER,installerEmail,msg,subj,1);
+            EmailService.sendEmail(SENDER,installerEmail,msg,subj,1);
         }
 
     }

@@ -3,7 +3,7 @@ package controllers;
 import enums.UserType;
 import exceptions.*;
 import helpers.EmailFormatChecker;
-import helpers.EmailSenderService;
+import helpers.EmailService;
 import models.*;
 
 
@@ -204,7 +204,7 @@ public class AdminController {
                     "Product Requested : " + p.getProductInfo().getProductName() + "\n" +
                     "For Car Model : " + carModel + "\n" +
                     "Date Booked For : " + date;
-            EmailSenderService.sendEmail(SENDER, installerEmail, msg, subj, 1);
+            EmailService.sendEmail(SENDER, installerEmail, msg, subj, 1);
         }
     }
 

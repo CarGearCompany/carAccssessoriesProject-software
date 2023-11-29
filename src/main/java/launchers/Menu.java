@@ -2,14 +2,12 @@ package launchers;
 
 import controllers.LoginController;
 import enums.UserType;
-import exceptions.AlreadyReservedDateException;
-import exceptions.CategoryNotFoundException;
-import exceptions.ProductNotFoundException;
-import exceptions.WeakPasswordException;
+import exceptions.*;
 import printers.MenuPrinter;
 import scanners.CustomizedScanners;
 import views.*;
 
+import javax.mail.MessagingException;
 import java.util.Scanner;
 
 
@@ -51,7 +49,7 @@ public class Menu {
 
     }
 
-    public static void mainMenuOptions(int choice) {
+    public static void mainMenuOptions(int choice) throws UserNotFoundException, InvalidEmailFormatException, MessagingException, WeakPasswordException {
         switch (choice) {
             case 1:
                 LoginView.login();
@@ -67,7 +65,7 @@ public class Menu {
         }
     }
 
-    public static void menuHandler() {
+    public static void menuHandler() throws UserNotFoundException, InvalidEmailFormatException, MessagingException, WeakPasswordException {
         MenuPrinter.printWelcomeMsg();
         while (true) {
             MenuPrinter.printMainMenu();
