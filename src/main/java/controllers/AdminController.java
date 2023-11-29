@@ -215,9 +215,12 @@ public class AdminController {
         Request request = installer.getRequestByDate(date);
         String customerEmail = request.getCustomerEmail();
         Customer customer = (Customer) CarGear.getUserByEmail(customerEmail);
+        Schedule schedule = installer.getScheduleByDate(date);
 
         installer.removeRequest(request);
         customer.removeRequest(request);
+
+        installer.getSchedules().get(installer.getSchedules().indexOf(schedule)).setReserved(false);
     }
 
     public static List<Request> searchForRequests(String searchType, String value) {
@@ -242,51 +245,68 @@ public class AdminController {
 
 
     public static void editRequest(String installerEmail, String date, String editType, String value, String category) throws UserNotFoundException, InvalidEmailFormatException, ProductNotFoundException, CategoryNotFoundException, ItemNotFoundException {
-        // needs edits
         Installer installer = (Installer) CarGear.getUserByEmail(installerEmail);
         Request request = installer.getRequestByDate(date);
         Customer customer = (Customer) CarGear.getUserByEmail(request.getCustomerEmail());
+        Schedule schedule = installer.getScheduleByDate(date);
 
         if (editType.equalsIgnoreCase("installer email")) {
             Request newRequest = new Request(value , request.getCustomerEmail() , date , request.getCarModel() , request.getProduct());
+            // remove the old request
             installer.removeRequest(request);
             customer.removeRequest(request);
+            // set the date in schedule to not reserved
+            installer.getSchedules().get(installer.getSchedules().indexOf(schedule)).setReserved(false);
+            installer.getSchedules().get(installer.getSchedules().indexOf(schedule)).setReserved(false);
+            // new Schedule
+            Schedule newSchedule = new Schedule(date,true,value);
+            newSchedule.setCustomerEmail(request.getCustomerEmail());
             Installer newInstaller = (Installer) CarGear.getUserByEmail(value);
+
+            //add the new request and schedule
+            newInstaller.addSchedule(newSchedule);
             newInstaller.addRequest(newRequest);
             customer.addRequest(newRequest);
+
         } else if (editType.equalsIgnoreCase("customer email")) {
             Request newRequest = new Request(installerEmail , value , date , request.getCarModel() , request.getProduct());
+            // remove the old request
             installer.removeRequest(request);
             customer.removeRequest(request);
+            // make new customer and give the request to his list
             Customer newCustomer = (Customer) CarGear.getUserByEmail(value);
             newCustomer.addRequest(newRequest);
+            // modify the old Schedule and add the new request in the installer
+            installer.getSchedules().get(installer.getSchedules().indexOf(schedule)).setCustomerEmail(value);
             installer.addRequest(newRequest);
+
         } else if (editType.equalsIgnoreCase("date")) {
-            Request newRequest = new Request(installerEmail , request.getCustomerEmail() , value , request.getCarModel() , request.getProduct());
-            Schedule schedule = installer.getScheduleByDate(date);
-            schedule.setReserved(false);
+            // add a new date to installer's schedule
+            addDateToInstaller(installerEmail,value);
             Schedule newSchedule = installer.getScheduleByDate(value);
-            schedule.setReserved(true);
-            installer.removeSchedule(schedule);
-            installer.addSchedule(newSchedule);
-            installer.removeRequest(request);
-            installer.addRequest(newRequest);
-            customer.removeRequest(request);
-            customer.addRequest(newRequest);
+            // set the old date to available
+            installer.getSchedules().get(installer.getSchedules().indexOf(schedule)).setReserved(false);
+            // change the date of the old request
+            installer.getRequests().get(installer.getRequests().indexOf(request)).setDate(value);
+            customer.getRequests().get(customer.getRequests().indexOf(request)).setDate(value);
+            // the new schedule is not available now
+            installer.getSchedules().get(installer.getSchedules().indexOf(newSchedule)).setReserved(true);
+
         } else if (editType.equalsIgnoreCase("car model")) {
-            Request newRequest = new Request(installerEmail , request.getCustomerEmail() , date , value , request.getProduct());
-            installer.removeRequest(request);
-            installer.addRequest(newRequest);
-            customer.removeRequest(request);
-            customer.addRequest(newRequest);
+            installer.getRequests().get(installer.getRequests().indexOf(request)).setCarModel(value);
+            customer.getRequests().get(customer.getRequests().indexOf(request)).setCarModel(value);
+
         } else if (editType.equalsIgnoreCase("product id") && (category!= null)){
                 Category category1 = CarGear.getCategoryByName(category);
                 Product newProduct = CarGear.getProductById(category1, Integer.parseInt(value));
-                Request newRequest = new Request(installerEmail , request.getCustomerEmail() , date , request.getCarModel() , newProduct);
-                installer.removeRequest(request);
-                customer.removeRequest(request);
-                installer.addRequest(newRequest);
-                customer.addRequest(newRequest);
+                installer.getRequests().get(installer.getRequests().indexOf(request)).setProduct(newProduct);
+                customer.getRequests().get(customer.getRequests().indexOf(request)).setProduct(newProduct);
         }
     }
+
+    public static void addDateToInstaller(String installerEmail, String value) throws UserNotFoundException, InvalidEmailFormatException {
+        Installer installer = (Installer) CarGear.getUserByEmail(installerEmail);
+        installer.addSchedule(new Schedule(value,false,installerEmail));
+    }
+
 }

@@ -270,8 +270,8 @@ public class AdminView {
                 logger.warning("Invalid email format");
                 installerEmail = CustomizedScanners.scanNonEmptyString("the installer email that you want to remove request from : ", new Scanner(System.in));
             } catch (ItemNotFoundException e) {
-                logger.warning("Installer not found");
-                installerEmail = CustomizedScanners.scanNonEmptyString("the installer email that you want to remove request from : ", new Scanner(System.in));
+                logger.warning("Date not found");
+                date = CustomizedScanners.scanNonEmptyString("Date for the request: ", new Scanner(System.in));
             }
 
         }

@@ -292,7 +292,7 @@ public class CarGear {
         Product secElectronic = new Product(5,new ProductInfo("Camera","description6",70,0));
 
         Schedule firstSchedule = new Schedule("15/12/2023", false,"mahmoudshoulicarva@gmail.com" );
-        Schedule secondSchedule = new Schedule("7/1/2024", true,"mahmoudshoulicarva@gmail.com" );
+        Schedule secondSchedule = new Schedule("7/1/2024", false,"mahmoudshoulicarva@gmail.com" );
         Schedule thirdSchedule = new Schedule("8/2/2024", false,"hala@gmail.com" );
         Schedule fourthSchedule = new Schedule("15/2/2024", false,"hala@gmail.com" );
 
