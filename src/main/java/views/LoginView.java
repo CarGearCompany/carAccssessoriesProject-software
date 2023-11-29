@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 public class LoginView {
     private static final Logger logger = Logger.getLogger(LoginView.class.getName());
-    private static final String EMAIL = "Email";
+    private static final String EMAIL = "email";
     private LoginView() {
     }
 
@@ -39,4 +39,8 @@ public class LoginView {
         }
     }
 
+    public static void forgetPassword() {
+        String email = CustomizedScanners.scanNonEmptyString(EMAIL, new Scanner(System.in));
+
+    }
 }
