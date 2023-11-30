@@ -33,8 +33,10 @@ public class CustomerController {
                     product.getProductInfo().setQuantity(newQuantity);
                     customer.addProduct(product);
                     subj+= "Purchase Order Notification.";
-                    msg += "Customer Name: " + customer.getName().getFirstName() + " " + customer.getName().getLastName() + "\n" + "Product ID: " + id + "\n" + "Product Name: " + product.getProductInfo().getProductName()
-                    + "\n"+ "Quantity bought: " + reqQuantity;
+                    msg += "<br><br><br><br><br>"+"Customer Name: " + customer.getName().getFirstName() + " " + customer.getName().getLastName() +
+                            "<br>" + "Product ID: " + id +
+                            "<br>" + "Product Name: " + product.getProductInfo().getProductName()
+                            + "<br>>"+ "Quantity bought: " + reqQuantity;
                     EmailService.sendEmail(SENDER, customerEmail, msg,subj,0);
                     return newQuantity;
                 } else

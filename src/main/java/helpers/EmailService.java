@@ -127,6 +127,12 @@ public class EmailService {
             multipart.addBodyPart(mimeBodyPart);
             message.setContent(multipart);
 
+            //test
+//            MimeBodyPart imagePart = new MimeBodyPart();
+//            imagePart.attachFile("imgs/logo.png");
+//            imagePart.setContentID("<img>");
+//            imagePart.setDisposition(Part.INLINE);
+
 
 
 
