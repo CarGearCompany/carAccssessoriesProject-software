@@ -7,5 +7,5 @@ Feature: Logout
 
     Examples:
       | email               | password      |
-      | 'nabeel@gmail.com'  | 'Nabeel@123'  |
+      | 'xnabeel972@gmail.com'  | 'Nabeel@123'  |
       | 'mahmoud@gmail.com' | 'Mahmoud@123' |

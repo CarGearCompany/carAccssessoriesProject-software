@@ -6,6 +6,6 @@ Feature: Logout
     Then the current user will be null
 
     Examples:
-      | email               | password      |
-      | 'nabeel@gmail.com'  | 'Nabeel@123'  |
-      | 'mahmoud@gmail.com' | 'Mahmoud@123' |
+      | email                  | password      |
+      | 'xnabeel972@gmail.com' | 'Nabeel@123'  |
+      | 'mahmoud@gmail.com'    | 'Mahmoud@123' |

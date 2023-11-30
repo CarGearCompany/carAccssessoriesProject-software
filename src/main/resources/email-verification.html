@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title> CarGear Purchase Notification Code </title>
+    <title> CarGear Email Verification Code </title>
 
     <!-- add styles -->
     <style>
@@ -37,7 +37,7 @@
         }
 
         /* Style for the h3 */
-        .container p {
+        .container h3 {
             border: 3px solid white; /* White solid border */
             border-radius: 50px;
             padding: 10px; /* Add padding for better aesthetics */
@@ -52,12 +52,12 @@
 
 <body>
 
-<h1> {{dynamic_subject_placeholder}} </h1>
-
+<h1> {{dynamic_subject_placeholder}}</h1>
+<p style="color: white"> This is an email verification from CarGear, please enter the shown code! </p>
 
 <div class="container">
-    <img src="../imgs/logo.png" alt="my Image">
-    <p>{{dynamic_text_placeholder}}</p>
+    <img src="imgs/logo.png" alt="my Image">
+    <h3>{{dynamic_text_placeholder}}</h3>
 </div>
 
 

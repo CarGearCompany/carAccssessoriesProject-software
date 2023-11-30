@@ -11,9 +11,9 @@ Feature: Promote User To Admin
    Then the promote willn't pass due to user not found exception
 
   Scenario: promote failed due to admins can't be promoted exception
-    When the admin enters the 'nabeel@gmail.com' of the user
+    When the admin enters the 'xnabeel972@gmail.com' of the user
     Then the promote willn't pass due to admin cannot be promoted exception
 
   Scenario: promote failed due to invalid email format exception
-    When the admin enters the 'nabeel@gmail' of the user
+    When the admin enters the 'xnabeel@gmail' of the user
     Then the promote willn't pass due to invalid email format exception

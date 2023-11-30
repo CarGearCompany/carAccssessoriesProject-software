@@ -59,7 +59,7 @@ public class Menu {
                 SignUpView.signUp();
                 break;
             case 3:
-                LoginView.forgetPassword();
+                ForgetPasswordView.forgetPassword();
                 break;
             default:
         }

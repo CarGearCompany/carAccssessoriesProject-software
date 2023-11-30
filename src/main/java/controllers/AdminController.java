@@ -281,23 +281,26 @@ public class AdminController {
 
         } else if (editType.equalsIgnoreCase("date")) {
 
-            boolean DateInSchedule = false;
-            Schedule newSchedule = null;
+            boolean dateInSchedule = false;
+            Schedule currentSchedule = null;
 
             for (Schedule s:
                  installer.getSchedules()) {
                 if (s.getDate().equals(value)){
-                    DateInSchedule = true;
-                    newSchedule = s;
+                    dateInSchedule = true;
+                    currentSchedule = s;
                 }
             }
 
-            if (DateInSchedule){
+            if (dateInSchedule){
                 // if the date already exist in installer schedule and not reserved
-                if (Boolean.FALSE.equals(newSchedule.getReserved())){
-                    newSchedule.setReserved(true);
+                if (Boolean.FALSE.equals(currentSchedule.getReserved())){
+                    currentSchedule.setReserved(true);
                     installer.getSchedules().get(installer.getSchedules().indexOf(schedule)).setReserved(false);
-                    installer.getSchedules().get(installer.getSchedules().indexOf(newSchedule)).setCustomerEmail(schedule.getCustomerEmail());
+                    installer.getSchedules().get(installer.getSchedules().indexOf(currentSchedule)).setCustomerEmail(schedule.getCustomerEmail());
+                    // change the date of the old request
+                    installer.getRequests().get(installer.getRequests().indexOf(request)).setDate(value);
+                    customer.getRequests().get(customer.getRequests().indexOf(request)).setDate(value);
                 }else {
                     throw new AlreadyReservedDateException();
                 }

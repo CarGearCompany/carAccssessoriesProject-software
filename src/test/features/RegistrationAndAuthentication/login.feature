@@ -10,9 +10,9 @@ Feature: Login
    Then the user will login successfully
 
    Examples:
-     | email               | password      |  |
-     | 'nabeel@gmail.com'  | 'Nabeel@123'  |  |
-     | 'mahmoud@gmail.com' | 'Mahmoud@123' |  |
+     | email                  | password      |  |
+     | 'xnabeel972@gmail.com' | 'Nabeel@123'  |  |
+     | 'mahmoud@gmail.com'    | 'Mahmoud@123' |  |
 
 
 
@@ -23,7 +23,7 @@ Feature: Login
 
     Examples:
       | email                | password      |
-      | 'nabeel1@gmail.com'  | 'Nabeel@123'  |
+      | 'xnabeel@gmail.com'  | 'Nabeel@123'  |
       | 'mahmoud1@gmail.com' | 'Mahmoud@123' |
 
 
@@ -34,6 +34,6 @@ Feature: Login
 
     Examples:
       | email               | password  |  |
-      | 'nabeel@gmail.com'  | 'nabeel'  |  |
+      | 'xnabeel972@gmail.com'  | 'nabeel'  |  |
       | 'mahmoud@gmail.com' | 'mahmoud' |  |
 

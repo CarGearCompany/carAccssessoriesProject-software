@@ -57,17 +57,17 @@ public class EmailService {
 
             message.setSubject("Email Verification");
 
-//            setBody(code,"src/main/resources/html/email-verification.html","CarGear Email Verification");
+            setBody(code,"src/main/resources/email-verification.html","CarGear Email Verification");
 //
-              message.setText(body);
+//              message.setText(body);
 //
-//            set the content (Multi part body consists of multi bodies)
-//            MimeBodyPart mimeBodyPart = new MimeBodyPart();
-//            mimeBodyPart.setContent(body, "text/html");
-//
-//            Multipart multipart = new MimeMultipart();
-//            multipart.addBodyPart(mimeBodyPart);
-//            message.setContent(multipart);
+ //           set the content (Multi part body consists of multi bodies)
+            MimeBodyPart mimeBodyPart = new MimeBodyPart();
+            mimeBodyPart.setContent(body, "text/html");
+
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(mimeBodyPart);
+            message.setContent(multipart);
             Transport.send(message);
             logger.info("Verification code is sent to your email.");
 
@@ -87,9 +87,9 @@ public class EmailService {
         }
         catch (MessagingException m){
             logger.warning("Notification failed to send");
-        } //catch (IOException e) {
-            //
-       // }
+        } catch (IOException e) {
+
+      }
 
 
     }
@@ -115,17 +115,17 @@ public class EmailService {
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(receiverEmail,false));
             message.setSubject(subject);
             boolean bool = flag == 1;
-            //setBody(emailMessage,"src/main/resources/html/email-notification.html",bool?"Installation Request Notification":"Purchase Order Notification");
+            setBody(emailMessage,"src/main/resources/email-notification.html",bool?"Installation Request Notification":"Purchase Order Notification");
 
-            message.setText(emailMessage);
+           // message.setText(emailMessage);
 
             //set the content (Multi part body consists of multi bodies)
-            //MimeBodyPart mimeBodyPart = new MimeBodyPart();
-            //mimeBodyPart.setContent(body, "text/html");
+            MimeBodyPart mimeBodyPart = new MimeBodyPart();
+            mimeBodyPart.setContent(body, "text/html");
 
-            //Multipart multipart = new MimeMultipart();
-            //multipart.addBodyPart(mimeBodyPart);
-            //message.setContent(multipart);
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(mimeBodyPart);
+            message.setContent(multipart);
 
 
 
@@ -142,9 +142,9 @@ public class EmailService {
         }
         catch (MessagingException m){
            logger.warning("Notification failed to send");
-        } //catch (IOException e) {
-            //
-        //}
+        } catch (IOException e) {
+
+        }
 
 
     }

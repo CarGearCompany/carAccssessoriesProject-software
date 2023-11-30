@@ -227,7 +227,7 @@ public class CarGear {
                 20,
                 Gender.MALE,
                 "Nabeel@123",
-                new ContactInfo("nabeel@gmail.com", "0592757823",
+                new ContactInfo("xnabeel972@gmail.com", "0592757823",
                         new Location("Nablus", "TunisST")),
                 UserType.ADMIN);
 
