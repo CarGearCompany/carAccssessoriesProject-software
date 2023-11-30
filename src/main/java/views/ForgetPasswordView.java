@@ -37,6 +37,7 @@ public class ForgetPasswordView {
                 logger.warning("Email flied to send");
             }
         }
+
         newPass = CustomizedScanners.scanNonEmptyString("Enter the new passWord", new Scanner(System.in));
         confirmPass = CustomizedScanners.scanNonEmptyString("Enter the new passWord", new Scanner(System.in));
 
