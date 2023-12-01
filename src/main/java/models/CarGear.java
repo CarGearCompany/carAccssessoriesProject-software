@@ -316,6 +316,7 @@ public class CarGear {
     exterior.addProducts(secExterior);
     electronic.addProducts(firstElectronic);
     electronic.addProducts(secElectronic);
+
     }
 }
 

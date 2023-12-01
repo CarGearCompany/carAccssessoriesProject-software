@@ -8,7 +8,6 @@ import scanners.CustomizedScanners;
 
 
 import javax.mail.MessagingException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Logger;
@@ -205,9 +204,10 @@ public class AdminView {
                 id = CustomizedScanners.scanInt("id of the product ", new Scanner(System.in));
             } catch (CannotEditIdException e) {
                logger.warning("ID's cannot be edited.");
-               break;
+                editType = CustomizedScanners.scanNonEmptyString("edit credential (what field do you want to edit)",new Scanner(System.in));
             } catch (CategoryNotFoundException e) {
                 logger.warning("Category not found");
+                categoryString = CustomizedScanners.scanNonEmptyString("category of the product ", new Scanner(System.in));
             }
         }
     }
@@ -287,18 +287,20 @@ public class AdminView {
     }
 
     public static void editRequest() {
-        String installerEmail = CustomizedScanners.scanNonEmptyString("installer email that you want to edit their request from : ", new Scanner(System.in));
+        String installerEmail = CustomizedScanners.scanNonEmptyString("installer email that you want to edit their request ", new Scanner(System.in));
         String date = CustomizedScanners.scanNonEmptyString("Date for the request: ", new Scanner(System.in));
         String editType = CustomizedScanners.scanNonEmptyString("edit credential (what do you want to edit by)",new Scanner(System.in));
         String value = CustomizedScanners.scanNonEmptyString("the value " ,new Scanner(System.in));
         String category;
         assert editType != null;
         if (editType.equalsIgnoreCase("product id")) {
-            category = CustomizedScanners.scanNonEmptyString("category: ", new Scanner(System.in));
+            category = CustomizedScanners.scanNonEmptyString("new category: ", new Scanner(System.in));
         }else {
             category = null;
         }
+
         while (true){
+
             try {
                 AdminController.editRequest(installerEmail , date , editType , value , category);
                 logger.info("the request edited successfully");
@@ -316,8 +318,8 @@ public class AdminView {
                 logger.warning("product not found");
                 value = String.valueOf(CustomizedScanners.scanInt("Product ID:", new Scanner(System.in)));
             } catch (ItemNotFoundException e) {
-                logger.warning("Installer not found");
-                installerEmail = CustomizedScanners.scanNonEmptyString("the installer email that you want to remove request from : ", new Scanner(System.in));
+                logger.warning("Request not found");
+                date = CustomizedScanners.scanNonEmptyString("Date for the request: ", new Scanner(System.in));
             } catch (AlreadyReservedDateException e) {
                 logger.warning("this date is already exist");
                 value = CustomizedScanners.scanNonEmptyString("the value " ,new Scanner(System.in));

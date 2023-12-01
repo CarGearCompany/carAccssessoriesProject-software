@@ -2,10 +2,7 @@ package test_installer;
 
 import controllers.CustomerController;
 import controllers.LoginController;
-import exceptions.InvalidEmailFormatException;
-import exceptions.UserAlreadyExistsException;
-import exceptions.UserNotFoundException;
-import exceptions.WeakPasswordException;
+import exceptions.*;
 import io.cucumber.java.en.*;
 import models.CarGear;
 
@@ -15,7 +12,7 @@ public class TestEditLocation {
 
     String city , street;
     @Given("Database is already filled")
-    public void databaseIsAlreadyFilled() throws UserAlreadyExistsException, WeakPasswordException {
+    public void databaseIsAlreadyFilled() throws UserAlreadyExistsException, WeakPasswordException, ItemNotFoundException {
         CarGear.initData();
     }
     @Given("the user is already logged in with {string} and {string}")

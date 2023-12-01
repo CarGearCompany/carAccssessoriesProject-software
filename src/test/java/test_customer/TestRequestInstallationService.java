@@ -1,6 +1,7 @@
 package test_customer;
 
 import controllers.CustomerController;
+import controllers.LoginController;
 import exceptions.*;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -97,7 +98,10 @@ public class TestRequestInstallationService {
 
 
     @Then("the request will fail and the date already booked exception  will be thrown")
-    public void theRequestWillFailAndTheDateAlreadyBookedExceptionWillBeThrown() {
+    public void theRequestWillFailAndTheDateAlreadyBookedExceptionWillBeThrown() throws UserNotFoundException, InvalidEmailFormatException, MessagingException, AlreadyReservedDateException, CategoryNotFoundException, ProductNotFoundException, ItemNotFoundException {
+        LoginController.login("jana@gmail.com","Jana@123");
+        CarGear.setCurrentUser(CarGear.getUserByEmail("jana@gmail.com"));
+        CustomerController.requestService(email,model,date,category, id);
 
         assertThrows(AlreadyReservedDateException.class, () -> CustomerController.requestService(email,model,date,category,id));
     }

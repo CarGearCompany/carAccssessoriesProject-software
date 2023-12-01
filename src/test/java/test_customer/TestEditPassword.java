@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class TestEditPassword {
     private String password;
     @Given("Database is already filled")
-    public void databaseIsAlreadyFilled() throws  InvalidPhoneNumberException, UserAlreadyExistsException, InvalidEmailFormatException, WeakPasswordException {
+    public void databaseIsAlreadyFilled() throws InvalidPhoneNumberException, UserAlreadyExistsException, InvalidEmailFormatException, WeakPasswordException, ItemNotFoundException {
         CarGear.initData();
     }
 

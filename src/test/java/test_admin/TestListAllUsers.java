@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TestListAllUsers {
     private List<User> users;
     @Given("Database is already filled")
-    public void databaseIsAlreadyFilled() throws  InvalidPhoneNumberException, UserAlreadyExistsException, InvalidEmailFormatException, WeakPasswordException {
+    public void databaseIsAlreadyFilled() throws InvalidPhoneNumberException, UserAlreadyExistsException, InvalidEmailFormatException, WeakPasswordException, ItemNotFoundException {
         CarGear.initData();
     }
     @When("the admin wants to list all users")

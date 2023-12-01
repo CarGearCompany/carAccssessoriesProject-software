@@ -180,7 +180,7 @@ public class AdminController {
 
     }
 
-
+// maybe we should update the test of add request feature
     public static void addRequest(String customerEmail, String installerEmail, String date, String carModel, String category, int productId) throws UserNotFoundException, InvalidEmailFormatException, CategoryNotFoundException, ProductNotFoundException, ItemNotFoundException, AlreadyReservedDateException, MessagingException {
         Installer installer = (Installer) CarGear.getUserByEmail(installerEmail);
         Customer customer = (Customer) CarGear.getUserByEmail(customerEmail);
@@ -210,7 +210,9 @@ public class AdminController {
 
 
     public static void removeRequest(String installerEmail, String date) throws UserNotFoundException, InvalidEmailFormatException, ItemNotFoundException {
-        // needs edits
+        if(!EmailFormatChecker.hasCorrectEmailFormat(installerEmail)) {
+            throw new InvalidEmailFormatException();
+        }
         Installer installer = (Installer) CarGear.getUserByEmail(installerEmail);
         Request request = installer.getRequestByDate(date);
         String customerEmail = request.getCustomerEmail();
@@ -224,6 +226,7 @@ public class AdminController {
     }
 
     public static List<Request> searchForRequests(String searchType, String value) {
+
         if (searchType.equalsIgnoreCase("customer email")) {
             return CarGear.getRequests().stream().filter(request -> request.getCustomerEmail().equals(value)).toList();
 
@@ -249,86 +252,95 @@ public class AdminController {
         Request request = installer.getRequestByDate(date);
         Customer customer = (Customer) CarGear.getUserByEmail(request.getCustomerEmail());
         Schedule schedule = installer.getScheduleByDate(date);
+        Request newRequest;
+        Schedule newSchedule;
+        Installer newInstaller;
+        Customer newCustomer;
+        boolean dateInSchedule = false;
+        Schedule currentSchedule = null;
 
-        if (editType.equalsIgnoreCase("installer email")) {
-            Request newRequest = new Request(value , request.getCustomerEmail() , date , request.getCarModel() , request.getProduct());
-            // remove the old request
-            installer.removeRequest(request);
-            customer.removeRequest(request);
-            // set the date in schedule to not reserved
-            installer.getSchedules().get(installer.getSchedules().indexOf(schedule)).setReserved(false);
-            // new Schedule
-            Schedule newSchedule = new Schedule(date,true,value);
-            newSchedule.setCustomerEmail(request.getCustomerEmail());
-            Installer newInstaller = (Installer) CarGear.getUserByEmail(value);
+        switch (editType){
+            case "installer email":
+                newRequest = new Request(value , request.getCustomerEmail() , date , request.getCarModel() , request.getProduct());
+                // remove the old request
+                installer.removeRequest(request);
+                customer.removeRequest(request);
+                // set the date in schedule to not reserved
+                installer.getSchedules().get(installer.getSchedules().indexOf(schedule)).setReserved(false);
+                // new Schedule
+                newSchedule = new Schedule(date,true,value);
+                newSchedule.setCustomerEmail(request.getCustomerEmail());
+                newInstaller = (Installer) CarGear.getUserByEmail(value);
 
-            //add the new request and schedule
-            newInstaller.addSchedule(newSchedule);
-            newInstaller.addRequest(newRequest);
-            customer.addRequest(newRequest);
-
-        } else if (editType.equalsIgnoreCase("customer email")) {
-            Request newRequest = new Request(installerEmail , value , date , request.getCarModel() , request.getProduct());
-            // remove the old request
-            installer.removeRequest(request);
-            customer.removeRequest(request);
-            // make new customer and give the request to his list
-            Customer newCustomer = (Customer) CarGear.getUserByEmail(value);
-            newCustomer.addRequest(newRequest);
-            // modify the old Schedule and add the new request in the installer
-            installer.getSchedules().get(installer.getSchedules().indexOf(schedule)).setCustomerEmail(value);
-            installer.addRequest(newRequest);
-
-        } else if (editType.equalsIgnoreCase("date")) {
-
-            boolean dateInSchedule = false;
-            Schedule currentSchedule = null;
-
-            for (Schedule s:
-                 installer.getSchedules()) {
-                if (s.getDate().equals(value)){
-                    dateInSchedule = true;
-                    currentSchedule = s;
+                //add the new request and schedule
+                newInstaller.addSchedule(newSchedule);
+                newInstaller.addRequest(newRequest);
+                customer.addRequest(newRequest);
+                break;
+            case "customer email" :
+                newRequest = new Request(installerEmail , value , date , request.getCarModel() , request.getProduct());
+                // remove the old request
+                installer.removeRequest(request);
+                customer.removeRequest(request);
+                // make new customer and give the request to his list
+                newCustomer = (Customer) CarGear.getUserByEmail(value);
+                newCustomer.addRequest(newRequest);
+                // modify the old Schedule and add the new request in the installer
+                installer.getSchedules().get(installer.getSchedules().indexOf(schedule)).setCustomerEmail(value);
+                installer.addRequest(newRequest);
+                break;
+            case "date" :
+                for (Schedule s:
+                        installer.getSchedules()) {
+                    if (s.getDate().equals(value)){
+                        dateInSchedule = true;
+                        currentSchedule = s;
+                    }
                 }
-            }
 
-            if (dateInSchedule){
-                // if the date already exist in installer schedule and not reserved
-                if (Boolean.FALSE.equals(currentSchedule.getReserved())){
-                    currentSchedule.setReserved(true);
-                    installer.getSchedules().get(installer.getSchedules().indexOf(schedule)).setReserved(false);
-                    installer.getSchedules().get(installer.getSchedules().indexOf(currentSchedule)).setCustomerEmail(schedule.getCustomerEmail());
+                if (dateInSchedule){
+                    // if the date already exist in installer schedule and not reserved
+                    if (Boolean.FALSE.equals(currentSchedule.getReserved())){
+                        currentSchedule.setReserved(true);
+                        installer.getSchedules().get(installer.getSchedules().indexOf(schedule)).setReserved(false);
+                        installer.getSchedules().get(installer.getSchedules().indexOf(currentSchedule)).setCustomerEmail(schedule.getCustomerEmail());
+                        // change the date of the old request
+                        installer.getRequests().get(installer.getRequests().indexOf(request)).setDate(value);
+                        customer.getRequests().get(customer.getRequests().indexOf(request)).setDate(value);
+                    }else {
+                        throw new AlreadyReservedDateException();
+                    }
+                }else {
+                    // if the date not in the installer schedule
+                    schedule.setReserved(false); // make the old schedule not reserved
+                    Schedule newSchedule1 = new Schedule(value,false,installerEmail);
+                    addScheduleToInstaller(installerEmail,newSchedule1);
                     // change the date of the old request
                     installer.getRequests().get(installer.getRequests().indexOf(request)).setDate(value);
                     customer.getRequests().get(customer.getRequests().indexOf(request)).setDate(value);
-                }else {
-                    throw new AlreadyReservedDateException();
+                    // the new schedule is not available now
+                    installer.getSchedules().get(installer.getSchedules().indexOf(newSchedule1)).setReserved(true);
                 }
-            }else {
-                // if the date not in the installer schedule
-                schedule.setReserved(false); // make the old schedule not reserved
-                Schedule newSchedule1 = new Schedule(value,false,installerEmail);
-                addScheduleToInstaller(installerEmail,newSchedule1);
-                // change the date of the old request
-                installer.getRequests().get(installer.getRequests().indexOf(request)).setDate(value);
-                customer.getRequests().get(customer.getRequests().indexOf(request)).setDate(value);
-                // the new schedule is not available now
-                installer.getSchedules().get(installer.getSchedules().indexOf(newSchedule1)).setReserved(true);
-            }
 
+                break;
 
+            case "car model":
+                installer.getRequests().get(installer.getRequests().indexOf(request)).setCarModel(value);
+                customer.getRequests().get(customer.getRequests().indexOf(request)).setCarModel(value);
+                break;
 
-
-        } else if (editType.equalsIgnoreCase("car model")) {
-            installer.getRequests().get(installer.getRequests().indexOf(request)).setCarModel(value);
-            customer.getRequests().get(customer.getRequests().indexOf(request)).setCarModel(value);
-
-        } else if (editType.equalsIgnoreCase("product id") && (category!= null)){
-                Category category1 = CarGear.getCategoryByName(category);
-                Product newProduct = CarGear.getProductById(category1, Integer.parseInt(value));
-                installer.getRequests().get(installer.getRequests().indexOf(request)).setProduct(newProduct);
-                customer.getRequests().get(customer.getRequests().indexOf(request)).setProduct(newProduct);
+            case "product id" :
+                if (category != null) {
+                    Category category1 = CarGear.getCategoryByName(category);
+                    Product newProduct = CarGear.getProductById(category1, Integer.parseInt(value));
+                    installer.getRequests().get(installer.getRequests().indexOf(request)).setProduct(newProduct);
+                    customer.getRequests().get(customer.getRequests().indexOf(request)).setProduct(newProduct);
+                }
+                break;
+            default:
         }
+
+
     }
 
     public static void addScheduleToInstaller(String installerEmail, Schedule schedule) throws UserNotFoundException, InvalidEmailFormatException {

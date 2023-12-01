@@ -1,12 +1,16 @@
 package test_admin;
 
 import controllers.AdminController;
+import controllers.CustomerController;
+import controllers.LoginController;
 import exceptions.*;
 import io.cucumber.java.en.*;
 import models.CarGear;
 import models.Customer;
 import models.Installer;
 
+
+import javax.mail.MessagingException;
 
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.*;
@@ -61,6 +65,69 @@ public class TestAddRequest {
     public void theDateIsInstallerScheduleWillBeReserved(String string) throws ItemNotFoundException {
         assertTrue(installer.getScheduleByDate(date).getReserved());
     }
+
+    @When("the admin enters invalid customer email {string}")
+    public void theAdminEntersInvalidCustomerEmail(String string) {
+        customerEmail = string;
+    }
+    @Then("the Request will not be added successfully and user not found exception will be thrown")
+    public void theRequestWillNotBeAddedSuccessfullyAndUserNotFoundExceptionWillBeThrown() {
+        assertThrows(UserNotFoundException.class,() -> {
+            CarGear.getUserByEmail(customerEmail);
+        });
+    }
+
+    @When("the admin enters invalid installer email {string}")
+    public void theAdminEntersInvalidInstallerEmail(String string) {
+        installerEmail = string;
+    }
+    @Then("the Request will not be added successfully because of the wrong installer email and user not found exception will be thrown")
+    public void theRequestWillNotBeAddedSuccessfullyBecauseOfTheWrongInstallerEmailAndUserNotFoundExceptionWillBeThrown() {
+        assertThrows(UserNotFoundException.class,() -> {
+            CarGear.getUserByEmail(installerEmail);
+        });
+    }
+
+
+    @When("the admin enters already reserved date {string}")
+    public void theAdminEntersAlreadyReservedDate(String string) {
+       date = string;
+    }
+    @Then("the Request will not be added successfully and already reserved date exception will be thrown")
+    public void theRequestWillNotBeAddedSuccessfullyAndAlreadyReservedDateExceptionWillBeThrown() throws UserNotFoundException, InvalidEmailFormatException, MessagingException, AlreadyReservedDateException, CategoryNotFoundException, ProductNotFoundException, ItemNotFoundException {
+        CarGear.setCurrentUser(CarGear.getUserByEmail("jana@gmail.com"));
+        CustomerController.requestService("hala@gmail.com","bmw",date,"interior",0);
+
+        assertThrows(AlreadyReservedDateException.class,() -> {
+            AdminController.addRequest("jana@gmail.com","hala@gmail.com",date,carModel,"interior",0);
+        });
+    }
+    @When("the admin enters wrong category name {string}")
+    public void theAdminEntersWrongCategoryName(String string) {
+        category = string;
+    }
+    @Then("the Request will not be added successfully and category noy found exception will be thrown")
+    public void theRequestWillNotBeAddedSuccessfullyAndCategoryNoyFoundExceptionWillBeThrown() {
+        assertThrows(CategoryNotFoundException.class,() -> {
+            CarGear.getCategoryByName(category);
+        });
+    }
+
+    @When("the admin enters correct category name {string} and wrong product id {int}")
+    public void theAdminEntersCorrectCategoryNameAndWrongProductId(String string, Integer int1) {
+        category = string;
+        productId = int1;
+    }
+    @Then("the Request will not be added successfully and product not found exception exception will be thrown")
+    public void theRequestWillNotBeAddedSuccessfullyAndProductNotFoundExceptionExceptionWillBeThrown() {
+        assertThrows(ProductNotFoundException.class,() -> {
+            CarGear.getProductById(CarGear.getCategoryByName(category),productId);
+        });
+    }
+
+
+
+
 
 
 

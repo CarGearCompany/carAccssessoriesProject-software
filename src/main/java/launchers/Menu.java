@@ -7,7 +7,6 @@ import printers.MenuPrinter;
 import scanners.CustomizedScanners;
 import views.*;
 
-import javax.mail.MessagingException;
 import java.util.Scanner;
 
 
@@ -23,7 +22,7 @@ public class Menu {
         ---
         the option for user option
      */
-    private static void determineUserType()  {
+    private static void determineUserType() throws AlreadyReservedDateException {
         try {
             UserType currentUserType = LoginController.getCurrentUserType();
             switch (currentUserType) {
@@ -37,19 +36,13 @@ public class Menu {
                     installerHandler();
                     break;
             }
-        } catch (NullPointerException | CategoryNotFoundException e) {
+        } catch (NullPointerException | CategoryNotFoundException | ProductNotFoundException e) {
             // to avoid the nullPointer Exception
-        } catch (ProductNotFoundException e) {
-            //
-        } catch (AlreadyReservedDateException e) {
-            throw new RuntimeException(e);
-        } catch (WeakPasswordException e) {
-            throw new RuntimeException(e);
         }
 
     }
 
-    public static void mainMenuOptions(int choice) throws UserNotFoundException, InvalidEmailFormatException, MessagingException, WeakPasswordException {
+    public static void mainMenuOptions(int choice) throws AlreadyReservedDateException {
         switch (choice) {
             case 1:
                 LoginView.login();
@@ -65,7 +58,7 @@ public class Menu {
         }
     }
 
-    public static void menuHandler() throws UserNotFoundException, InvalidEmailFormatException, MessagingException, WeakPasswordException {
+    public static void menuHandler() throws AlreadyReservedDateException {
         MenuPrinter.printWelcomeMsg();
         while (true) {
             MenuPrinter.printMainMenu();
@@ -229,7 +222,7 @@ public class Menu {
             }
         }
     }
-    private static void customerOption(int choice) throws CategoryNotFoundException, ProductNotFoundException, WeakPasswordException {
+    private static void customerOption(int choice) throws CategoryNotFoundException, ProductNotFoundException {
         switch (choice) {
             case 1:
                 CustomerView.listAllProducts();
@@ -261,7 +254,7 @@ public class Menu {
         }
 
     }
-    private static void customerHandler() throws CategoryNotFoundException, ProductNotFoundException, WeakPasswordException {
+    private static void customerHandler() throws CategoryNotFoundException, ProductNotFoundException {
         while (true) {
             MenuPrinter.printCustomerMenu();
             int choice = CustomizedScanners.scanInt("choice", new Scanner(System.in));
