@@ -38,7 +38,7 @@ public class EmailService {
     }
     public static String sendEmailVerification(String senderEmail,String receiverEmail) {
         String code;
-        String path = "src/main/resources/imgs/logo.png";
+        String path = "<img src=\"src/main/resources/imgs/logo.png\">";
         try {
             Properties properties = System.getProperties();
             properties.put("mail.smtp.host", "smtp.gmail.com");
