@@ -161,12 +161,13 @@ public class MenuPrinter {
                 1- List all products.
                 2- Purchase a product.
                 3- View my purchase orders history.
-                4- Display installer's schedules.
-                5- Request installation service.
-                6- View my installation requests.
-                7- Edit my password.
-                8- Edit my location info.
-                9- Logout.
+                4- Display an image of a product.
+                5- Display installer's schedules.
+                6- Request installation service.
+                7- View my installation requests.
+                8- Edit my password.
+                9- Edit my location info.
+                10- Logout.
                 
                 
                 -------------------------------------

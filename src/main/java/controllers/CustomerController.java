@@ -6,6 +6,13 @@ import helpers.PasswordChecker;
 import models.*;
 import printers.Printer;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.Objects;
+
 import javax.mail.MessagingException;
 
 public class CustomerController {
@@ -36,7 +43,7 @@ public class CustomerController {
                     msg += "<br><br><br><br><br>"+"Customer Name: " + customer.getName().getFirstName() + " " + customer.getName().getLastName() +
                             "<br>" + "Product ID: " + id +
                             "<br>" + "Product Name: " + product.getProductInfo().getProductName()
-                            + "<br>>"+ "Quantity bought: " + reqQuantity;
+                            + "<br>"+ "Quantity bought: " + reqQuantity;
                     EmailService.sendEmail(SENDER, customerEmail, msg,subj,0);
                     return newQuantity;
                 } else
@@ -82,10 +89,10 @@ public class CustomerController {
             installer.getSchedules().get(installer.getSchedules().indexOf(s)).setReserved(true);
             s.setCustomerEmail(customer.getContactInfo().getEmail());
             subj += "Installation Request Notification";
-            msg+="Installer: " + installer.getName().getFirstName() + " " + installer.getName().getLastName() + "\n" +
-                    "Requested by Customer : " + customer.getName().getFirstName() + " " + customer.getName().getLastName()  + "\n" +
-                    "Product Requested : " + p.getProductInfo().getProductName() + "\n"+
-                    "For Car Model : " + carModel + "\n" +
+            msg+=    "<br><br><br><br><br>"+ "Installer: " + installer.getName().getFirstName() + " " + installer.getName().getLastName() + "<br>" +
+                    "Requested by Customer : " + customer.getName().getFirstName() + " " + customer.getName().getLastName()  + "<br>" +
+                    "Product Requested : " + p.getProductInfo().getProductName() + "<br>"+
+                    "For Car Model : " + carModel + "<br>" +
                     "Date Booked For : " + date;
             EmailService.sendEmail(SENDER,installerEmail,msg,subj,1);
         }
@@ -95,4 +102,37 @@ public class CustomerController {
     public static void displayRequests(Customer customer) {
         Printer.printRequests(customer.getRequests());
     }
-}
+
+
+
+    public static void openImage(String category, int id) throws IOException, CategoryNotFoundException, ProductNotFoundException, URISyntaxException {
+
+            String imageName = CarGear.getProductById(CarGear.getCategoryByName(category),id).getProductInfo().getImgName();
+
+            // Get the absolute path of the image resource
+            String imagePath = Objects.requireNonNull(CustomerController.class.getResource("/imgs/" + imageName)).toURI().getPath();
+
+
+            // Check if Desktop is supported (works on Windows, Linux, and macOS)
+            if (Desktop.isDesktopSupported()) {
+                Desktop desktop = Desktop.getDesktop();
+
+                // Check if the file exists before attempting to open it
+                File imageFile = new File(imagePath);
+                if (imageFile.exists()) {
+                    desktop.open(imageFile);
+                }
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+

@@ -235,18 +235,22 @@ public class Menu {
 
                 break;
             case 4:
-                CustomerView.displaySchedules();
+                CustomerView.displayProductImage();
+
                 break;
             case 5:
-                CustomerView.requestService();
+                CustomerView.displaySchedules();
                 break;
             case 6:
-                CustomerView.displayRequests();
+                CustomerView.requestService();
                 break;
             case 7:
-                CustomerView.editPassword();
+                CustomerView.displayRequests();
                 break;
             case 8:
+                CustomerView.editPassword();
+                break;
+            case 9:
                 CustomerView.editLocation();
                 break;
 
@@ -259,7 +263,7 @@ public class Menu {
             MenuPrinter.printCustomerMenu();
             int choice = CustomizedScanners.scanInt("choice", new Scanner(System.in));
             customerOption(choice);
-            if (choice == 9) {
+            if (choice == 10) {
                 MenuPrinter.printFinishMsg();
                 LogoutView.logout();
                 break;

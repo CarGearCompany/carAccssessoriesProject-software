@@ -1,69 +1,79 @@
 package views;
 
 import controllers.ForgetPasswordController;
-import exceptions.InvalidEmailFormatException;
-import exceptions.PasswordsNotEqualsException;
-import exceptions.UserNotFoundException;
-import exceptions.WeakPasswordException;
+import exceptions.*;
+import models.User;
 import scanners.CustomizedScanners;
-
-import javax.mail.MessagingException;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
 public class ForgetPasswordView {
+
+
     private static final Logger logger = Logger.getLogger(ForgetPasswordView.class.getName());
     private ForgetPasswordView() {
     }
 
 
     public static void forgetPassword() {
-        String email;
+        String email = "";
+        User user = null;
         String newPass;
         String confirmPass;
+        String verificationCode;
+        String userCode;
 
-        while (true) {
-            try {
-                email = CustomizedScanners.scanNonEmptyString("your Email", new Scanner(System.in));
-                if (ForgetPasswordController.isThisEmailExist(email))
+
+            while(true) {
+                try {
+                    email = CustomizedScanners.scanNonEmptyString("your email", new Scanner(System.in));
+                    user = ForgetPasswordController.getUser(email);
                     break;
-            } catch (UserNotFoundException e) {
-                logger.warning("User not found !");
-                email = CustomizedScanners.scanNonEmptyString("your Email", new Scanner(System.in));
-            } catch (InvalidEmailFormatException e) {
-                logger.warning("Invalid email format");
-                email = CustomizedScanners.scanNonEmptyString("your Email", new Scanner(System.in));
-            } catch (MessagingException e) {
-                logger.warning("Email flied to send");
+                } catch (UserNotFoundException e) {
+                    logger.warning("User not found !");
+
+                } catch (InvalidEmailFormatException e) {
+                    logger.warning("Invalid email format");
+
+                }
             }
-        }
 
-        newPass = CustomizedScanners.scanNonEmptyString("Enter the new passWord", new Scanner(System.in));
-        confirmPass = CustomizedScanners.scanNonEmptyString("Enter the new passWord", new Scanner(System.in));
+            verificationCode = ForgetPasswordController.getCode(email);
+            userCode = CustomizedScanners.scanNonEmptyString("the code", new Scanner(System.in));
 
-        while (true) {
-            try {
-                assert newPass != null;
-                ForgetPasswordController.forgetPassword(email, newPass, confirmPass);
-                logger.warning("Password Edited successfully");
-                break;
-            } catch (PasswordsNotEqualsException e) {
-                logger.warning("Password and the confirm password are not the same");
-                newPass = CustomizedScanners.scanNonEmptyString("Enter the new passWord", new Scanner(System.in));
-                confirmPass = CustomizedScanners.scanNonEmptyString("Enter the new passWord", new Scanner(System.in));
-            } catch (WeakPasswordException e) {
-                logger.warning("Weak Password");
-                newPass = CustomizedScanners.scanNonEmptyString("Enter the new passWord", new Scanner(System.in));
-                confirmPass = CustomizedScanners.scanNonEmptyString("Enter the new passWord", new Scanner(System.in));
+            while(true) {
+                try {
 
-            } catch (UserNotFoundException e) {
-                logger.warning("User not found !");
-                email = CustomizedScanners.scanNonEmptyString("your Email", new Scanner(System.in));
-            } catch (InvalidEmailFormatException e) {
-                logger.warning("Invalid email format");
-                email = CustomizedScanners.scanNonEmptyString("your Email", new Scanner(System.in));
+
+                    ForgetPasswordController.areEqual(verificationCode, userCode, 0,user);
+
+                    newPass = CustomizedScanners.scanNonEmptyString("your new password", new Scanner(System.in));
+                    confirmPass = CustomizedScanners.scanNonEmptyString2("confirm your new password", new Scanner(System.in));
+
+                    assert newPass != null;
+                    ForgetPasswordController.areEqual(newPass, confirmPass, 1,user);
+
+                    logger.info("Password updated successfully");
+                    break;
+
+
+                } catch (NotEqualCodesException e) {
+                    logger.warning("Wrong code, please try again.");
+                    userCode = CustomizedScanners.scanNonEmptyString("the code", new Scanner(System.in));
+
+                } catch (NotEqualPasswordsException e) {
+                    logger.warning("Mismatch between the 2 passwords, please re-enter them:");
+
+                } catch (WeakPasswordException e) {
+                    logger.warning("Weak Password! Must contain at least 1 uppercase letter, 1 lowercase letter, 1 digit, 1 special character and must contain 8-16 characters.");
+
+                }
+
+
             }
-        }
+
+
+
 
     }
 }

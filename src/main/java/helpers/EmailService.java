@@ -7,8 +7,14 @@ package helpers;
 
 
 
-import scanners.CustomizedScanners;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Base64;
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
@@ -18,21 +24,21 @@ import java.util.Properties;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Scanner;
 import java.util.logging.Logger;
 import java.util.Random;
 
 
 public class EmailService {
     private static String body;
-    private static String code;
 
 
     private static final Logger logger = Logger.getLogger(EmailService.class.getName());
     private EmailService() {
 
     }
-    public static void sendEmailVerification(String senderEmail,String receiverEmail) throws MessagingException{
+    public static String sendEmailVerification(String senderEmail,String receiverEmail) {
+        String code;
+        String path = "src/main/resources/imgs/logo.png";
         try {
             Properties properties = System.getProperties();
             properties.put("mail.smtp.host", "smtp.gmail.com");
@@ -52,35 +58,38 @@ public class EmailService {
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(receiverEmail,false));
 
             code = generateRandomString();
-            body = "To user : " + receiverEmail + "\n"
-                    + "this is your verification code: " + code;
+            body = "To user : " + receiverEmail + "<br>"
+                    + "this is your verification code: " +"<br><br><br><br><br>"+ code+ "<br><br><br><br><br><br>";
+
 
             message.setSubject("Email Verification");
 
-            setBody(code,"src/main/resources/email-verification.html","CarGear Email Verification");
-//
-//              message.setText(body);
-//
- //           set the content (Multi part body consists of multi bodies)
-            MimeBodyPart mimeBodyPart = new MimeBodyPart();
-            mimeBodyPart.setContent(body, "text/html");
+            setBody(code,"src/main/resources/email-verification.html","CarGear Email Verification",path,1);
+
+
+
+
+            //set the content (Multi part body consists of multi bodies)
+            MimeBodyPart textBodyPart = new MimeBodyPart();
+            textBodyPart.setContent(body, "text/html");
+
+//            MimeBodyPart imageBodyPart = new MimeBodyPart();
+//            String imagePath = "imgs/logo.png";
+//            DataSource source = new FileDataSource(imagePath);
+//            imageBodyPart.setDataHandler(new DataHandler(source));
+//            imageBodyPart.setDisposition(MimeBodyPart.INLINE);
 
             Multipart multipart = new MimeMultipart();
-            multipart.addBodyPart(mimeBodyPart);
+            multipart.addBodyPart(textBodyPart);
+           // multipart.addBodyPart(imageBodyPart);
             message.setContent(multipart);
+
+
             Transport.send(message);
             logger.info("Verification code is sent to your email.");
 
-            String userCode = CustomizedScanners.scanNonEmptyString("your verification code", new Scanner(System.in));
-            while(true){
-                assert userCode != null;
-                if (userCode.equals(code))
-                    break;
-                logger.warning("Wrong code, please try again.");
-                userCode = CustomizedScanners.scanNonEmptyString("your verification code", new Scanner(System.in));
+            return code;
 
-
-            }
 
 
 
@@ -88,9 +97,10 @@ public class EmailService {
         catch (MessagingException m){
             logger.warning("Notification failed to send");
         } catch (IOException e) {
+            logger.warning("File failed to reach");
 
       }
-
+        return null;
 
     }
 
@@ -115,9 +125,9 @@ public class EmailService {
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(receiverEmail,false));
             message.setSubject(subject);
             boolean bool = flag == 1;
-            setBody(emailMessage,"src/main/resources/email-notification.html",bool?"Installation Request Notification":"Purchase Order Notification");
+            setBody(emailMessage,"src/main/resources/email-notification.html",bool?"Installation Request Notification":"Purchase Order Notification","",0);
 
-           // message.setText(emailMessage);
+
 
             //set the content (Multi part body consists of multi bodies)
             MimeBodyPart mimeBodyPart = new MimeBodyPart();
@@ -127,11 +137,6 @@ public class EmailService {
             multipart.addBodyPart(mimeBodyPart);
             message.setContent(multipart);
 
-            //test
-//            MimeBodyPart imagePart = new MimeBodyPart();
-//            imagePart.attachFile("imgs/logo.png");
-//            imagePart.setContentID("<img>");
-//            imagePart.setDisposition(Part.INLINE);
 
 
 
@@ -149,7 +154,7 @@ public class EmailService {
         catch (MessagingException m){
            logger.warning("Notification failed to send");
         } catch (IOException e) {
-
+            logger.warning("File failed to reach");
         }
 
 
@@ -167,13 +172,17 @@ public class EmailService {
         return new Random().nextInt(10);
     }
 
-    private static void setBody(String bodyReplacement,String path,String subjReplacement) throws IOException {
+    private static void setBody(String bodyReplacement,String path,String subjReplacement,String imgReplacement ,int flag) throws IOException {
         // read the html
         body = Files.readString(Paths.get(path));
         // replace the holder
         body = body.replace("{{dynamic_subject_placeholder}}", subjReplacement);
         body = body.replace("{{dynamic_text_placeholder}}", bodyReplacement);
+        if(flag==1)
+             body = body.replace("{{dynamic_image_placeholder}}",imgReplacement);
     }
+
+
 
 
 }

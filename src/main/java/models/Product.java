@@ -3,6 +3,7 @@ public class Product {
     private int id;
     private ProductInfo productInfo;
 
+
     public Product(int id,ProductInfo productInfo ) {
         setId(id);
         setProductInfo(productInfo);

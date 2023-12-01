@@ -1,10 +1,6 @@
 package controllers;
 
-import exceptions.InvalidEmailFormatException;
-import exceptions.PasswordsNotEqualsException;
-import exceptions.UserNotFoundException;
-import exceptions.WeakPasswordException;
-import helpers.EmailFormatChecker;
+import exceptions.*;
 import helpers.EmailService;
 import models.CarGear;
 import models.User;
@@ -15,39 +11,32 @@ public class ForgetPasswordController {
     private ForgetPasswordController() {
     }
 
-    public static void forgetPassword(String email, String newPass, String confirmPass) throws UserNotFoundException, InvalidEmailFormatException, WeakPasswordException, PasswordsNotEqualsException {
+    public static User getUser(String email) throws UserNotFoundException, InvalidEmailFormatException {
+
+        return CarGear.getUserByEmail(email);
+
+    }
+    public static String getCode(String email)  {
 
 
-        User user = CarGear.getUserByEmail(email);
+        return EmailService.sendEmailVerification("cargearcompany@gmail.com", email);
 
-            if (newPass.equals(confirmPass)) {
-                user.setPassword(newPass);
-            }
-            else{
-                    throw new PasswordsNotEqualsException();
-            }
     }
 
-    public static boolean isThisEmailExist(String email) throws InvalidEmailFormatException, UserNotFoundException, MessagingException {
-        boolean userFound = false;
+    public static void areEqual(String string1, String string2,int flag,User user) throws NotEqualCodesException, NotEqualPasswordsException, WeakPasswordException {
 
-        if(!EmailFormatChecker.hasCorrectEmailFormat(email)) {
-            throw new InvalidEmailFormatException();
-        }
 
-        for (User user:
-                CarGear.getUsers()) {
 
-            if (user.getContactInfo().getEmail().equals(email)) {
-                userFound = Boolean.TRUE;
-                break;
-            }
-        }
+        if(string1.equals(string2)&&flag == 1)
+            user.setPassword(string1);
+        if(!string1.equals(string2)&&flag == 1)
+            throw new NotEqualPasswordsException();
 
-        if(!userFound){
-            throw new UserNotFoundException();
-        }
-        EmailService.sendEmailVerification("cargearcompany@gmail.com", email);
-        return true;
+        if(!string1.equals(string2)&&flag == 0)
+            throw new NotEqualCodesException();
+
+
     }
+
+
 }

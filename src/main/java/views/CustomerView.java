@@ -11,6 +11,8 @@ import scanners.CustomizedScanners;
 import controllers.CustomerController;
 
 import javax.mail.MessagingException;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Logger;
@@ -151,5 +153,27 @@ public class CustomerView {
     public static void displayRequests() {
         Customer customer =  (Customer) CarGear.getCurrentUser();
         CustomerController.displayRequests(customer);
+    }
+
+    public static void displayProductImage() {
+        String category = CustomizedScanners.scanNonEmptyString("category name", new Scanner(System.in));
+        int productID = CustomizedScanners.scanInt("Product ID:", new Scanner(System.in));
+
+        while(true) {
+            try {
+                CustomerController.openImage(category, productID);
+                logger.info("Image is opened, look at your taskbar :)");
+                break;
+            } catch (CategoryNotFoundException e) {
+                logger.warning("Category not found, enter a valid one");
+                category = CustomizedScanners.scanNonEmptyString("category name", new Scanner(System.in));
+            } catch (ProductNotFoundException e) {
+                logger.warning("Product not found, enter a valid id");
+                 productID = CustomizedScanners.scanInt("Product ID:", new Scanner(System.in));
+            } catch (IOException | URISyntaxException e) {
+                logger.warning("Couldn't open image");
+            }
+        }
+
     }
 }

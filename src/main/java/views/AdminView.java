@@ -91,10 +91,12 @@ public class AdminView {
         String productDescription = CustomizedScanners.scanNonEmptyString("Description", new Scanner(System.in));
         int price = CustomizedScanners.scanInt("price", new Scanner(System.in));
         int quantity = CustomizedScanners.scanInt("quantity", new Scanner(System.in));
+        int imgName = CustomizedScanners.scanInt("image name (include the extension (jpg/png.....)", new Scanner(System.in));
+        String imgPath = "src/main/resources/imgs/"+imgName;
         while (true) {
             try {
                 Category category = CarGear.getCategoryByName(categoryString);
-                Product product = new Product(productId, new ProductInfo(productName, productDescription, price,  quantity));
+                Product product = new Product(productId, new ProductInfo(productName, productDescription, price,  quantity,imgPath));
                 AdminController.addProduct(category, product);
                 logger.info("product added successfully");
                 break;
