@@ -15,7 +15,7 @@ public class SignUpController {
     }
 
     public static void signUp(Name name, ContactInfo contactInfo, int age, Gender gender, String password, UserType userType) throws CannotSignUpAsAdminException, UserAlreadyExistsException, InvalidEmailFormatException, InvalidPhoneNumberException, WeakPasswordException {
-        if(!EmailFormatChecker.hasCorrectEmailFormat(contactInfo.getEmail())) {
+        if(EmailFormatChecker.hasCorrectEmailFormat(contactInfo.getEmail())) {
             throw new InvalidEmailFormatException();
         }
         if(!PhoneNumberChecker.isValidPhoneNumber(contactInfo.getPhoneNumber())){

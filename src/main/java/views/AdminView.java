@@ -16,7 +16,13 @@ public class AdminView {
     private static final String EMAIL = "Email";
     private static final Logger logger = Logger.getLogger(AdminView.class.getName());
     private static final String CATEGORY = "category";
+
     private static final String WARNING = "This Category doesn't exist";
+    private static final String SEARCH_CREDENTIAL = "search credential (what do you want to search by)";
+    private static final String VALUE = "the value ";
+    private static final String INSTALLER_EMAIL = "installer Email: ";
+    private static final String CATEGORY_NOT_FOUND = "Category not found";
+    private static final String DATE_FOR_THE_REQUEST = "Date for the request: ";
     private AdminView() {
     }
 
@@ -33,8 +39,8 @@ public class AdminView {
     }
 
     public static void searchForUser() {
-        String searchType = CustomizedScanners.scanNonEmptyString("search credential (what do you want to search by)",new Scanner(System.in));
-        String value = CustomizedScanners.scanNonEmptyString("the value " ,new Scanner(System.in));
+        String searchType = CustomizedScanners.scanNonEmptyString(SEARCH_CREDENTIAL,new Scanner(System.in));
+        String value = CustomizedScanners.scanNonEmptyString( VALUE,new Scanner(System.in));
 
         assert searchType != null;
         List<User> users = AdminController.searchForUser(searchType,value);
@@ -180,8 +186,8 @@ public class AdminView {
     }
 
     public static void searchForProduct() {
-        String searchType = CustomizedScanners.scanNonEmptyString("search credential (what do you want to search by)",new Scanner(System.in));
-        String value = CustomizedScanners.scanNonEmptyString("the value " ,new Scanner(System.in));
+        String searchType = CustomizedScanners.scanNonEmptyString(SEARCH_CREDENTIAL,new Scanner(System.in));
+        String value = CustomizedScanners.scanNonEmptyString(VALUE ,new Scanner(System.in));
 
         assert searchType != null;
         List<Product> products = AdminController.searchForProducts(searchType,value);
@@ -208,7 +214,7 @@ public class AdminView {
                logger.warning("ID's cannot be edited.");
                 editType = CustomizedScanners.scanNonEmptyString("edit credential (what field do you want to edit)",new Scanner(System.in));
             } catch (CategoryNotFoundException e) {
-                logger.warning("Category not found");
+                logger.warning(CATEGORY_NOT_FOUND);
                 categoryString = CustomizedScanners.scanNonEmptyString("category of the product ", new Scanner(System.in));
             }
         }
@@ -221,8 +227,8 @@ public class AdminView {
 
     public static void addRequest() {
         String customerEmail = CustomizedScanners.scanNonEmptyString("Customer Email: ", new Scanner(System.in));
-        String installerEmail = CustomizedScanners.scanNonEmptyString("installer Email: ", new Scanner(System.in));
-        String date = CustomizedScanners.scanNonEmptyString("Date for the request: ", new Scanner(System.in));
+        String installerEmail = CustomizedScanners.scanNonEmptyString(INSTALLER_EMAIL, new Scanner(System.in));
+        String date = CustomizedScanners.scanNonEmptyString(DATE_FOR_THE_REQUEST, new Scanner(System.in));
         String carModel = CustomizedScanners.scanNonEmptyString("CarModel: ", new Scanner(System.in));
         String category = CustomizedScanners.scanNonEmptyString("Category: ", new Scanner(System.in));
         int productId = CustomizedScanners.scanInt("Product ID: ", new Scanner(System.in));
@@ -234,32 +240,32 @@ public class AdminView {
                 break;
             } catch (UserNotFoundException e) {
                 logger.warning("User not found");
-                installerEmail = CustomizedScanners.scanNonEmptyString("installer Email: ", new Scanner(System.in));
+                installerEmail = CustomizedScanners.scanNonEmptyString(installerEmail, new Scanner(System.in));
                 customerEmail = CustomizedScanners.scanNonEmptyString("Customer Email: ", new Scanner(System.in));
             } catch (MessagingException e) {
                 logger.warning("Email flied to send");
             } catch (AlreadyReservedDateException e) {
                 logger.warning("try to enter an available date");
-                date = CustomizedScanners.scanNonEmptyString("Date for the request: ", new Scanner(System.in));
+                date = CustomizedScanners.scanNonEmptyString(DATE_FOR_THE_REQUEST, new Scanner(System.in));
             } catch (CategoryNotFoundException e) {
-                logger.warning("Category not found");
+                logger.warning(CATEGORY_NOT_FOUND);
                 category = CustomizedScanners.scanNonEmptyString("Category of the product", new Scanner(System.in));
             } catch (ProductNotFoundException e) {
                 logger.warning("product not found");
                 productId = CustomizedScanners.scanInt("Product ID:", new Scanner(System.in));
             } catch (InvalidEmailFormatException e) {
                 logger.warning("Enter valid format for the email");
-                installerEmail = CustomizedScanners.scanNonEmptyString("installer Email: ", new Scanner(System.in));
+                installerEmail = CustomizedScanners.scanNonEmptyString(installerEmail, new Scanner(System.in));
             } catch (ItemNotFoundException e) {
                 logger.warning("enter an existing date");
-                date = CustomizedScanners.scanNonEmptyString("Date for the request: ", new Scanner(System.in));
+                date = CustomizedScanners.scanNonEmptyString(DATE_FOR_THE_REQUEST, new Scanner(System.in));
             }
         }
     }
 
     public static void removeRequest() {
         String installerEmail = CustomizedScanners.scanNonEmptyString("installer email that you want to remove request from : ", new Scanner(System.in));
-        String date = CustomizedScanners.scanNonEmptyString("Date for the request: ", new Scanner(System.in));
+        String date = CustomizedScanners.scanNonEmptyString(DATE_FOR_THE_REQUEST, new Scanner(System.in));
         while(true){
             try{
                 AdminController.removeRequest(installerEmail,date);
@@ -273,15 +279,15 @@ public class AdminView {
                 installerEmail = CustomizedScanners.scanNonEmptyString("the installer email that you want to remove request from : ", new Scanner(System.in));
             } catch (ItemNotFoundException e) {
                 logger.warning("Date not found");
-                date = CustomizedScanners.scanNonEmptyString("Date for the request: ", new Scanner(System.in));
+                date = CustomizedScanners.scanNonEmptyString(DATE_FOR_THE_REQUEST, new Scanner(System.in));
             }
 
         }
     }
 
     public static void searchForRequest() {
-        String searchType = CustomizedScanners.scanNonEmptyString("search credential (what do you want to search by)",new Scanner(System.in));
-        String value = CustomizedScanners.scanNonEmptyString("the value " ,new Scanner(System.in));
+        String searchType = CustomizedScanners.scanNonEmptyString(SEARCH_CREDENTIAL,new Scanner(System.in));
+        String value = CustomizedScanners.scanNonEmptyString(VALUE ,new Scanner(System.in));
 
         assert searchType != null;
         List<Request> requests = AdminController.searchForRequests(searchType,value);
@@ -290,9 +296,9 @@ public class AdminView {
 
     public static void editRequest() {
         String installerEmail = CustomizedScanners.scanNonEmptyString("installer email that you want to edit their request ", new Scanner(System.in));
-        String date = CustomizedScanners.scanNonEmptyString("Date for the request: ", new Scanner(System.in));
+        String date = CustomizedScanners.scanNonEmptyString(DATE_FOR_THE_REQUEST, new Scanner(System.in));
         String editType = CustomizedScanners.scanNonEmptyString("edit credential (what do you want to edit by)",new Scanner(System.in));
-        String value = CustomizedScanners.scanNonEmptyString("the value " ,new Scanner(System.in));
+        String value = CustomizedScanners.scanNonEmptyString(VALUE ,new Scanner(System.in));
         String category;
         assert editType != null;
         if (editType.equalsIgnoreCase("product id")) {
@@ -309,22 +315,22 @@ public class AdminView {
                 break;
             } catch (UserNotFoundException e) {
                 logger.warning("User not found");
-                installerEmail = CustomizedScanners.scanNonEmptyString("installer Email: ", new Scanner(System.in));
+                installerEmail = CustomizedScanners.scanNonEmptyString(installerEmail, new Scanner(System.in));
             } catch (InvalidEmailFormatException e) {
                 logger.warning("Enter valid format for the email");
-                installerEmail = CustomizedScanners.scanNonEmptyString("installer Email: ", new Scanner(System.in));
+                installerEmail = CustomizedScanners.scanNonEmptyString(installerEmail, new Scanner(System.in));
             } catch (CategoryNotFoundException e) {
-                logger.warning("Category not found");
+                logger.warning(CATEGORY_NOT_FOUND);
                 category = CustomizedScanners.scanNonEmptyString("Category of the product", new Scanner(System.in));
             } catch (ProductNotFoundException e) {
                 logger.warning("product not found");
                 value = String.valueOf(CustomizedScanners.scanInt("Product ID:", new Scanner(System.in)));
             } catch (ItemNotFoundException e) {
                 logger.warning("Request not found");
-                date = CustomizedScanners.scanNonEmptyString("Date for the request: ", new Scanner(System.in));
+                date = CustomizedScanners.scanNonEmptyString(DATE_FOR_THE_REQUEST, new Scanner(System.in));
             } catch (AlreadyReservedDateException e) {
                 logger.warning("this date is already exist");
-                value = CustomizedScanners.scanNonEmptyString("the value " ,new Scanner(System.in));
+                value = CustomizedScanners.scanNonEmptyString(VALUE ,new Scanner(System.in));
             }
         }
     }

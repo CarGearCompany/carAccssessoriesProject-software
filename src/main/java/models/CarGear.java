@@ -10,6 +10,8 @@ import java.util.List;
 public class CarGear {
     private static final List<User> users = new ArrayList<>();
     private static final List<Category> categories = new ArrayList<>();
+    private static final String INSTALLER1 = "mahmoudshoulicarva@gmail.com";
+    private static final String INSTALLER2 = "hala@gmail.com";
 
     private static User currentUser = null;
 
@@ -111,28 +113,9 @@ public class CarGear {
         return false;
     }
 
-    public static boolean isCategoryExists(String name){
-        for(Category category : categories){
-            if (category.getCategoryName().equalsIgnoreCase(name)){
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static List<Schedule> getScheduleByEmail(String email) throws InvalidEmailFormatException {
-        if (!EmailFormatChecker.hasCorrectEmailFormat(email)) {
-            throw new InvalidEmailFormatException();
-        }
-
-            return  CarGear.getSchedules().stream().filter(s -> s.getInstallerEmail().equalsIgnoreCase(email)).toList();
-        }
-
-
-
 
     public static User getUserByEmail(String email) throws UserNotFoundException, InvalidEmailFormatException {
-        if (!EmailFormatChecker.hasCorrectEmailFormat(email)) {
+        if (EmailFormatChecker.hasCorrectEmailFormat(email)) {
             throw new InvalidEmailFormatException();
         }
 
@@ -264,7 +247,7 @@ public class CarGear {
                 30,
                 Gender.MALE,
                 "Mahmoud@123",
-                new ContactInfo("mahmoudshoulicarva@gmail.com", "0591234567",
+                new ContactInfo(INSTALLER1, "0591234567",
                         new Location("Gaza", "Gaza")),
                 UserType.INSTALLER);
 
@@ -273,7 +256,7 @@ public class CarGear {
                 27,
                 Gender.FEMALE,
                 "Hala@123",
-                new ContactInfo("hala@gmail.com", "0591478963",
+                new ContactInfo(INSTALLER2, "0591478963",
                         new Location("Tulkarm", "Tulkarm")),
                 UserType.INSTALLER);
         Category interior = new Category("interior");
@@ -291,10 +274,10 @@ public class CarGear {
         Product firstElectronic = new Product(4,new ProductInfo("Stereo System","description5",180,10,"stereoSystem.jpg"));
         Product secElectronic = new Product(5,new ProductInfo("Camera","description6",70,0,"camera_.jpg"));
 
-        Schedule firstSchedule = new Schedule("15/12/2023", false,"mahmoudshoulicarva@gmail.com" );
-        Schedule secondSchedule = new Schedule("7/1/2024", false,"mahmoudshoulicarva@gmail.com" );
-        Schedule thirdSchedule = new Schedule("8/2/2024", false,"hala@gmail.com" );
-        Schedule fourthSchedule = new Schedule("15/2/2024", false,"hala@gmail.com" );
+        Schedule firstSchedule = new Schedule("15/12/2023", false,INSTALLER1);
+        Schedule secondSchedule = new Schedule("7/1/2024", false,INSTALLER1 );
+        Schedule thirdSchedule = new Schedule("8/2/2024", false,INSTALLER2);
+        Schedule fourthSchedule = new Schedule("15/2/2024", false,INSTALLER2 );
 
 
 

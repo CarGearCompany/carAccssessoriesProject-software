@@ -81,7 +81,7 @@ public class AdminController {
 
     public static void promoteUser(String email) throws UserNotFoundException, AdminsCannotBePromotedException, InvalidEmailFormatException {
         User user = CarGear.getUserByEmail(email);
-        if (!EmailFormatChecker.hasCorrectEmailFormat(email)) {
+        if (EmailFormatChecker.hasCorrectEmailFormat(email)) {
             throw new InvalidEmailFormatException();
         }
         if (!CarGear.getUserByEmail(email).getContactInfo().getEmail().equals(email)) {
@@ -210,7 +210,7 @@ public class AdminController {
 
 
     public static void removeRequest(String installerEmail, String date) throws UserNotFoundException, InvalidEmailFormatException, ItemNotFoundException {
-        if(!EmailFormatChecker.hasCorrectEmailFormat(installerEmail)) {
+        if(EmailFormatChecker.hasCorrectEmailFormat(installerEmail)) {
             throw new InvalidEmailFormatException();
         }
         Installer installer = (Installer) CarGear.getUserByEmail(installerEmail);

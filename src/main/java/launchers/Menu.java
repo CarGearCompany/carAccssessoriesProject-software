@@ -11,6 +11,7 @@ import java.util.Scanner;
 
 
 public class Menu {
+    private static final String CHOICE = "choice";
     private Menu() {
 
     }
@@ -62,7 +63,7 @@ public class Menu {
         MenuPrinter.printWelcomeMsg();
         while (true) {
             MenuPrinter.printMainMenu();
-            int choice = CustomizedScanners.scanInt("choice", new Scanner(System.in));
+            int choice = CustomizedScanners.scanInt(CHOICE, new Scanner(System.in));
             mainMenuOptions(choice);
             if (choice == 4) {
                 MenuPrinter.printFinishMsg();
@@ -179,7 +180,7 @@ public class Menu {
     public static void adminUsersManagementHandler()  {
         while (true) {
             MenuPrinter.printAdminManageUsersMenu();
-            int choice = CustomizedScanners.scanInt("choice", new Scanner(System.in));
+            int choice = CustomizedScanners.scanInt(CHOICE, new Scanner(System.in));
             adminManageUsersOption(choice);
             if (choice == 5) {
                 break;
@@ -190,7 +191,7 @@ public class Menu {
    public static void adminRequestsManagementHandler() {
        while (true) {
            MenuPrinter.printAdminManageRequestsMenu();
-           int choice = CustomizedScanners.scanInt("choice", new Scanner(System.in));
+           int choice = CustomizedScanners.scanInt(CHOICE, new Scanner(System.in));
            adminManageRequestsOption(choice);
            if (choice == 6) {
                break;
@@ -201,7 +202,7 @@ public class Menu {
     public static void adminProductsManagementHandler() {
         while (true) {
             MenuPrinter.printAdminManageProductsMenu();
-            int choice = CustomizedScanners.scanInt("choice", new Scanner(System.in));
+            int choice = CustomizedScanners.scanInt(CHOICE, new Scanner(System.in));
             adminManageProductsOption(choice);
             if (choice == 9) {
                 break;
@@ -213,7 +214,7 @@ public class Menu {
     public static void adminHandler()  {
         while (true) {
             MenuPrinter.printAdminMenu();
-            int choice = CustomizedScanners.scanInt("choice", new Scanner(System.in));
+            int choice = CustomizedScanners.scanInt(CHOICE, new Scanner(System.in));
             adminOption(choice);
             if (choice == 4) {
                 MenuPrinter.printFinishMsg();
@@ -261,7 +262,7 @@ public class Menu {
     private static void customerHandler() throws CategoryNotFoundException, ProductNotFoundException {
         while (true) {
             MenuPrinter.printCustomerMenu();
-            int choice = CustomizedScanners.scanInt("choice", new Scanner(System.in));
+            int choice = CustomizedScanners.scanInt(CHOICE, new Scanner(System.in));
             customerOption(choice);
             if (choice == 10) {
                 MenuPrinter.printFinishMsg();
@@ -295,7 +296,7 @@ public class Menu {
     public static void installerHandler() throws AlreadyReservedDateException {
         while (true) {
             MenuPrinter.printInstallerMenu();
-            int choice = CustomizedScanners.scanInt("choice", new Scanner(System.in));
+            int choice = CustomizedScanners.scanInt(CHOICE, new Scanner(System.in));
             installerOption(choice);
             if (choice == 6) {
                 MenuPrinter.printFinishMsg();

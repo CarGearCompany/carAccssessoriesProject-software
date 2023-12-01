@@ -1,5 +1,5 @@
 package enums;
 
 public enum UserType {
-    ADMIN,CUSTOMER,INSTALLER;
+    ADMIN,CUSTOMER,INSTALLER
 }

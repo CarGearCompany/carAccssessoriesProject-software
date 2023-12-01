@@ -28,7 +28,7 @@ public class InstallerView {
         Printer.printSchedules(installer.getSchedules());
     }
 
-    public static void addDatesToSchedule() throws AlreadyReservedDateException {
+    public static void addDatesToSchedule() {
         String newDate = CustomizedScanners.scanNonEmptyString("New Date to add to your Schedule", new Scanner(System.in));
 
         while (true){

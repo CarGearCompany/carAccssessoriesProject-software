@@ -16,8 +16,8 @@ public class ForgetPasswordView {
 
 
     public static void forgetPassword() {
-        String email = "";
-        User user = null;
+        String email;
+        User user;
         String newPass;
         String confirmPass;
         String verificationCode;

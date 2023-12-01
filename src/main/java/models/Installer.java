@@ -63,8 +63,5 @@ public class Installer extends User{
     public void addSchedule(Schedule schedule){
         scheduleList.add(schedule);
     }
-    public void removeSchedule(Schedule schedule){
-        scheduleList.remove(schedule);
-    }
 
 }

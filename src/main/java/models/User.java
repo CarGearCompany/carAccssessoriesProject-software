@@ -37,10 +37,6 @@ public class User {
         return age;
     }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
-
     public Gender getGender() {
         return gender;
     }
@@ -67,10 +63,6 @@ public class User {
 
     public ContactInfo getContactInfo() {
         return contactInfo;
-    }
-
-    public void setContactInfo(ContactInfo contactInfo) {
-        this.contactInfo = contactInfo;
     }
 
     public UserType getUserType() {

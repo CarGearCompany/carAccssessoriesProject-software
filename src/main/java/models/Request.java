@@ -2,7 +2,7 @@ package models;
 
 public class Request {
     private String installerEmail;
-    private String customerEmail;
+    private final String customerEmail;
     private String date;
     private String carModel;
     private Product product;
@@ -25,10 +25,6 @@ public class Request {
 
     public String getCustomerEmail() {
         return customerEmail;
-    }
-
-    public void setCustomerEmail(String customerEmail) {
-        this.customerEmail = customerEmail;
     }
 
     public String getDate() {

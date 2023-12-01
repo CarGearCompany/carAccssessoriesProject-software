@@ -19,8 +19,9 @@ import java.util.logging.Logger;
 
 public class CustomerView {
     private static final Logger logger = Logger.getLogger(CustomerView.class.getName());
-    private static final String PREFERREDDATE = "Preferred Date: ";
-    private static final String INSTALLEREMAIL ="Installer Email: ";
+    private static final String PREFERRED_DATE = "Preferred Date: ";
+    private static final String INSTALLER_EMAIL ="Installer Email: ";
+    private static final String PRODUCT_ID = "Product ID: ";
     private CustomerView() {
     }
 
@@ -64,7 +65,7 @@ public class CustomerView {
         String confirm = CustomizedScanners.scanNonEmptyString2("Confirm purchase (Y/N) ", new Scanner(System.in));
         Customer customer = (Customer) CarGear.getCurrentUser();
         Product product = CarGear.getProductById(CarGear.getCategoryByName(category),id);
-        String msg = "";
+        String msg;
 
 
 
@@ -92,7 +93,7 @@ public class CustomerView {
                     logger.warning("This product is out of stock, sorry!");
                     break;
                 } catch (NotEnoughItemsAvailableException e) {
-                    msg += "Sorry! We only have " + product.getProductInfo().getQuantity() + " :(";
+                    msg = "Sorry! We only have " + product.getProductInfo().getQuantity() + " :(";
                     logger.warning(msg);
                     break;
                 }
@@ -115,11 +116,11 @@ public class CustomerView {
     }
 
     public static void requestService() {
-        String installerEmail = CustomizedScanners.scanNonEmptyString(INSTALLEREMAIL, new Scanner(System.in));
+        String installerEmail = CustomizedScanners.scanNonEmptyString(INSTALLER_EMAIL, new Scanner(System.in));
         String carModel = CustomizedScanners.scanNonEmptyString("Car Model:", new Scanner(System.in));
-        String date = CustomizedScanners.scanNonEmptyString(PREFERREDDATE, new Scanner(System.in));
+        String date = CustomizedScanners.scanNonEmptyString(PREFERRED_DATE, new Scanner(System.in));
         String category = CustomizedScanners.scanNonEmptyString("Category of the product", new Scanner(System.in));
-        int productId = CustomizedScanners.scanInt("Product ID:", new Scanner(System.in));
+        int productId = CustomizedScanners.scanInt(PRODUCT_ID, new Scanner(System.in));
 
         while (true){
             try{
@@ -128,24 +129,24 @@ public class CustomerView {
                 break;
             } catch (UserNotFoundException e) {
                 logger.warning("Installer not found");
-                installerEmail = CustomizedScanners.scanNonEmptyString(INSTALLEREMAIL, new Scanner(System.in));
+                installerEmail = CustomizedScanners.scanNonEmptyString(INSTALLER_EMAIL, new Scanner(System.in));
             } catch (MessagingException e) {
                 logger.warning("Email flied to send");
             } catch (AlreadyReservedDateException e) {
                 logger.warning("try to enter an available date");
-                date = CustomizedScanners.scanNonEmptyString(PREFERREDDATE, new Scanner(System.in));
+                date = CustomizedScanners.scanNonEmptyString(PREFERRED_DATE, new Scanner(System.in));
             } catch (CategoryNotFoundException e) {
                 logger.warning("Category not found");
                  category = CustomizedScanners.scanNonEmptyString("Category of the product", new Scanner(System.in));
             } catch (ProductNotFoundException e) {
                 logger.warning("product not found");
-                productId = CustomizedScanners.scanInt("Product ID:", new Scanner(System.in));
+                productId = CustomizedScanners.scanInt(PRODUCT_ID, new Scanner(System.in));
             } catch (InvalidEmailFormatException e) {
                 logger.warning("Enter valid format for the email");
-                installerEmail = CustomizedScanners.scanNonEmptyString(INSTALLEREMAIL, new Scanner(System.in));
+                installerEmail = CustomizedScanners.scanNonEmptyString(INSTALLER_EMAIL, new Scanner(System.in));
             } catch (ItemNotFoundException e) {
                 logger.warning("enter an existing date");
-                date = CustomizedScanners.scanNonEmptyString(PREFERREDDATE, new Scanner(System.in));
+                date = CustomizedScanners.scanNonEmptyString(PREFERRED_DATE, new Scanner(System.in));
             }
         }
     }
@@ -157,7 +158,7 @@ public class CustomerView {
 
     public static void displayProductImage() {
         String category = CustomizedScanners.scanNonEmptyString("category name", new Scanner(System.in));
-        int productID = CustomizedScanners.scanInt("Product ID:", new Scanner(System.in));
+        int productID = CustomizedScanners.scanInt(PRODUCT_ID, new Scanner(System.in));
 
         while(true) {
             try {
@@ -169,7 +170,7 @@ public class CustomerView {
                 category = CustomizedScanners.scanNonEmptyString("category name", new Scanner(System.in));
             } catch (ProductNotFoundException e) {
                 logger.warning("Product not found, enter a valid id");
-                 productID = CustomizedScanners.scanInt("Product ID:", new Scanner(System.in));
+                 productID = CustomizedScanners.scanInt(PRODUCT_ID, new Scanner(System.in));
             } catch (IOException | URISyntaxException e) {
                 logger.warning("Couldn't open image");
             }

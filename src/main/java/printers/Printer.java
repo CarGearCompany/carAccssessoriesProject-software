@@ -32,7 +32,7 @@ public class Printer {
     }
 
     public static void generateCategoryString(Category c) {
-        String string = "";
+        String string;
         for (Product p : c.getProducts()) {
             if(p.isAvailable()){
             string = "The product is from category: "+c.getCategoryName()+", its ID is: " + p.getId() + ", named: "+ p.getProductInfo().getProductName() + ",it's " + p.getProductInfo().getDescription()
@@ -50,7 +50,7 @@ public class Printer {
 
 
     public static String generateAppointment(Schedule a){
-        String msg = "";
+        String msg;
         if(Boolean.TRUE.equals(a.getReserved())){
             msg = " Installer Email: " + a.getInstallerEmail() + ", Date: " + a.getDate() + ", this date is already booked by Customer who has email:" +
             a.getCustomerEmail();

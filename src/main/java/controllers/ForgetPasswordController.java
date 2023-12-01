@@ -5,8 +5,6 @@ import helpers.EmailService;
 import models.CarGear;
 import models.User;
 
-import javax.mail.MessagingException;
-
 public class ForgetPasswordController {
     private ForgetPasswordController() {
     }

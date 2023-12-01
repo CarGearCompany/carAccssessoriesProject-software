@@ -40,11 +40,6 @@ public class Customer extends User{
     public void addProduct(Product product){
         purchasedProducts.add(product);
     }
-    public void removeProduct(Product product){
-        purchasedProducts.remove(product);
-    }
-
-
 
 
 }

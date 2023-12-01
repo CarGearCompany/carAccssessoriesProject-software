@@ -3,11 +3,9 @@ package launchers;
 import exceptions.*;
 import models.CarGear;
 
-import javax.mail.MessagingException;
-
 
 public class Main {
-    public static void main(String[] args) throws MyAppExceptions, MessagingException {
+    public static void main(String[] args) throws MyAppExceptions {
         CarGear.initData();
         Menu.menuHandler();
     }
