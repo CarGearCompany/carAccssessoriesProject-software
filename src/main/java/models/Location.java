@@ -2,7 +2,7 @@ package models;
 
 public class Location {
     private String city;
-    private String street;
+    private final String street;
 
     public Location(String city, String street) {
         this.city = city;
@@ -21,7 +21,4 @@ public class Location {
         return street;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
-    }
 }

@@ -26,28 +26,179 @@ public class MenuPrinter {
     }
 
     public static void printMainMenu(){
-        String string = """
+        String string = "\n" +"""
+                
+                Registering Page
+                ------------------------------
+                
+                
                 
                 1- Login
                 2- SignUp
                 3- Forget My Password
                 4- Quit
                 
+                
+                -------------------------------
+                
                  """;
         logger.info(string);
     }
 
     public static void printAdminMenu(){
-        String string = """
+        String string ="\n" + """
                 
-                1- List all users
-                2- List all products
-                3- Remove a user
-                4- Search for user by email
-                5- Promote user to admin
-                6- Logout
+                
+                Admin Dashboard
+                ---------------------------
+                
+                
+                
+                1- Manage users.
+                2- Manage products.
+                3- Manage installation requests.
+                4- Logout.
+                
+                
+                
+                ----------------------------
                 
                 """;
         logger.info(string);
     }
+
+    public static void printAdminManageUsersMenu(){
+
+        String string = "\n" +"""
+                
+                
+                Users Management
+                -----------------------------
+          
+                
+                1- List all users.
+                2- Remove a user.
+                3- Search for user.
+                4- Promote user to admin
+                5- Go back to main admin dashboard.
+                
+                
+                -----------------------------
+                
+                """;
+        logger.info(string);
+
+
+
+    }
+
+    public static void printAdminManageProductsMenu(){
+
+        String string ="\n" + """
+                
+                
+                
+                Products Management
+                -------------------------------
+                
+                
+                
+                1- List all products.
+                2- Add a product to a category.
+                3- Add a category.
+                4- Remove a product.
+                5- Remove a category.
+                6- Edit a product.
+                7- Search for a product.
+                8- Search for a category.
+                9- Go back to main admin dashboard.
+                
+                
+                --------------------------------
+                
+                """;
+        logger.info(string);
+
+
+
+    }
+
+    public static void printAdminManageRequestsMenu(){
+
+        String string = "\n" +"""
+                
+                
+                Requests Management
+                ------------------------------------
+                
+             
+               
+                1- List all installation requests.
+                2- Add a request.
+                3- Remove a request.
+                4- Search for a request.
+                5- Edit a request.
+                6- Go back to main admin dashboard.
+                
+                
+                
+                -------------------------------------
+                
+                """;
+        logger.info(string);
+
+
+
+    }
+    public static void printCustomerMenu(){
+        String string = "\n" +"""
+                
+                
+                Customers Dashboard
+                -------------------------------------
+                
+          
+                1- List all products.
+                2- Purchase a product.
+                3- View my purchase orders history.
+                4- Display an image of a product.
+                5- Display installer's schedules.
+                6- Request installation service.
+                7- View my installation requests.
+                8- Edit my password.
+                9- Edit my location info.
+                10- Logout.
+                
+                
+                -------------------------------------
+                
+                """;
+        logger.info(string);
+    }
+
+    public static void printInstallerMenu(){
+        String string = "\n" +"""
+                
+                
+                Installers Dashboard
+                ---------------------------------------
+               
+          
+                1- View my installation requests.
+                2- View my Schedule
+                3- Add new Date to my Schedule
+                4- Edit my password
+                5- Edit my location info (city , street).
+                6- Logout.
+                
+                
+                
+                --------------------------------------------
+    
+                """;
+        logger.info(string);
+
+    }
+
+
 }
