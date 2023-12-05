@@ -1,13 +1,5 @@
 package helpers;
-
-
-
-
-
-
-
-
-
+import java.io.FileNotFoundException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import javax.mail.*;
@@ -24,25 +16,27 @@ import java.util.Random;
 public class EmailService {
     private static String body;
 
-
     private static final Logger logger = Logger.getLogger(EmailService.class.getName());
     private EmailService() {
-
     }
     public static String sendEmailVerification(String senderEmail,String receiverEmail) {
         String code;
-        String path = "<img src=\"src/main/resources/imgs/logo.png\">";
         try {
             Properties properties = System.getProperties();
-            properties.put("mail.smtp.host", "smtp.gmail.com");
-            properties.put("mail.smtp.port", "587");
-            properties.put("mail.smtp.auth", "true");
-            properties.put("mail.smtp.starttls.enable", "true");
+            properties.put("mail.smtp.host",YmlHandler.getValue("mail.host"));
+            properties.put("mail.smtp.port",YmlHandler.getValue("mail.port"));
+            properties.put("mail.smtp.auth",YmlHandler.getValue("mail.auth"));
+            properties.put("mail.smtp.starttls.enable",YmlHandler.getValue("mail.enable"));
 
             Session session = Session.getDefaultInstance(properties,new javax.mail.Authenticator(){
                 @Override
                 protected PasswordAuthentication getPasswordAuthentication(){
-                    return new PasswordAuthentication("cargearcompany@gmail.com","lyme qhpv jsvs arzy");
+                    try {
+                        return new PasswordAuthentication(YmlHandler.getValue("mail.username"),YmlHandler.getValue("mail.password"));
+                    } catch (FileNotFoundException e) {
+                        logger.warning("File failed to reach config file");
+                        return null;
+                    }
                 }
             });
             session.setDebug(true);
@@ -57,34 +51,21 @@ public class EmailService {
 
             message.setSubject("Email Verification");
 
-            setBody(code,"src/main/resources/email-verification.html","CarGear Email Verification",path,1);
-
-
+            setBody(code,"src/main/resources/email-verification.html","CarGear Email Verification");
 
 
             //set the content (Multi part body consists of multi bodies)
             MimeBodyPart textBodyPart = new MimeBodyPart();
             textBodyPart.setContent(body, "text/html");
 
-//            MimeBodyPart imageBodyPart = new MimeBodyPart();
-//            String imagePath = "imgs/logo.png";
-//            DataSource source = new FileDataSource(imagePath);
-//            imageBodyPart.setDataHandler(new DataHandler(source));
-//            imageBodyPart.setDisposition(MimeBodyPart.INLINE);
-
             Multipart multipart = new MimeMultipart();
             multipart.addBodyPart(textBodyPart);
-           // multipart.addBodyPart(imageBodyPart);
             message.setContent(multipart);
-
 
             Transport.send(message);
             logger.info("Verification code is sent to your email.");
 
             return code;
-
-
-
 
         }
         catch (MessagingException m){
@@ -112,14 +93,14 @@ public class EmailService {
                     return new PasswordAuthentication("cargearcompany@gmail.com","lyme qhpv jsvs arzy");
                 }
             });
+
             session.setDebug(true);
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(senderEmail));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(receiverEmail,false));
             message.setSubject(subject);
             boolean bool = flag == 1;
-            setBody(emailMessage,"src/main/resources/email-notification.html",bool?"Installation Request Notification":"Purchase Order Notification","",0);
-
+            setBody(emailMessage,"src/main/resources/email-notification.html",bool?"Installation Request Notification":"Purchase Order Notification");
 
 
             //set the content (Multi part body consists of multi bodies)
@@ -129,13 +110,6 @@ public class EmailService {
             Multipart multipart = new MimeMultipart();
             multipart.addBodyPart(mimeBodyPart);
             message.setContent(multipart);
-
-
-
-
-
-
-
 
             Transport.send(message);
             if(flag==0)
@@ -149,8 +123,6 @@ public class EmailService {
         } catch (IOException e) {
             logger.warning("File failed to reach");
         }
-
-
     }
 
     private static String generateRandomString() {
@@ -165,14 +137,13 @@ public class EmailService {
         return new Random().nextInt(10);
     }
 
-    private static void setBody(String bodyReplacement,String path,String subjReplacement,String imgReplacement ,int flag) throws IOException {
+    private static void setBody(String bodyReplacement,String path,String subjReplacement) throws IOException {
         // read the html
         body = Files.readString(Paths.get(path));
         // replace the holder
         body = body.replace("{{dynamic_subject_placeholder}}", subjReplacement);
         body = body.replace("{{dynamic_text_placeholder}}", bodyReplacement);
-        if(flag==1)
-             body = body.replace("{{dynamic_image_placeholder}}",imgReplacement);
+        body = body.replace("{{dynamic_image_placeholder}}","<img src=\"https://i.imgur.com/uUduc6T_d.webp?maxwidth=760&fidelity=grand3\">");
     }
 
 
