@@ -6,7 +6,7 @@
 
     <groupId>org.example</groupId>
     <artifactId>carAccssessoriesProject</artifactId>
-    <version>20</version>
+    <version>1.0-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>20</maven.compiler.source>
@@ -85,6 +85,13 @@
                     <target>20</target> <!-- Set the Java target version -->
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.12.4</version>
+            </plugin>
+
         </plugins>
     </build>
 
