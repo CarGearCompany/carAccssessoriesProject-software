@@ -263,3 +263,5 @@ S
 #.idea/sonarlint/issuestore/index.pb,9\f\9fe84ebb15faf917b7def6236dba604453cc61e0
 \
 ,.idea/inspectionProfiles/Project_Default.xml,4\9\496a238a6afa168dbaf6efd37bb459331589579c
+U
+%src/main/java/helpers/YmlHandler.java,7\c\7c0551a9034ab961843306d2aafba3cb7de91446
