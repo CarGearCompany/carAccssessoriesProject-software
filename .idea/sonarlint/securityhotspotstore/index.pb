@@ -257,3 +257,9 @@ k
 ;src/main/java/exceptions/PurchaseNotConfirmedException.java,0\9\09cc8175a3713f04ace3d248b767d6fefd8f43cb
 h
 8src/main/java/exceptions/UserAlreadyExistsException.java,4\b\4ba7a6da8d7479aa78b5a9430c84e4f53e493cd2
+]
+-.idea/sonarlint/securityhotspotstore/index.pb,8\8\88a9255124c95bdc913197c120a8d560edc59c8e
+S
+#.idea/sonarlint/issuestore/index.pb,9\f\9fe84ebb15faf917b7def6236dba604453cc61e0
+\
+,.idea/inspectionProfiles/Project_Default.xml,4\9\496a238a6afa168dbaf6efd37bb459331589579c
