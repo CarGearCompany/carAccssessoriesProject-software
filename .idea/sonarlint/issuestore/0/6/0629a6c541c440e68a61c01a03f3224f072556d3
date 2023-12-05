@@ -1,5 +1,0 @@
-
-–
-java:S1130	"yRemove the declaration of thrown exception 'exceptions.UserNotFoundException', as it cannot be thrown from method's body.( ›‡Õ8°õÿŒ·1
-œ
-java:S1130	"Remove the declaration of thrown exception 'exceptions.EmailAlreadyExistsException', as it cannot be thrown from method's body.( ›‡Õ8°õÿŒ·1

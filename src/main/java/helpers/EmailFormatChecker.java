@@ -5,17 +5,17 @@ public class EmailFormatChecker {
     }
     public static boolean hasCorrectEmailFormat(String email) {
         if(countCharOccurrences(email, '@') != 1)
-            return false;
+            return true;
 
         if(countCharOccurrences(email, '.') < 1)
-            return false;
+            return true;
 
         String [] emailSplitting = email.split("@");
 
-        return emailSplitting[1].equals("gmail.com")
-                || emailSplitting[1].equals("hotmail.com")
-                || emailSplitting[1].equals("yahoo.com")
-                || emailSplitting[1].equals("outlook.com");
+        return !emailSplitting[1].equals("gmail.com")
+                && !emailSplitting[1].equals("hotmail.com")
+                && !emailSplitting[1].equals("yahoo.com")
+                && !emailSplitting[1].equals("outlook.com");
 
     }
 
