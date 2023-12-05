@@ -84,9 +84,7 @@ public class TestEditRequest {
     @Then("the request will be edited successfully")
     public void theRequestWillBeEditedSuccessfully() throws UserNotFoundException, MessagingException, AlreadyReservedDateException, CategoryNotFoundException, ProductNotFoundException, InvalidEmailFormatException, ItemNotFoundException {
         AdminController.addRequest("jana@gmail.com",installerEmail,date,"bmw","interior",0);
-        assertDoesNotThrow(()->{
-            AdminController.editRequest(installerEmail,date,editType,value,null);
-        });
+        assertDoesNotThrow(()-> AdminController.editRequest(installerEmail,date,editType,value,null));
     }
     @Then("the request list size of the old installer will be {int}")
     public void theRequestListSizeOfTheOldInstallerWillBe(Integer int1) throws UserNotFoundException, InvalidEmailFormatException {
@@ -130,9 +128,7 @@ public class TestEditRequest {
     @Then("the request will be edited successfully and nothing will be thrown")
     public void theRequestWillBeEditedSuccessfullyAndNothingWillBeThrown() throws UserNotFoundException, MessagingException, AlreadyReservedDateException, CategoryNotFoundException, ProductNotFoundException, InvalidEmailFormatException, ItemNotFoundException {
         AdminController.addRequest("jana@gmail.com",installerEmail,date,"bmw","interior",0);
-        assertDoesNotThrow(()->{
-            AdminController.editRequest(installerEmail,date,editType,value,categoryName);
-        });
+        assertDoesNotThrow(()-> AdminController.editRequest(installerEmail,date,editType,value,categoryName));
     }
 
 
