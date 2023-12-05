@@ -67,17 +67,12 @@ public class CustomerView {
         Product product = CarGear.getProductById(CarGear.getCategoryByName(category),id);
         String msg;
 
-
-
             while (true) {
                 try {
-
                     assert confirm != null;
                     CustomerController.purchaseProduct(category, id, customer,confirm,quantity);
                     logger.info("Product is purchased successfully.");
-
-
-                    break;
+                  break;
                 } catch (ProductNotFoundException e) {
                     logger.warning("Product is not found. Try again");
                     id = CustomizedScanners.scanInt("ID of the product ", new Scanner(System.in));
@@ -98,18 +93,13 @@ public class CustomerView {
                     break;
                 }
 
-
             }
-
-
     }
 
     public static void displayOrderHistory() {
       Customer customer =  (Customer) CarGear.getCurrentUser();
        CustomerController.displayOrderHistory(customer);
-
     }
-
 
     public static void displaySchedules() {
         Printer.printSchedules(CarGear.getSchedules());
