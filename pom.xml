@@ -16,6 +16,20 @@
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version> <!-- Use the latest version available -->
+                <configuration>
+                    <source>20</source> <!-- Set your source Java version -->
+                    <target>20</target> <!-- Set your target Java version -->
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
     <dependencies>
         <dependency>
             <groupId>io.cucumber</groupId>
@@ -73,6 +87,7 @@
 
 
     </dependencies>
+
 
 
 
