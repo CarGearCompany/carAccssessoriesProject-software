@@ -265,3 +265,7 @@ S
 ,.idea/inspectionProfiles/Project_Default.xml,4\9\496a238a6afa168dbaf6efd37bb459331589579c
 U
 %src/main/java/helpers/YmlHandler.java,7\c\7c0551a9034ab961843306d2aafba3cb7de91446
+v
+Fsrc/test/features/RegistrationAndAuthentication/forgetPassword.feature,7\b\7bbf21a36390a6ec6b479f8126d5f1017d8b062b
+]
+-src/test/features/Admin/searchForUser.feature,c\c\ccc55bf9c10f2d5594b1134dba4af5f5522b10ca
