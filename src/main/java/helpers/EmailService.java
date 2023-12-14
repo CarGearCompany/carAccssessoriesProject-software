@@ -7,15 +7,15 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import java.security.SecureRandom;
 import java.util.Properties;
 import java.io.IOException;
 import java.util.logging.Logger;
-import java.util.Random;
 
 
 public class EmailService {
     private static String body;
-
+    private static final SecureRandom random = new SecureRandom();
     private static final Logger logger = Logger.getLogger(EmailService.class.getName());
     private EmailService() {
     }
@@ -78,14 +78,14 @@ public class EmailService {
 
     }
 
-    public static void sendEmail(String senderEmail,String receiverEmail,String emailMessage,String subject,int flag) throws MessagingException{
+    public static void sendEmail(String senderEmail,String receiverEmail,String emailMessage,String subject,int flag) {
         try {
 
             Properties properties = System.getProperties();
-            properties.put("mail.smtp.host", "smtp.gmail.com");
-            properties.put("mail.smtp.port", "587");
-            properties.put("mail.smtp.auth", "true");
-            properties.put("mail.smtp.starttls.enable", "true");
+            properties.put("mail.smtp.host",YmlHandler.getValue("mail.host"));
+            properties.put("mail.smtp.port",YmlHandler.getValue("mail.port"));
+            properties.put("mail.smtp.auth",YmlHandler.getValue("mail.auth"));
+            properties.put("mail.smtp.starttls.enable",YmlHandler.getValue("mail.enable"));
 
             Session session = Session.getDefaultInstance(properties,new javax.mail.Authenticator(){
                 @Override
@@ -134,7 +134,7 @@ public class EmailService {
 
     private static int generateRandomDigit() {
 
-        return new Random().nextInt(10);
+        return random.nextInt();
     }
 
     private static void setBody(String bodyReplacement,String path,String subjReplacement) throws IOException {

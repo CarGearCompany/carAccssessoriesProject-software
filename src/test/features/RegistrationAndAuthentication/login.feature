@@ -37,3 +37,7 @@ Feature: Login
       | 'xnabeel972@gmail.com'  | 'nabeel'  |  |
       | 'mahmoud@gmail.com' | 'mahmoud' |  |
 
+  Scenario: The system want to know who is the current user
+    When email is 'xnabeel972@gmail.com'
+    And password is 'Nabeel@123'
+    Then the current userType will be admin

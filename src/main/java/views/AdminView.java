@@ -7,7 +7,6 @@ import printers.Printer;
 import scanners.CustomizedScanners;
 
 
-import javax.mail.MessagingException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Logger;
@@ -156,8 +155,7 @@ public class AdminView {
         String categoryString = CustomizedScanners.scanNonEmptyString(CATEGORY, new Scanner(System.in));
         while (true) {
             try {
-                Category category = CarGear.getCategoryByName(categoryString);
-                AdminController.removeCategory(category);
+                AdminController.removeCategory(categoryString);
                 logger.info("Category removed successfully");
                 break;
             } catch (CategoryNotFoundException e) {
@@ -176,9 +174,6 @@ public class AdminView {
                 Category category = AdminController.searchForCategoryByName(categoryString);
                 Printer.printCategoryAllProducts(category);
                 break;
-            } catch (ItemNotFoundException e) {
-                logger.warning(WARNING);
-                categoryString = CustomizedScanners.scanNonEmptyString(CATEGORY, new Scanner(System.in));
             } catch (CategoryNotFoundException e) {
                 logger.warning("Category is not found");
             }
@@ -242,8 +237,6 @@ public class AdminView {
                 logger.warning("User not found");
                 installerEmail = CustomizedScanners.scanNonEmptyString(installerEmail, new Scanner(System.in));
                 customerEmail = CustomizedScanners.scanNonEmptyString("Customer Email: ", new Scanner(System.in));
-            } catch (MessagingException e) {
-                logger.warning("Email flied to send");
             } catch (AlreadyReservedDateException e) {
                 logger.warning("try to enter an available date");
                 date = CustomizedScanners.scanNonEmptyString(DATE_FOR_THE_REQUEST, new Scanner(System.in));

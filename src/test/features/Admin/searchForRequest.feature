@@ -15,5 +15,6 @@ Feature: Search for request
     | 'car model'       | 'bmw'            | 1          |
     | 'product id'      | '0'              | 1          |
     | 'customer email'  | 'flan@gmail.com' | 0          |
+    | 'test'            | 'test'           | 0          |
 
 

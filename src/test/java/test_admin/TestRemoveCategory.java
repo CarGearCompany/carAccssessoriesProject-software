@@ -20,9 +20,8 @@ public class TestRemoveCategory {
         c.setCategoryName(string);
     }
     @Then("this category will be removed and the size of categories will be {int}")
-    public void thisCategoryWillBeRemovedAndTheSizeOfCategoriesWillBe(Integer int1) throws ItemNotFoundException, CategoryNotFoundException {
-        c = CarGear.getCategoryByName(name);
-        AdminController.removeCategory(c);
+    public void thisCategoryWillBeRemovedAndTheSizeOfCategoriesWillBe(Integer int1) throws CategoryNotFoundException {
+        AdminController.removeCategory(name);
         Integer size = CarGear.getCategories().size();
 
         assertEquals(int1,size);
@@ -32,7 +31,7 @@ public class TestRemoveCategory {
     @Then("nothing will be removed and an item not found exception will be thrown")
     public void nothingWillBeRemovedAndAnItemNotFoundExceptionWillBeThrown() throws CategoryNotFoundException {
 
-        assertThrows(CategoryNotFoundException.class, () -> AdminController.removeCategory(c));
+        assertThrows(CategoryNotFoundException.class, () -> CarGear.getCategoryByName(name));
     }
 
 }

@@ -21,7 +21,7 @@ public class TestEditPassword {
     }
     @Then("the password failed to edit and nothing weak password exception will be thrown")
     public void thePasswordFailedToEditAndNothingWeakPasswordExceptionWillBeThrown() {
-        assertThrows(WeakPasswordException.class, () -> CustomerController.editPassword(newPass));
+        assertThrows(WeakPasswordException.class, () -> InstallerController.editPassword(newPass));
     }
 
 

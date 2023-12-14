@@ -23,7 +23,7 @@ public class Menu {
         ---
         the option for user option
      */
-    private static void determineUserType() throws AlreadyReservedDateException {
+    private static void determineUserType() {
         try {
             UserType currentUserType = LoginController.getCurrentUserType();
             switch (currentUserType) {
@@ -43,7 +43,7 @@ public class Menu {
 
     }
 
-    public static void mainMenuOptions(int choice) throws AlreadyReservedDateException {
+    public static void mainMenuOptions(int choice) {
         switch (choice) {
             case 1:
                 LoginView.login();
@@ -59,7 +59,7 @@ public class Menu {
         }
     }
 
-    public static void menuHandler() throws AlreadyReservedDateException {
+    public static void menuHandler() {
         MenuPrinter.printWelcomeMsg();
         while (true) {
             MenuPrinter.printMainMenu();
@@ -109,14 +109,6 @@ public class Menu {
 
             default:
         }
-
-
-
-
-
-
-
-
 
     }
 
@@ -271,7 +263,7 @@ public class Menu {
             }
         }
     }
-    private static void installerOption(int choice) throws AlreadyReservedDateException {
+    private static void installerOption(int choice) {
         switch (choice) {
             case 1:
                 InstallerView.viewInstallationRequests();
@@ -293,7 +285,7 @@ public class Menu {
             default:
         }
     }
-    public static void installerHandler() throws AlreadyReservedDateException {
+    public static void installerHandler() {
         while (true) {
             MenuPrinter.printInstallerMenu();
             int choice = CustomizedScanners.scanInt(CHOICE, new Scanner(System.in));

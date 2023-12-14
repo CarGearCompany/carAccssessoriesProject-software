@@ -21,6 +21,4 @@ public class LoginController {
     public static UserType getCurrentUserType() {
         return CarGear.getCurrentUser().getUserType();
     }
-
-
 }

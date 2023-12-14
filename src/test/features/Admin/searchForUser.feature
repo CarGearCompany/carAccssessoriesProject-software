@@ -17,4 +17,5 @@ Feature: Search for user
       | 'user type'    | 'customer'          | 2          |
       | 'phone number' | '0591234567'        | 1          |
       | 'last name'    | 'Qasem'             | 1          |
-
+      | 'first name'   | 'Hala'              | 1          |
+      | 'name'         | 'mike'              | 0          |

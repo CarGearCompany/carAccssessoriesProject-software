@@ -23,13 +23,15 @@ public class TestDisplaySchedules {
     private String installerEmail;
     private String customerEmail;
     private String password;
+    private Customer customer;
     @When("the customer wants to see the schedules")
     public void theCustomerWantsToSeeTheSchedules() throws WeakPasswordException {
-       Customer customer = (Customer) CarGear.getCurrentUser();
+        customer = (Customer) CarGear.getCurrentUser();
         resultSize = CarGear.getSchedules().size();
     }
     @Then("the result size of the schedules is {int}")
     public void theResultSizeOfTheSchedulesIs(Integer int1) {
+        CustomerController.displayRequests(customer);
         assertEquals(int1,resultSize);
     }
 
@@ -54,7 +56,6 @@ public class TestDisplaySchedules {
         LogoutController.logout();
         LoginController.login(customerEmail,"Saleh@123");
         resultSize = CarGear.getSchedules().size();
-
         assertEquals(int1,resultSize);
     }
 

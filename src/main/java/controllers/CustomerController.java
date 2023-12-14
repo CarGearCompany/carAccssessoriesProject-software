@@ -12,8 +12,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Objects;
 
-import javax.mail.MessagingException;
-
 public class CustomerController {
     private static final String SENDER = "cargearcompany@gmail.com";
     private CustomerController() {
@@ -21,9 +19,8 @@ public class CustomerController {
 
     public static void displayOrderHistory(Customer customer){
         Printer.printProducts(customer.getPurchasedProducts());
-
     }
-    public static int purchaseProduct(String category, int id,Customer customer,String confirm,int reqQuantity) throws ProductNotFoundException, CategoryNotFoundException, PurchaseNotConfirmedException, MessagingException, OutOfStockException, NotEnoughItemsAvailableException {
+    public static int purchaseProduct(String category, int id,Customer customer,String confirm,int reqQuantity) throws ProductNotFoundException, CategoryNotFoundException, PurchaseNotConfirmedException, OutOfStockException, NotEnoughItemsAvailableException {
         String msg = "";
         String subj = "";
         String customerEmail = customer.getContactInfo().getEmail();
@@ -70,7 +67,7 @@ public class CustomerController {
 
     }
 
-    public static void requestService(String installerEmail, String carModel, String date, String category, int productId) throws UserNotFoundException, InvalidEmailFormatException, CategoryNotFoundException, ProductNotFoundException, AlreadyReservedDateException, ItemNotFoundException, MessagingException {
+    public static void requestService(String installerEmail, String carModel, String date, String category, int productId) throws UserNotFoundException, InvalidEmailFormatException, CategoryNotFoundException, ProductNotFoundException, AlreadyReservedDateException, ItemNotFoundException {
       Installer installer = (Installer) CarGear.getUserByEmail(installerEmail);
       Customer customer = (Customer) CarGear.getCurrentUser();
       Category c = CarGear.getCategoryByName(category);

@@ -30,6 +30,7 @@ public class TestDisplayPurchasedProducts {
     }
     @Then("the result size of the products must be {int}")
     public void theResultSizeOfTheProductsMustBe(Integer int1) {
+        CustomerController.displayOrderHistory(customer);
         assertEquals(int1,resultSize);
     }
 
@@ -54,6 +55,7 @@ public class TestDisplayPurchasedProducts {
         customer = (Customer) CarGear.getCurrentUser();
         CustomerController.purchaseProduct(category,id,customer,confirm,quantity);
         resultSize = customer.getPurchasedProducts().size();
+        CustomerController.displayOrderHistory(customer);
         assertEquals(int1,resultSize);
     }
 }

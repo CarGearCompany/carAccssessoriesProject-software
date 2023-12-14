@@ -7,7 +7,6 @@ import helpers.EmailService;
 import models.*;
 
 
-import javax.mail.MessagingException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -81,12 +80,7 @@ public class AdminController {
 
     public static void promoteUser(String email) throws UserNotFoundException, AdminsCannotBePromotedException, InvalidEmailFormatException {
         User user = CarGear.getUserByEmail(email);
-        if (EmailFormatChecker.hasCorrectEmailFormat(email)) {
-            throw new InvalidEmailFormatException();
-        }
-        if (!CarGear.getUserByEmail(email).getContactInfo().getEmail().equals(email)) {
-            throw new UserNotFoundException();
-        }
+
         if (user.getUserType().equals(UserType.ADMIN)) {
             throw new AdminsCannotBePromotedException();
         }
@@ -111,19 +105,13 @@ public class AdminController {
         if (!CarGear.getCategories().contains(c)) {
             throw new CategoryNotFoundException();
         }
-
-        if (!CarGear.getProductsOfCategory(c).contains(CarGear.getProductById(c, id))) {
-            throw new ProductNotFoundException();
-        }
-        CarGear.removeProduct(c, CarGear.getProductById(c, id));
+        Product product = CarGear.getProductById(c,id);
+        CarGear.removeProduct(c, product);
     }
 
-    public static void removeCategory(Category category) throws CategoryNotFoundException {
-
-        if (!CarGear.getCategories().contains(category)) {
-            throw new CategoryNotFoundException();
-        }
-        CarGear.removeCategory(category);
+    public static void removeCategory(String category) throws CategoryNotFoundException {
+        Category category1 = CarGear.getCategoryByName(category);
+        CarGear.removeCategory(category1);
     }
 
 
@@ -131,10 +119,7 @@ public class AdminController {
         return CarGear.getCategories();
     }
 
-    public static Category searchForCategoryByName(String category) throws ItemNotFoundException, CategoryNotFoundException {
-        if (!CarGear.getCategories().contains(CarGear.getCategoryByName(category))) {
-            throw new ItemNotFoundException();
-        }
+    public static Category searchForCategoryByName(String category) throws CategoryNotFoundException {
         return CarGear.getCategoryByName(category);
     }
 
@@ -145,7 +130,6 @@ public class AdminController {
 
         } else if (searchType.equalsIgnoreCase("Name")) {
             return CarGear.getAllProducts().stream().filter(product -> product.getProductInfo().getProductName().equalsIgnoreCase(value)).toList();
-
         } else if (searchType.equalsIgnoreCase("Description")) {
             return CarGear.getAllProducts().stream().filter(product -> product.getProductInfo().getDescription().equalsIgnoreCase(value)).toList();
 
@@ -181,7 +165,7 @@ public class AdminController {
     }
 
 // maybe we should update the test of add request feature
-    public static void addRequest(String customerEmail, String installerEmail, String date, String carModel, String category, int productId) throws UserNotFoundException, InvalidEmailFormatException, CategoryNotFoundException, ProductNotFoundException, ItemNotFoundException, AlreadyReservedDateException, MessagingException {
+    public static void addRequest(String customerEmail, String installerEmail, String date, String carModel, String category, int productId) throws UserNotFoundException, InvalidEmailFormatException, CategoryNotFoundException, ProductNotFoundException, ItemNotFoundException, AlreadyReservedDateException {
         Installer installer = (Installer) CarGear.getUserByEmail(installerEmail);
         Customer customer = (Customer) CarGear.getUserByEmail(customerEmail);
         Category c = CarGear.getCategoryByName(category);

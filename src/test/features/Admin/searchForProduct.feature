@@ -17,5 +17,6 @@ Feature: Search for product
     | 'availability' | 'false'        | 1          |
     | 'availability' | 'true'         | 5          |
     | 'id'           | '9'            | 0          |
+    | 'test'         | 'test'         | 0          |
 
 

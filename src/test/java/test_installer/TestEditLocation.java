@@ -1,9 +1,14 @@
 package test_installer;
 
-import controllers.CustomerController;
+import controllers.InstallerController;
 import controllers.LoginController;
-import exceptions.*;
-import io.cucumber.java.en.*;
+import exceptions.InvalidEmailFormatException;
+import exceptions.UserAlreadyExistsException;
+import exceptions.UserNotFoundException;
+import exceptions.WeakPasswordException;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import models.CarGear;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -12,7 +17,7 @@ public class TestEditLocation {
 
     String city , street;
     @Given("Database is already filled")
-    public void databaseIsAlreadyFilled() throws UserAlreadyExistsException, WeakPasswordException, ItemNotFoundException {
+    public void databaseIsAlreadyFilled() throws UserAlreadyExistsException, WeakPasswordException {
         CarGear.initData();
     }
     @Given("the user is already logged in with {string} and {string}")
@@ -26,8 +31,6 @@ public class TestEditLocation {
     }
     @Then("the Location will edit successfully and nothing will be thrown")
     public void theLocationWillEditSuccessfullyAndNothingWillBeThrown() {
-        assertDoesNotThrow(()->{
-            CustomerController.editLocation(city,street);
-        });
+        assertDoesNotThrow(()-> InstallerController.editLocation(city,street));
     }
 }

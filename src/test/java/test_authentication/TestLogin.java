@@ -1,6 +1,7 @@
 package test_authentication;
 
 import controllers.LoginController;
+import enums.UserType;
 import exceptions.*;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -15,7 +16,7 @@ public class TestLogin {
     private String password;
 
     @Given("Database is already filled")
-    public void databaseIsAlreadyFilled() throws InvalidPhoneNumberException, CategoryAlreadyExistsException, UserAlreadyExistsException, InvalidEmailFormatException, WeakPasswordException, ItemNotFoundException {
+    public void databaseIsAlreadyFilled() throws UserAlreadyExistsException, WeakPasswordException {
         CarGear.initData();
     }
     @When("email is {string}")
@@ -44,6 +45,12 @@ public class TestLogin {
     public void theUserWillFailToLoginDueToWrongPassword() throws UserNotFoundException, InvalidEmailFormatException {
         assertFalse(LoginController.login(email, password));
     }
+    @Then("the current userType will be admin")
+    public void theCurrentUserTypeWillBe() throws UserNotFoundException, InvalidEmailFormatException {
+        LoginController.login(email,password);
+        assertEquals(UserType.ADMIN,LoginController.getCurrentUserType());
+    }
+
 
 
 }

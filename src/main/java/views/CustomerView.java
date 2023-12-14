@@ -10,7 +10,6 @@ import printers.Printer;
 import scanners.CustomizedScanners;
 import controllers.CustomerController;
 
-import javax.mail.MessagingException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -22,6 +21,8 @@ public class CustomerView {
     private static final String PREFERRED_DATE = "Preferred Date: ";
     private static final String INSTALLER_EMAIL ="Installer Email: ";
     private static final String PRODUCT_ID = "Product ID: ";
+    private static final String CATEGORY = "category";
+    private static final String ID_OF_THE_PRODUCT = "ID of the product ";
     private CustomerView() {
     }
 
@@ -59,8 +60,8 @@ public class CustomerView {
     }
 
     public static void purchaseProduct() throws CategoryNotFoundException, ProductNotFoundException {
-        String category = CustomizedScanners.scanNonEmptyString("category", new Scanner(System.in));
-        int id = CustomizedScanners.scanInt("ID of the product ", new Scanner(System.in));
+        String category = CustomizedScanners.scanNonEmptyString(CATEGORY, new Scanner(System.in));
+        int id = CustomizedScanners.scanInt(ID_OF_THE_PRODUCT, new Scanner(System.in));
         int quantity = CustomizedScanners.scanInt2("How many of it do you want to buy? ", new Scanner(System.in));
         String confirm = CustomizedScanners.scanNonEmptyString2("Confirm purchase (Y/N) ", new Scanner(System.in));
         Customer customer = (Customer) CarGear.getCurrentUser();
@@ -75,22 +76,26 @@ public class CustomerView {
                   break;
                 } catch (ProductNotFoundException e) {
                     logger.warning("Product is not found. Try again");
-                    id = CustomizedScanners.scanInt("ID of the product ", new Scanner(System.in));
+                    id = CustomizedScanners.scanInt(ID_OF_THE_PRODUCT, new Scanner(System.in));
                 } catch (CategoryNotFoundException e) {
                     logger.warning("Category not found");
-                    category = CustomizedScanners.scanNonEmptyString("category", new Scanner(System.in));
+                    category = CustomizedScanners.scanNonEmptyString(CATEGORY, new Scanner(System.in));
                 } catch (PurchaseNotConfirmedException e) {
                     logger.warning("Transaction not confirmed.");
-                    break;
-                } catch (MessagingException e) {
-                    //
+                    logger.info("you can buy anything else if you want :)");
+                    category = CustomizedScanners.scanNonEmptyString(CATEGORY, new Scanner(System.in));
+                    id = CustomizedScanners.scanInt(ID_OF_THE_PRODUCT, new Scanner(System.in));
                 } catch (OutOfStockException e) {
                     logger.warning("This product is out of stock, sorry!");
-                    break;
+                    logger.info("you can buy anything else :)");
+                    category = CustomizedScanners.scanNonEmptyString(CATEGORY, new Scanner(System.in));
+                    id = CustomizedScanners.scanInt(ID_OF_THE_PRODUCT, new Scanner(System.in));
                 } catch (NotEnoughItemsAvailableException e) {
                     msg = "Sorry! We only have " + product.getProductInfo().getQuantity() + " :(";
                     logger.warning(msg);
-                    break;
+                    logger.info("you can buy anything else :)");
+                    category = CustomizedScanners.scanNonEmptyString(CATEGORY, new Scanner(System.in));
+                    id = CustomizedScanners.scanInt(ID_OF_THE_PRODUCT, new Scanner(System.in));
                 }
 
             }
@@ -120,8 +125,6 @@ public class CustomerView {
             } catch (UserNotFoundException e) {
                 logger.warning("Installer not found");
                 installerEmail = CustomizedScanners.scanNonEmptyString(INSTALLER_EMAIL, new Scanner(System.in));
-            } catch (MessagingException e) {
-                logger.warning("Email flied to send");
             } catch (AlreadyReservedDateException e) {
                 logger.warning("try to enter an available date");
                 date = CustomizedScanners.scanNonEmptyString(PREFERRED_DATE, new Scanner(System.in));
