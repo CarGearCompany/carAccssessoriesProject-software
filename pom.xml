@@ -15,8 +15,6 @@
         <sonar.organization>cargearcompany</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <java.version>20.0.1</java.version>
-
-
     </properties>
 
 
