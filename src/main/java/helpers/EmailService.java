@@ -117,6 +117,7 @@ public class EmailService {
             else
                 logger.info("Order receipt is sent to your installer's email.");
 
+
         }
         catch (MessagingException m){
            logger.warning("Notification failed to send");
