@@ -36,4 +36,4 @@ jobs:
           AWS_DB_URL: ${{ secrets.AWS_DB_URL }}
           AWS_DB_PASSWORD: ${{ secrets.AWS_DB_PASSWORD }}
           AWS_DB_USER: ${{ secrets.AWS_DB_USER }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=cargearcompany
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=CarGearCompany_carAccssessoriesProject-software
