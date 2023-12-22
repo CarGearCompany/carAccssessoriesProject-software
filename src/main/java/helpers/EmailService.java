@@ -7,15 +7,15 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-import java.security.SecureRandom;
 import java.util.Properties;
 import java.io.IOException;
+import java.util.Random;
 import java.util.logging.Logger;
 
 
 public class EmailService {
     private static String body;
-    private static final SecureRandom random = new SecureRandom();
+    private static final Random random = new Random();
     private static final Logger logger = Logger.getLogger(EmailService.class.getName());
     private EmailService() {
     }
