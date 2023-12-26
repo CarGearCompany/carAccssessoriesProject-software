@@ -2,6 +2,7 @@ package test_customer;
 
 import controllers.CustomerController;
 import exceptions.*;
+import helpers.EmailService;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import models.CarGear;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
 
 public class TestDisplayPurchasedProducts {
 
@@ -53,7 +55,7 @@ public class TestDisplayPurchasedProducts {
     @Then("the result size of the products must be updated to {int}")
     public void theResultSizeOfTheProductsMustBeUpdatedTo(Integer int1) throws PurchaseNotConfirmedException, OutOfStockException, MessagingException, NotEnoughItemsAvailableException, CategoryNotFoundException, ProductNotFoundException {
         customer = (Customer) CarGear.getCurrentUser();
-        CustomerController.purchaseProduct(category,id,customer,confirm,quantity);
+        CustomerController.purchaseProduct(mock(EmailService.class),category,id,customer,confirm,quantity);
         resultSize = customer.getPurchasedProducts().size();
         CustomerController.displayOrderHistory(customer);
         assertEquals(int1,resultSize);

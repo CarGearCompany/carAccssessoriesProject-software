@@ -4,6 +4,7 @@ import controllers.CustomerController;
 import controllers.LoginController;
 import controllers.LogoutController;
 import exceptions.*;
+import helpers.EmailService;
 import io.cucumber.java.en.*;
 import models.CarGear;
 import models.Installer;
@@ -11,6 +12,7 @@ import models.Installer;
 import javax.mail.MessagingException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
 
 public class TestDisplayInstallationRequests {
     private int resultSize;
@@ -65,7 +67,7 @@ public class TestDisplayInstallationRequests {
     public void theResultSizeOfTheInstallationRequestsMustBe(Integer int1) throws UserNotFoundException, MessagingException, AlreadyReservedDateException, CategoryNotFoundException, ProductNotFoundException, InvalidEmailFormatException, ItemNotFoundException {
         LogoutController.logout();
         LoginController.login(customerEmail,password);
-        CustomerController.requestService(installerEmail,carModel,date,category,id);
+        CustomerController.requestService(mock(EmailService.class),installerEmail,carModel,date,category,id);
         LogoutController.logout();
         LoginController.login(installerEmail,"Hala@123");
         Installer installer = (Installer) CarGear.getCurrentUser();

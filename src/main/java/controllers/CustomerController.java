@@ -20,7 +20,7 @@ public class CustomerController {
     public static void displayOrderHistory(Customer customer){
         Printer.printProducts(customer.getPurchasedProducts());
     }
-    public static int purchaseProduct(String category, int id,Customer customer,String confirm,int reqQuantity) throws ProductNotFoundException, CategoryNotFoundException, PurchaseNotConfirmedException, OutOfStockException, NotEnoughItemsAvailableException {
+    public static int purchaseProduct(EmailService emailService,String category, int id,Customer customer,String confirm,int reqQuantity) throws ProductNotFoundException, CategoryNotFoundException, PurchaseNotConfirmedException, OutOfStockException, NotEnoughItemsAvailableException {
         String msg = "";
         String subj = "";
         String customerEmail = customer.getContactInfo().getEmail();
@@ -40,7 +40,7 @@ public class CustomerController {
                             "<br>" + "Product ID: " + id +
                             "<br>" + "Product Name: " + product.getProductInfo().getProductName()
                             + "<br>"+ "Quantity bought: " + reqQuantity;
-                    EmailService.sendEmail(SENDER, customerEmail, msg,subj,0);
+                    emailService.sendEmail(SENDER, customerEmail, msg,subj,0);
                     return newQuantity;
                 } else
                     throw new PurchaseNotConfirmedException();
@@ -67,7 +67,7 @@ public class CustomerController {
 
     }
 
-    public static void requestService(String installerEmail, String carModel, String date, String category, int productId) throws UserNotFoundException, InvalidEmailFormatException, CategoryNotFoundException, ProductNotFoundException, AlreadyReservedDateException, ItemNotFoundException {
+    public static void requestService(EmailService emailService,String installerEmail, String carModel, String date, String category, int productId) throws UserNotFoundException, InvalidEmailFormatException, CategoryNotFoundException, ProductNotFoundException, AlreadyReservedDateException, ItemNotFoundException {
       Installer installer = (Installer) CarGear.getUserByEmail(installerEmail);
       Customer customer = (Customer) CarGear.getCurrentUser();
       Category c = CarGear.getCategoryByName(category);
@@ -90,7 +90,7 @@ public class CustomerController {
                     "Product Requested : " + p.getProductInfo().getProductName() + "<br>"+
                     "For Car Model : " + carModel + "<br>" +
                     "Date Booked For : " + date;
-            EmailService.sendEmail(SENDER,installerEmail,msg,subj,1);
+            emailService.sendEmail(SENDER,installerEmail,msg,subj,1);
         }
 
     }

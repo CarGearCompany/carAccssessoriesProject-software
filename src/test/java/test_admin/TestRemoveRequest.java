@@ -4,6 +4,7 @@ import controllers.AdminController;
 import controllers.CustomerController;
 import controllers.LoginController;
 import exceptions.*;
+import helpers.EmailService;
 import io.cucumber.java.en.*;
 import models.CarGear;
 import models.Customer;
@@ -13,6 +14,7 @@ import javax.mail.MessagingException;
 
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 public class TestRemoveRequest {
     String installerEmail;
@@ -33,7 +35,7 @@ public class TestRemoveRequest {
     @Then("the Request will be removed successfully and nothing will be thrown")
     public void theRequestWillBeRemovedSuccessfullyAndNothingWillBeThrown() throws UserNotFoundException, InvalidEmailFormatException, MessagingException, AlreadyReservedDateException, CategoryNotFoundException, ProductNotFoundException, ItemNotFoundException {
         LoginController.login("jana@gmail.com","Jana@123");
-        CustomerController.requestService(installerEmail,"bmw",date,"interior",0);
+        CustomerController.requestService(mock(EmailService.class),installerEmail,"bmw",date,"interior",0);
 
         assertDoesNotThrow(() -> {
             AdminController.removeRequest(installerEmail,date);

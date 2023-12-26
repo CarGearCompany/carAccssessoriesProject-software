@@ -2,6 +2,7 @@ package views;
 
 import controllers.AdminController;
 import exceptions.*;
+import helpers.EmailService;
 import models.CarGear;
 import models.Category;
 import models.Customer;
@@ -67,11 +68,12 @@ public class CustomerView {
         Customer customer = (Customer) CarGear.getCurrentUser();
         Product product = CarGear.getProductById(CarGear.getCategoryByName(category),id);
         String msg;
+        EmailService emailService = new EmailService();
 
             while (true) {
                 try {
                     assert confirm != null;
-                    CustomerController.purchaseProduct(category, id, customer,confirm,quantity);
+                    CustomerController.purchaseProduct(emailService,category, id, customer,confirm,quantity);
                     logger.info("Product is purchased successfully.");
                   break;
                 } catch (ProductNotFoundException e) {
@@ -116,10 +118,10 @@ public class CustomerView {
         String date = CustomizedScanners.scanNonEmptyString(PREFERRED_DATE, new Scanner(System.in));
         String category = CustomizedScanners.scanNonEmptyString("Category of the product", new Scanner(System.in));
         int productId = CustomizedScanners.scanInt(PRODUCT_ID, new Scanner(System.in));
-
+        EmailService emailService = new EmailService();
         while (true){
             try{
-                CustomerController.requestService(installerEmail , carModel , date , category , productId);
+                CustomerController.requestService(emailService,installerEmail , carModel , date , category , productId);
                 logger.info("the Service is Requested successfully .");
                 break;
             } catch (UserNotFoundException e) {

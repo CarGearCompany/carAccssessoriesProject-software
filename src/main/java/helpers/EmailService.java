@@ -17,9 +17,9 @@ public class EmailService {
     private static String body;
     private static final SecureRandom random = new SecureRandom();
     private static final Logger logger = Logger.getLogger(EmailService.class.getName());
-    private EmailService() {
+    public EmailService() {
     }
-    public static String sendEmailVerification(String senderEmail,String receiverEmail) {
+    public String sendEmailVerification(String senderEmail,String receiverEmail) {
         String code;
         try {
             Properties properties = System.getProperties();
@@ -78,7 +78,7 @@ public class EmailService {
 
     }
 
-    public static void sendEmail(String senderEmail,String receiverEmail,String emailMessage,String subject,int flag) {
+    public void sendEmail(String senderEmail,String receiverEmail,String emailMessage,String subject,int flag) {
         try {
 
             Properties properties = System.getProperties();
