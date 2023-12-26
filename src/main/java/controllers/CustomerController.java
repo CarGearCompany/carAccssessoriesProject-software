@@ -110,14 +110,15 @@ public class CustomerController {
 
 
             // Check if Desktop is supported (works on Windows, Linux, and macOS)
-
+            if (Desktop.isDesktopSupported()) {
                 Desktop desktop = Desktop.getDesktop();
 
                 // Check if the file exists before attempting to open it
                 File imageFile = new File(imagePath);
+                if (imageFile.exists()) {
                     desktop.open(imageFile);
-
-
+                }
+            }
         }
     }
 
