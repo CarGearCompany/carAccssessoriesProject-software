@@ -269,3 +269,11 @@ v
 Fsrc/test/features/RegistrationAndAuthentication/forgetPassword.feature,7\b\7bbf21a36390a6ec6b479f8126d5f1017d8b062b
 ]
 -src/test/features/Admin/searchForUser.feature,c\c\ccc55bf9c10f2d5594b1134dba4af5f5522b10ca
+i
+9src/test/java/test_authentication/TestForgetPassword.java,7\4\7454629759c5a18482aaa903ebe897930dac5596
+e
+5src/test/java/test_customer/TestPurchaseProducts.java,9\2\92aa287cbb35eac62d6255343e50cb166fc579ba
+n
+>src/test/features/Customer/displayInstallers_Schedules.feature,4\6\46a458ca75310a7b3246e70d6acac188e2d4ec03
+r
+Bsrc/test/java/test_authentication/TestEmailServiceWithMockito.java,2\3\23d87b8a72bb59c7cd779969e387c1a048a1db03

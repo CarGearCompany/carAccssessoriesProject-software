@@ -14,10 +14,11 @@ import java.util.logging.Logger;
 
 
 public class EmailService {
-    private static String body;
+    private String body;
     private static final SecureRandom random = new SecureRandom();
     private static final Logger logger = Logger.getLogger(EmailService.class.getName());
     public EmailService() {
+        // this is the constructor
     }
     public String sendEmailVerification(String senderEmail,String receiverEmail) {
         String code;
@@ -138,7 +139,7 @@ public class EmailService {
         return 1 + random.nextInt(9);
     }
 
-    private static void setBody(String bodyReplacement,String path,String subjReplacement) throws IOException {
+    private  void setBody(String bodyReplacement,String path,String subjReplacement) throws IOException {
         // read the html
         body = Files.readString(Paths.get(path));
         // replace the holder
