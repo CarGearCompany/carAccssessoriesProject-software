@@ -91,3 +91,11 @@ Feature: Edit Requests
     And the new value is '1'
     Then the request will not be edited and nothing will be thrown
 
+  Scenario: requests failed to edit by product id because of null category
+    When the installer email is 'hala@gmail.com'
+    And  the date is '8/2/2024'
+    And the edit field is 'product id'
+    And the category name is 'null'
+    And the new value is '1'
+    Then the request will be not be edited successfully and category not found exception will be thrown
+

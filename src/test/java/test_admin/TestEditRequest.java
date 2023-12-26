@@ -137,6 +137,9 @@ public class TestEditRequest {
         assertDoesNotThrow(()-> AdminController.editRequest(installerEmail,date,editType,value,categoryName));
     }
 
-
+    @Then("the request will be not be edited successfully and category not found exception will be thrown")
+    public void theRequestWillNotBeEditedSuccessfullyAndCategoryNotFoundExceptionWillBeThrown() throws UserNotFoundException, MessagingException, AlreadyReservedDateException, CategoryNotFoundException, ProductNotFoundException, InvalidEmailFormatException, ItemNotFoundException {
+        assertThrows(ItemNotFoundException.class, () -> AdminController.editRequest(installerEmail,date,editType,value,categoryName));
+    }
 
 }

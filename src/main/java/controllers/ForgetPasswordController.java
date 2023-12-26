@@ -19,9 +19,9 @@ public class ForgetPasswordController {
     public static void areEqual(String string1, String string2,int flag,User user) throws NotEqualCodesException, NotEqualPasswordsException, WeakPasswordException {
         if(string1.equals(string2)&&flag == 1)
             user.setPassword(string1);
-        if(!string1.equals(string2)&&flag == 1)
+        else if(!string1.equals(string2)&&flag == 1)
             throw new NotEqualPasswordsException();
-        if(!string1.equals(string2)&&flag == 0)
+        else if(!string1.equals(string2)&&flag == 0)
             throw new NotEqualCodesException();
     }
 

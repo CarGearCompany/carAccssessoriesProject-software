@@ -10,12 +10,14 @@ import models.CarGear;
 
 import javax.mail.MessagingException;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 
 public class TestSearchForRequest {
     private String searchField;
     private String value;
+    private int resultSize;
 
     @When("the search type is {string}")
     public void theSearchTypeIs(String string) {
@@ -36,9 +38,24 @@ public class TestSearchForRequest {
         CarGear.setCurrentUser(CarGear.getUserByEmail("jana@gmail.com"));
         CustomerController.requestService(mock(EmailService.class),"hala@gmail.com","bmw","8/2/2024","interior",0);
 
-        int resultSize = AdminController.searchForRequests(searchField, value).size();
-        assertEquals(int1, resultSize);
+        resultSize = AdminController.searchForRequests(searchField,value).size();
+        assertEquals(int1,resultSize);
 
     }
+
+    @Then("no requests will be found and nothing will be thrown")
+    public void noRequestsWillBeFoundAndNothingWillBeThrown() throws UserNotFoundException, InvalidEmailFormatException, MessagingException, AlreadyReservedDateException, CategoryNotFoundException, ProductNotFoundException, ItemNotFoundException {
+        LoginController.login("jana@gmail.com","Jana@123");
+        CarGear.setCurrentUser(CarGear.getUserByEmail("jana@gmail.com"));
+        CustomerController.requestService(mock(EmailService.class),"hala@gmail.com","bmw","8/2/2024","interior",0);
+
+
+        assertDoesNotThrow(() -> {
+            AdminController.searchForRequests(searchField,value).size();
+        });
+
+    }
+
+
 
 }

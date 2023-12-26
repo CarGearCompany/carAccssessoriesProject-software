@@ -15,6 +15,10 @@ Feature: Search for request
     | 'car model'       | 'bmw'            | 1          |
     | 'product id'      | 0                | 1          |
     | 'customer email'  | 'flan@gmail.com' | 0          |
-    | 'test'            | 'test'           | 0          |
+
+  Scenario:  invalid search type
+    When the search type is 'something'
+    And the value is  'something'
+    Then no requests will be found and nothing will be thrown
 
 
