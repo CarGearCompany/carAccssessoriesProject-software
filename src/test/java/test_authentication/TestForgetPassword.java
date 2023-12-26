@@ -51,6 +51,7 @@ public class TestForgetPassword {
     public void thePasswordIsResetAndEquals(String string) throws NotEqualCodesException, NotEqualPasswordsException, WeakPasswordException, UserNotFoundException, InvalidEmailFormatException {
         user = ForgetPasswordController.getUser(email);
         ForgetPasswordController.areEqual(newPass,confirmPass,1,user);
+        ForgetPasswordController.areEqual(userCode,emailCode,0,user);
         assertEquals(string,user.getPassword());
     }
 

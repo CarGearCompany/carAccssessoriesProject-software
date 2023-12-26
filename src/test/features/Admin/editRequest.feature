@@ -83,3 +83,11 @@ Feature: Edit Requests
     And the new value is '1'
     Then the request will be edited successfully and nothing will be thrown
 
+  Scenario: invalid edit field
+    When the installer email is 'hala@gmail.com'
+    And  the date is '8/2/2024'
+    And the edit field is 'something'
+    And the category name is 'interior'
+    And the new value is '1'
+    Then the request will not be edited and nothing will be thrown
+

@@ -64,7 +64,7 @@ public class TestEditRequest {
 
     @When("the category name is {string}")
     public void theCategoryNameIs(String string) {
-         categoryName = string;
+        categoryName = string;
     }
     @Then("the request will not be updated and category not found will be thrown")
     public void theRequestWillNotBeUpdatedAndCategoryNotFoundWillBeThrown() {
@@ -131,7 +131,11 @@ public class TestEditRequest {
         assertDoesNotThrow(()-> AdminController.editRequest(installerEmail,date,editType,value,categoryName));
     }
 
-
+    @Then("the request will not be edited and nothing will be thrown")
+    public void theRequestWillNotBeEditedAndNothingWillBeThrown() throws UserNotFoundException, MessagingException, AlreadyReservedDateException, CategoryNotFoundException, ProductNotFoundException, InvalidEmailFormatException, ItemNotFoundException {
+        AdminController.addRequest("jana@gmail.com",installerEmail,date,"bmw","interior",0);
+        assertDoesNotThrow(()-> AdminController.editRequest(installerEmail,date,editType,value,categoryName));
+    }
 
 
 

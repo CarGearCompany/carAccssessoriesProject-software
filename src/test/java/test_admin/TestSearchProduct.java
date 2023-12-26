@@ -19,6 +19,8 @@ public class TestSearchProduct {
     public void valueIs(String string) {
         value = string;
     }
+
+
     @Then("the products are found and number of results must be {int}")
     public void theProductsAreFoundAndNumberOfResultsMustBe(Integer int1) {
         resultSize = AdminController.searchForProducts(searchField,value).size();

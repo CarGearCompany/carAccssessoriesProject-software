@@ -13,7 +13,7 @@ Feature: Search for request
     | 'installer email' | 'hala@gmail.com' | 1          |
     | 'date'            | '8/2/2024'       | 1          |
     | 'car model'       | 'bmw'            | 1          |
-    | 'product id'      | '0'              | 1          |
+    | 'product id'      | 0                | 1          |
     | 'customer email'  | 'flan@gmail.com' | 0          |
     | 'test'            | 'test'           | 0          |
 
