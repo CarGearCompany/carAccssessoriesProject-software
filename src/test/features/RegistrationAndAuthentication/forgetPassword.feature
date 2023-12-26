@@ -54,3 +54,6 @@ Feature: Forget Password
 
 
 
+  Scenario: email is sent successfully
+    When user enters email  'mahmoud.shouli.yes@gmail.com'
+    Then email verification is sent

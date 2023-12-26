@@ -4,13 +4,17 @@ import controllers.CustomerController;
 import controllers.ForgetPasswordController;
 import controllers.LoginController;
 import exceptions.*;
+import helpers.EmailService;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import models.CarGear;
 import models.User;
 
+import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+
 public class TestForgetPassword {
 
     private String email;
@@ -80,5 +84,12 @@ public class TestForgetPassword {
     public void weakPasswordExceptionWillBeThrown() throws UserNotFoundException, InvalidEmailFormatException {
         user = ForgetPasswordController.getUser(email);
         assertThrows(WeakPasswordException.class, () -> ForgetPasswordController.areEqual(newPass,confirmPass,1,user));
+    }
+
+    @Then("email verification is sent")
+    public void emailVerificationIsSent() {
+        assertDoesNotThrow(()->{
+            ForgetPasswordController.getCode(mock(EmailService.class),email);
+        });
     }
 }

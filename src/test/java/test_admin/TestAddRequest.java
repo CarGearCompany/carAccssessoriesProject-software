@@ -4,6 +4,7 @@ import controllers.AdminController;
 import controllers.CustomerController;
 import controllers.LoginController;
 import exceptions.*;
+import helpers.EmailService;
 import io.cucumber.java.en.*;
 import models.CarGear;
 import models.Customer;
@@ -14,6 +15,7 @@ import javax.mail.MessagingException;
 
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 public class TestAddRequest {
     String installerEmail,customerEmail,date,carModel,category;
@@ -96,7 +98,7 @@ public class TestAddRequest {
     @Then("the Request will not be added successfully and already reserved date exception will be thrown")
     public void theRequestWillNotBeAddedSuccessfullyAndAlreadyReservedDateExceptionWillBeThrown() throws UserNotFoundException, InvalidEmailFormatException, MessagingException, AlreadyReservedDateException, CategoryNotFoundException, ProductNotFoundException, ItemNotFoundException {
         CarGear.setCurrentUser(CarGear.getUserByEmail("jana@gmail.com"));
-        CustomerController.requestService("hala@gmail.com","bmw",date,"interior",0);
+        CustomerController.requestService(mock(EmailService.class),"hala@gmail.com","bmw",date,"interior",0);
 
         assertThrows(AlreadyReservedDateException.class,() -> {
             AdminController.addRequest("jana@gmail.com","hala@gmail.com",date,carModel,"interior",0);

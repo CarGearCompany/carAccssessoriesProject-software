@@ -2,6 +2,7 @@ package views;
 
 import controllers.ForgetPasswordController;
 import exceptions.*;
+import helpers.EmailService;
 import models.User;
 import scanners.CustomizedScanners;
 import java.util.Scanner;
@@ -22,7 +23,7 @@ public class ForgetPasswordView {
         String confirmPass;
         String verificationCode;
         String userCode;
-
+        EmailService emailService = new EmailService();
 
             while(true) {
                 try {
@@ -38,7 +39,7 @@ public class ForgetPasswordView {
                 }
             }
 
-            verificationCode = ForgetPasswordController.getCode(email);
+            verificationCode = ForgetPasswordController.getCode(emailService,email);
             userCode = CustomizedScanners.scanNonEmptyString("the code", new Scanner(System.in));
 
             while(true) {

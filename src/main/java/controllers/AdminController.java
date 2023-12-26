@@ -173,7 +173,7 @@ public class AdminController {
         Schedule s = installer.getScheduleByDate(date);
         String msg = "";
         String subj = "";
-
+        EmailService emailService = new EmailService();
         if (Boolean.TRUE.equals(s.getReserved()))
             throw new AlreadyReservedDateException();
         else {
@@ -188,7 +188,7 @@ public class AdminController {
                     "Product Requested : " + p.getProductInfo().getProductName() + "\n" +
                     "For Car Model : " + carModel + "\n" +
                     "Date Booked For : " + date;
-            EmailService.sendEmail(SENDER, installerEmail, msg, subj, 1);
+            emailService.sendEmail(SENDER, installerEmail, msg, subj, 1);
         }
     }
 
